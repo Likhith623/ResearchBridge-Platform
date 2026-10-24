@@ -51,7 +51,7 @@ class Settings(BaseSettings):
 
     # Gemini AI Configuration
     GEMINI_API_KEY: str = Field(default="", description="Google Gemini API Key")
-    GEMINI_MODEL: str = Field(default="gemini-3.8-flash", description="Gemini model name")
+    GEMINI_MODEL: str = Field(default="gemini-2.5-flash", description="Gemini model name")
 
     # File Upload Limits
     MAX_UPLOAD_SIZE_BYTES: int = 20 * 1024 * 1024  # 20 MB limit

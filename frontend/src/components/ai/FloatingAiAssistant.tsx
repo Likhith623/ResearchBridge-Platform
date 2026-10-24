@@ -69,10 +69,11 @@ export function FloatingAiAssistant({
         context_id: contextId,
       });
 
+      const replyText = res.reply || res.message || "I have analyzed your research inquiry.";
       setConversationId(res.conversation_id);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: res.reply },
+        { role: "assistant", content: replyText },
       ]);
     } catch (e: any) {
       console.warn("AI chat error:", e);

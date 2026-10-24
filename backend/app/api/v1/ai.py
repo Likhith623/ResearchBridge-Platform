@@ -31,15 +31,27 @@ async def chat_with_assistant(
     check_rate_limit(f"ai:{current_user.id}", max_requests=settings.AI_RATE_LIMIT_PER_MINUTE)
 
     doc_context = None
-    if payload.document_id:
-        doc = await db.get_document(str(payload.document_id))
-        if not doc:
-            raise NotFoundError("Specified document not found.")
-        is_owner = str(doc.get("owner_id")) == str(current_user.id)
-        is_public = doc.get("access_scope") == "public"
-        if not (is_owner or is_public or current_user.role == "admin"):
-            raise ForbiddenError("You do not have access to discuss this document.")
-        doc_context = await document_service.get_document_text(payload.document_id)
+    db_context = None
+
+    # Handle document context
+    doc_id = payload.document_id or (UUID(payload.context_id) if payload.context_type == "paper" and payload.context_id else None)
+    if doc_id:
+        doc = await db.get_document(str(doc_id))
+        if doc:
+            is_owner = str(doc.get("owner_id")) == str(current_user.id)
+            is_public = doc.get("access_scope") == "public"
+            if is_owner or is_public or current_user.role == "admin":
+                doc_context = await document_service.get_document_text(doc_id)
+
+    # Handle project or professor context
+    if payload.context_type == "project" and payload.context_id:
+        proj = await db.get_research_project(payload.context_id)
+        if proj:
+            db_context = f"Active Research Project Context:\nTitle: {proj.get('title')}\nDescription: {proj.get('description')}\nRequired Skills: {', '.join(proj.get('required_skills') or [])}\nPrerequisites: {proj.get('prerequisites', 'None')}"
+    elif payload.context_type == "professor" and payload.context_id:
+        prof = await db.get_professor_profile(payload.context_id)
+        if prof:
+            db_context = f"Professor Profile Context:\nName: {prof.get('full_name')}\nDepartment: {prof.get('department_name')}\nResearch Lab: {prof.get('lab_name', 'Research Lab')}\nBio: {prof.get('bio', '')}"
 
     # Conversation setup
     conv_id = payload.conversation_id
@@ -54,7 +66,7 @@ async def chat_with_assistant(
     else:
         new_conv = await db.create_ai_conversation({
             "user_id": str(current_user.id),
-            "document_id": str(payload.document_id) if payload.document_id else None,
+            "document_id": str(doc_id) if doc_id else None,
             "title": f"Discussion: {payload.message[:40]}...",
         })
         conv_id = UUID(new_conv["id"])
@@ -71,6 +83,7 @@ async def chat_with_assistant(
         user_message=payload.message,
         conversation_history=history,
         document_context=doc_context,
+        db_context=db_context,
     )
 
     # Record AI message
@@ -84,6 +97,7 @@ async def chat_with_assistant(
     return AIChatResponse(
         conversation_id=conv_id,
         message=res["content"],
+        reply=res["content"],
         sender_type="assistant",
         citations=res.get("citations", []),
         created_at=datetime.fromisoformat(created_msg["created_at"]),

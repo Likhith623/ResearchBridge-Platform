@@ -40,9 +40,13 @@ class PaperSummaryResponse(PaperSummaryStructured):
 
 
 class AIChatRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
     message: str = Field(..., min_length=1, max_length=4000)
     conversation_id: Optional[UUID] = None
     document_id: Optional[UUID] = None
+    context_type: Optional[str] = None
+    context_id: Optional[str] = None
 
 
 class AIMessageResponse(BaseModel):
@@ -59,9 +63,17 @@ class AIMessageResponse(BaseModel):
 class AIChatResponse(BaseModel):
     conversation_id: UUID
     message: str
+    reply: Optional[str] = None
     sender_type: str = "assistant"
     citations: List[Dict[str, Any]] = Field(default_factory=list)
     created_at: datetime
+
+    def __init__(self, **data):
+        if "reply" not in data and "message" in data:
+            data["reply"] = data["message"]
+        elif "message" not in data and "reply" in data:
+            data["message"] = data["reply"]
+        super().__init__(**data)
 
 
 class AIConversationResponse(BaseModel):
