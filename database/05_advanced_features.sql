@@ -101,6 +101,17 @@ CREATE TABLE IF NOT EXISTS public.opportunity_radar_alerts (
 
 CREATE INDEX IF NOT EXISTS idx_opportunity_radar_student ON public.opportunity_radar_alerts(student_id);
 
+-- 0. Helper function for checking current user role
+CREATE OR REPLACE FUNCTION public.current_user_role()
+RETURNS TEXT AS $$
+DECLARE
+    user_role TEXT;
+BEGIN
+    SELECT role::text INTO user_role FROM public.profiles WHERE id = auth.uid();
+    RETURN user_role;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- 5. Row-Level Security Policies for Advanced Innovation Tables
 ALTER TABLE public.skill_passports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.research_ideas ENABLE ROW LEVEL SECURITY;
@@ -120,7 +131,13 @@ CREATE POLICY "Students manage own skills" ON public.skill_passports
 
 DROP POLICY IF EXISTS "Professors can endorse skills" ON public.skill_passports;
 CREATE POLICY "Professors can endorse skills" ON public.skill_passports
-    FOR UPDATE TO authenticated USING (public.current_user_role() = 'professor' OR public.is_admin());
+    FOR UPDATE TO authenticated USING (
+        public.is_admin()
+        OR EXISTS (
+            SELECT 1 FROM public.profiles
+            WHERE id = auth.uid() AND role = 'professor' AND account_status = 'active'
+        )
+    );
 
 -- Research Ideas: All view, professors create/manage
 DROP POLICY IF EXISTS "Anyone can view research ideas" ON public.research_ideas;
