@@ -5,11 +5,27 @@ import pytest
 async def test_student_submit_request_and_duplicate_prevention(async_client, student_token, prof_token):
     prof_id = "00000000-0000-0000-0000-000000000002"
     
+    # Create a unique project to isolate this test's application cycle
+    proj_res = await async_client.post(
+        "/api/v1/research-projects",
+        json={
+            "title": "Quantum Error Correction Project",
+            "summary": "Surface codes research.",
+            "description": "Fault-tolerant quantum computing testing.",
+            "weekly_hours": 10,
+            "openings_count": 2,
+        },
+        headers={"Authorization": f"Bearer {prof_token}"},
+    )
+    assert proj_res.status_code == 201
+    proj_id = proj_res.json()["id"]
+
     # Submit first request
     res = await async_client.post(
         "/api/v1/research-requests",
         json={
             "professor_id": prof_id,
+            "project_id": proj_id,
             "subject": "Research Internship Inquiry",
             "motivation_statement": "I have completed machine learning coursework and want to contribute to the lab.",
             "student_skills": ["Python", "PyTorch"],
@@ -25,6 +41,7 @@ async def test_student_submit_request_and_duplicate_prevention(async_client, stu
         "/api/v1/research-requests",
         json={
             "professor_id": prof_id,
+            "project_id": proj_id,
             "subject": "Duplicate Request",
             "motivation_statement": "Trying to apply again while another application is active.",
         },

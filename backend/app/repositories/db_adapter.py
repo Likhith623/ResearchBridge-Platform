@@ -295,6 +295,10 @@ class DatabaseAdapter:
         self.profiles[user_id] = record
         return record
 
+    @staticmethod
+    def _clean_payload(d: Dict[str, Any]) -> Dict[str, Any]:
+        return {k: str(v) if isinstance(v, UUID) else v for k, v in d.items()}
+
     async def update_profile(self, user_id: str, updates: Dict[str, Any]) -> Dict[str, Any]:
         user_id = str(user_id)
         now = datetime.now(timezone.utc).isoformat()
@@ -303,7 +307,8 @@ class DatabaseAdapter:
         client = get_supabase_client()
         if client:
             try:
-                res = client.table("profiles").update(updates).eq("id", user_id).execute()
+                clean_updates = self._clean_payload(updates)
+                res = client.table("profiles").update(clean_updates).eq("id", user_id).execute()
                 if res.data:
                     return await self.get_profile(user_id) or res.data[0]
             except Exception as e:
@@ -337,7 +342,8 @@ class DatabaseAdapter:
         client = get_supabase_client()
         if client:
             try:
-                res = client.table("professor_profiles").upsert({"id": user_id, **updates}).execute()
+                clean_payload = self._clean_payload({"id": user_id, **updates})
+                res = client.table("professor_profiles").upsert(clean_payload).execute()
                 if res.data:
                     return res.data[0]
             except Exception as e:

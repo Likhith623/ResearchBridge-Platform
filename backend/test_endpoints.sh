@@ -186,6 +186,55 @@ assert_curl "POST" "/api/v1/admin/professors/${ONBOARD_REQ_ID}/approve" 200 "$AD
 assert_curl "POST" "/api/v1/admin/users/00000000-0000-0000-0000-000000000004/suspend" 200 "$ADMIN_TOKEN" '{"reason": "Testing suspension"}'
 assert_curl "POST" "/api/v1/admin/users/00000000-0000-0000-0000-000000000004/reactivate" 200 "$ADMIN_TOKEN"
 
+# 14. Advanced Innovation Suite (11 Differentiator Features)
+# Feature 1: Talent Matcher
+assert_curl "GET" "/api/v1/recommendations/projects/${PROJ_ID}/talent-matcher" 200 "$PROF_TOKEN"
+
+# Feature 2: Skill Passport
+curl -s -X POST -H "Authorization: Bearer $STUDENT_TOKEN" -H "Content-Type: application/json" \
+    -d '{"skill_name": "PyTorch", "proficiency_level": "advanced", "verification_tier": "project_supported", "evidence_url": "https://github.com/alicechen/scaling-impl"}' \
+    "${BASE_URL}/api/v1/skills/passport" > /tmp/created_skill.json
+SKILL_ID=$(python3 -c "import json; print(json.load(open('/tmp/created_skill.json'))['id'])")
+
+assert_curl "GET" "/api/v1/skills/passport" 200 "$STUDENT_TOKEN"
+assert_curl "POST" "/api/v1/skills/passport/${SKILL_ID}/endorse" 200 "$PROF_TOKEN" '{"endorsement_notes": "Reviewed and verified code quality.", "verified_proficiency": "expert"}'
+
+# Feature 3: Team Composer
+assert_curl "POST" "/api/v1/teams/compose" 200 "$PROF_TOKEN" '{"project_title": "Robotics Exploration", "roles": [{"role_name": "Vision", "required_skills": ["Python", "PyTorch"]}]}'
+
+# Feature 4: Gap Analyzer
+assert_curl "GET" "/api/v1/research-projects/${PROJ_ID}/gap-analysis" 200 "$STUDENT_TOKEN"
+
+# Feature 5: Research Pipeline Ideas & Proposals
+curl -s -X POST -H "Authorization: Bearer $PROF_TOKEN" -H "Content-Type: application/json" \
+    -d '{"title": "Neuromorphic Sensor Benchmarking", "problem_statement": "Edge devices consume too much energy during inference.", "vision_description": "Quantized spiking networks for asynchronous vision processing."}' \
+    "${BASE_URL}/api/v1/pipeline/ideas" > /tmp/created_idea.json
+IDEA_ID=$(python3 -c "import json; print(json.load(open('/tmp/created_idea.json'))['id'])")
+
+assert_curl "GET" "/api/v1/pipeline/ideas" 200 "$STUDENT_TOKEN"
+assert_curl "POST" "/api/v1/pipeline/ideas/${IDEA_ID}/proposals" 201 "$STUDENT_TOKEN" '{"proposal_title": "Quantized Spike Inference", "proposed_approach": "Use int8 surrogate gradients.", "contributor_role": "ML Student"}'
+
+# Feature 6: Contribution Tracker
+assert_curl "POST" "/api/v1/contributions" 201 "$STUDENT_TOKEN" "{\"project_id\": \"${PROJ_ID}\", \"task_name\": \"Async API Benchmarking\", \"deliverable_summary\": \"Executed 500 req/sec benchmark.\", \"hours_logged\": 10}"
+assert_curl "GET" "/api/v1/contributions/portfolio/00000000-0000-0000-0000-000000000003" 200 "$STUDENT_TOKEN"
+
+# Feature 7: Cross-Department Talent Discovery
+assert_curl "GET" "/api/v1/recommendations/cross-department?skill=Python" 200 "$PROF_TOKEN"
+
+# Feature 8: Opportunity Radar
+assert_curl "GET" "/api/v1/opportunities/radar" 200 "$STUDENT_TOKEN"
+
+# Feature 9: Research Collaboration Graph
+assert_curl "GET" "/api/v1/collaboration-graph" 200 "$STUDENT_TOKEN"
+
+# Feature 10: Fair Opportunity Monitor
+assert_curl "GET" "/api/v1/admin/fair-opportunity-monitor" 200 "$ADMIN_TOKEN"
+
+# Feature 11: Automatic Project Breakdown
+assert_curl "POST" "/api/v1/ai/project-breakdown" 200 "$PROF_TOKEN" '{"research_idea": "Build a real-time smart campus energy optimization system with telemetry."}'
+
+
+
 echo "=================================================================="
 echo -e "Test Results: ${GREEN}${pass_count} passed${NC}, ${RED}${fail_count} failed${NC}"
 echo "=================================================================="

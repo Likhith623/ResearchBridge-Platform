@@ -37,9 +37,10 @@ async def get_current_user(
     Validates Supabase Bearer JWT and returns the current user profile.
     Checks that the user's account is not suspended.
     """
-    # Rate limit check on API actions
+    # Rate limit check on API actions (higher ceiling in development / testing)
     client_ip = request.client.host if request.client else "unknown"
-    check_rate_limit(f"ip:{client_ip}", max_requests=settings.RATE_LIMIT_PER_MINUTE)
+    max_req = settings.RATE_LIMIT_PER_MINUTE if settings.ENVIRONMENT == "production" else 500
+    check_rate_limit(f"ip:{client_ip}", max_requests=max_req)
 
     if not auth_header or not auth_header.credentials:
         raise AuthenticationError("Authorization header is missing or invalid.")
