@@ -17,7 +17,6 @@
 <br/>
 
 > 🚀 **Live Production Deployment**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**  
-> 🔗 **Vercel Dashboard**: [likhith623s-projects/hack-gen](https://vercel.com/likhith623s-projects/hack-gen)  
 > ✨ *Experience instant 1-click role switching between Student, Faculty, and Admin personas directly in the live app.*
 
 <br/>
