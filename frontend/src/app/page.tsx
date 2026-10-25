@@ -31,7 +31,14 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all flex items-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+              <span>Demo Roles &amp; Sign In</span>
+            </Link>
             <Link
               href="/dashboard"
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md shadow-blue-600/30 flex items-center gap-1.5"
@@ -65,23 +72,23 @@ export default function LandingPage() {
           <p className="text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
             Eliminate cold emails and scattered lab vacancies. Discover verified faculty
             supervisors, explore funded research openings, evaluate research papers with
-            an integrated Gemini AI guide, and submit structured collaboration applications.
+            an integrated AI guide, and submit structured collaboration applications.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <Link
-              href="/dashboard"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-xl shadow-blue-600/20 transition-all flex items-center justify-center gap-2"
+              href="/login"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-600/25 transition-all flex items-center justify-center gap-2"
             >
-              <GraduationCap className="w-4 h-4" />
-              <span>Explore Faculty & Openings</span>
+              <Sparkles className="w-4 h-4 text-teal-300" />
+              <span>Choose Role &amp; Sign In</span>
             </Link>
             <Link
-              href="/skills"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-medium bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center justify-center gap-2"
+              href="/dashboard"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-4 h-4 text-teal-400" />
-              <span>Evidence-Based Skill Passport</span>
+              <GraduationCap className="w-4 h-4 text-blue-400" />
+              <span>Explore Platform (Demo)</span>
             </Link>
           </div>
         </div>

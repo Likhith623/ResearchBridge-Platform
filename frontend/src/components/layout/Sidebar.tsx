@@ -18,13 +18,15 @@ import {
   FileText,
   ShieldCheck,
   Building,
+  LogOut,
+  UserCheck,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { role, user } = useAuth();
+  const { role, user, signOut } = useAuth();
 
   const navigation = [
     {
@@ -154,21 +156,45 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Institutional Context Card at Sidebar Bottom */}
-      <div className="p-4 border-t border-slate-200/80 bg-white/50">
+      {/* Institutional Context & Session Card at Sidebar Bottom */}
+      <div className="p-4 border-t border-slate-200/80 bg-white/50 space-y-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500">
-            <Building className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 font-bold text-xs">
+            {(user?.full_name || "U").charAt(0)}
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold text-slate-800 truncate">
-              {user?.institution_name || "Stanford University"}
+              {user?.full_name || "Guest Scholar"}
             </p>
-            <p className="text-[11px] text-slate-500 truncate">
-              {user?.department_name || "Computer Science"}
+            <p className="text-[11px] text-slate-500 truncate capitalize flex items-center gap-1">
+              <span>{role || "Visitor"}</span>
+              <span>•</span>
+              <span className="truncate">{user?.department_name || "Stanford"}</span>
             </p>
           </div>
         </div>
+
+        {user ? (
+          <button
+            onClick={async () => {
+              await signOut();
+              window.location.href = "/login";
+            }}
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg border border-slate-200 hover:border-rose-200 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-[11px] font-medium transition-colors cursor-pointer"
+            title="Sign out of account"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
+        ) : (
+          <Link
+            href="/login"
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold transition-colors shadow-xs"
+          >
+            <UserCheck className="w-3.5 h-3.5" />
+            <span>Sign In / Choose Role</span>
+          </Link>
+        )}
       </div>
     </aside>
   );

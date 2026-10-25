@@ -127,111 +127,134 @@ export function Navbar() {
         {/* Right: Controls & User Profile */}
         <div className="flex items-center gap-3">
           {/* Persona Switcher Dropdown (Real Seeded Accounts) */}
-          <div className="relative">
-            <button
-              onClick={() => setIsPersonaOpen(!isPersonaOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50/80 hover:bg-slate-100 text-xs font-medium text-slate-700 transition-colors cursor-pointer"
-              title="Switch demo persona for testing"
-            >
-              <UserCheck className="w-3.5 h-3.5 text-blue-600" />
-              <span className="hidden sm:inline">Role:</span>
-              <span className="font-semibold text-slate-900" suppressHydrationWarning>
-                {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"}
-              </span>
-              <ChevronDown className="w-3 h-3 text-slate-400" />
-            </button>
-
-            {isPersonaOpen && (
-              <div
-                className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-1 z-50 animate-in fade-in zoom-in-95 duration-100"
-                onClick={() => setIsPersonaOpen(false)}
+          {/* Persona Switcher / Login Button */}
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setIsPersonaOpen(!isPersonaOpen)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50/80 hover:bg-slate-100 text-xs font-medium text-slate-700 transition-colors cursor-pointer"
+                title="Switch demo persona for testing"
               >
-                <div className="px-3 py-2 border-b border-slate-100">
-                  <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                    Switch Test Account
-                  </p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">
-                    Pre-seeded test roles with real Supabase data
-                  </p>
-                </div>
-                {DEMO_PERSONAS.map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={() => switchPersona(p.id)}
-                    className={`w-full text-left px-3.5 py-2.5 flex items-start gap-2.5 text-xs hover:bg-slate-50 transition-colors cursor-pointer ${
-                      activePersona?.id === p.id ? "bg-blue-50/60" : ""
-                    }`}
-                  >
-                    <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 font-bold text-[10px]">
-                      {p.name.charAt(0)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium text-slate-900 truncate">
-                          {p.name}
-                        </span>
-                        <Badge
-                          variant={
-                            p.role === "admin"
-                              ? "destructive"
-                              : p.role === "professor"
-                              ? "teal"
-                              : "default"
-                          }
-                          className="text-[9px] px-1.5 py-0 capitalize"
-                        >
-                          {p.role}
-                        </Badge>
-                      </div>
-                      <p className="text-[11px] text-slate-500 truncate mt-0.5">
-                        {p.title}
+                <UserCheck className="w-3.5 h-3.5 text-blue-600" />
+                <span className="hidden sm:inline">Role:</span>
+                <span className="font-semibold text-slate-900" suppressHydrationWarning>
+                  {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"}
+                </span>
+                <Badge
+                  variant={
+                    role === "admin"
+                      ? "destructive"
+                      : role === "professor"
+                      ? "teal"
+                      : "default"
+                  }
+                  className="text-[9px] px-1.5 py-0 capitalize hidden sm:inline-flex"
+                >
+                  {role}
+                </Badge>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {isPersonaOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-slate-200 py-1 z-50 animate-in fade-in zoom-in-95 duration-100"
+                  onClick={() => setIsPersonaOpen(false)}
+                >
+                  <div className="px-3.5 py-2.5 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                      <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                        Quick Demo Roles
+                      </p>
+                      <p className="text-[10px] text-slate-400">
+                        Switch accounts instantly
                       </p>
                     </div>
-                  </button>
-                ))}
+                    <Link
+                      href="/login"
+                      className="text-[11px] text-blue-600 hover:text-blue-700 font-medium"
+                    >
+                      Login Page →
+                    </Link>
+                  </div>
+                  {DEMO_PERSONAS.map((p) => (
+                    <button
+                      key={p.id}
+                      onClick={() => switchPersona(p.id)}
+                      className={`w-full text-left px-3.5 py-2 flex items-start gap-2.5 text-xs hover:bg-slate-50 transition-colors cursor-pointer ${
+                        activePersona?.id === p.id ? "bg-blue-50/60" : ""
+                      }`}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 font-bold text-[10px]">
+                        {p.name.charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium text-slate-900 truncate">
+                            {p.name}
+                          </span>
+                          <Badge
+                            variant={
+                              p.role === "admin"
+                                ? "destructive"
+                                : p.role === "professor"
+                                ? "teal"
+                                : "default"
+                            }
+                            className="text-[9px] px-1.5 py-0 capitalize"
+                          >
+                            {p.role}
+                          </Badge>
+                        </div>
+                        <p className="text-[10px] text-slate-500 truncate">
+                          {p.title}
+                        </p>
+                      </div>
+                    </button>
+                  ))}
 
-                {/* Email Sign-In / Register Option */}
-                <div className="p-2 border-t border-slate-100 bg-slate-50/80">
-                  <button
-                    onClick={() => {
-                      setIsPersonaOpen(false);
-                      setIsAuthModalOpen(true);
-                      setAuthMode("login");
-                    }}
-                    className="w-full py-1.5 px-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Sign In with Your Email</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsPersonaOpen(false);
-                      setIsAuthModalOpen(true);
-                      setAuthMode("register");
-                    }}
-                    className="w-full mt-1.5 py-1 px-2.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-medium text-[11px] flex items-center justify-center gap-1 transition-colors cursor-pointer"
-                  >
-                    <UserPlus className="w-3 h-3 text-slate-500" />
-                    <span>Register New Account</span>
-                  </button>
+                  {/* Email Sign-In / Register Option */}
+                  <div className="p-2 border-t border-slate-100 bg-slate-50/80 space-y-1.5">
+                    <Link
+                      href="/login"
+                      className="w-full py-1.5 px-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                    >
+                      <UserCheck className="w-3.5 h-3.5" />
+                      <span>Role Portal / Custom Login</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/login">
+              <Button size="sm" variant="primary" className="text-xs gap-1.5 shadow-xs">
+                <UserCheck className="w-3.5 h-3.5" />
+                <span>Sign In / Choose Role</span>
+              </Button>
+            </Link>
+          )}
 
           {/* Notifications Center */}
           <NotificationCenter />
 
-          {/* User Avatar & Logout */}
-          <div className="h-6 w-[1px] bg-slate-200 mx-1 hidden sm:block" />
+          {/* User Logout Button */}
+          {user && (
+            <>
+              <div className="h-6 w-[1px] bg-slate-200 mx-1 hidden sm:block" />
 
-          <button
-            onClick={() => signOut()}
-            className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-            title="Sign out"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
+              <button
+                onClick={async () => {
+                  await signOut();
+                  window.location.href = "/login";
+                }}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-transparent hover:border-rose-200 hover:bg-rose-50 text-slate-500 hover:text-rose-600 text-xs font-medium transition-colors cursor-pointer"
+                title="Sign out of account"
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
 

@@ -10,6 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAuthPage =
     pathname === "/" ||
+    pathname === "/login" ||
     pathname.startsWith("/auth");
 
   if (isAuthPage) {

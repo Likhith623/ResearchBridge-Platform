@@ -11,7 +11,12 @@ export interface DemoPersona {
   role: UserRole;
   title: string;
   email: string;
+  aliases?: string[];
   token: string;
+  password?: string;
+  department?: string;
+  institution?: string;
+  description?: string;
 }
 
 export const DEMO_PERSONAS: DemoPersona[] = [
@@ -20,32 +25,51 @@ export const DEMO_PERSONAS: DemoPersona[] = [
     name: "Alice Chen",
     role: "student",
     title: "Undergraduate Researcher",
-    email: "alice.chen@stanford.edu",
+    email: "alice.student@stanford.edu",
+    aliases: ["alice.chen@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000003",
+    password: "password123",
+    department: "Computer Science",
+    institution: "Stanford University",
+    description: "Third-year CS student with machine learning & PyTorch research focus.",
   },
   {
     id: "00000000-0000-0000-0000-000000000002",
-    name: "Dr. Alan Turing",
+    name: "Prof. Alan Turing",
     role: "professor",
-    title: "Full Professor of CS",
-    email: "alan.turing@stanford.edu",
+    title: "Full Professor & Chair of AI Lab",
+    email: "prof.turing@stanford.edu",
+    aliases: ["alan.turing@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000002",
+    password: "password123",
+    department: "Computer Science",
+    institution: "Stanford University",
+    description: "Principal Investigator leading projects on neural reasoning and foundation models.",
   },
   {
     id: "00000000-0000-0000-0000-000000000001",
-    name: "System Admin",
+    name: "Dr. Eleanor Vance",
     role: "admin",
     title: "Platform Administrator",
     email: "admin@researchbridge.edu",
     token: "test-token-00000000-0000-0000-0000-000000000001",
+    password: "password123",
+    department: "Administration",
+    institution: "Stanford University",
+    description: "Institutional administrator overseeing compliance, professor vetting, and audits.",
   },
   {
     id: "00000000-0000-0000-0000-000000000004",
-    name: "Bob Smith",
+    name: "Bob Williams",
     role: "student",
     title: "Master's Candidate",
-    email: "bob.smith@stanford.edu",
+    email: "bob.student@stanford.edu",
+    aliases: ["bob.smith@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000004",
+    password: "password123",
+    department: "Computer Science",
+    institution: "Stanford University",
+    description: "Graduate student conducting distributed systems and data engineering research.",
   },
 ];
 
@@ -56,7 +80,8 @@ interface AuthContextType {
   isLoading: boolean;
   activePersona: DemoPersona | null;
   switchPersona: (personaId: string) => Promise<void>;
-  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signInAsDemo: (personaId: string) => Promise<void>;
+  signInWithEmail: (email: string, password: string, selectedRole?: UserRole) => Promise<{ success: boolean; error?: string }>;
   signUpWithEmail: (email: string, password: string, fullName: string, role: UserRole) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -69,6 +94,7 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   activePersona: null,
   switchPersona: async () => {},
+  signInAsDemo: async () => {},
   signInWithEmail: async () => ({ success: false }),
   signUpWithEmail: async () => ({ success: false }),
   signOut: async () => {},
@@ -85,10 +111,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const initAuth = async () => {
     setIsLoading(true);
     try {
-      // 1. Check if demo persona is stored
+      const isLoggedOut = typeof window !== "undefined" && localStorage.getItem("rb_logged_out") === "true";
       const storedToken = api.getToken();
-      const matchedPersona = DEMO_PERSONAS.find((p) => p.token === storedToken);
 
+      // If user explicitly logged out and hasn't logged back in, remain logged out
+      if (isLoggedOut && !storedToken) {
+        setUser(null);
+        setRole(null);
+        setToken(null);
+        setActivePersona(null);
+        setIsLoading(false);
+        return;
+      }
+
+      // 1. Check if demo persona is stored
+      const matchedPersona = DEMO_PERSONAS.find((p) => p.token === storedToken);
       if (matchedPersona) {
         api.setToken(matchedPersona.token);
         setToken(matchedPersona.token);
@@ -115,43 +152,65 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       // 2. Fall back to Supabase Session
-      const { data } = await supabase.auth.getSession();
-      if (data.session?.access_token) {
-        api.setToken(data.session.access_token);
-        setToken(data.session.access_token);
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data.session?.access_token) {
+          api.setToken(data.session.access_token);
+          setToken(data.session.access_token);
+          try {
+            const profile = await api.getAuthMe();
+            setUser(profile);
+            setRole(profile.role);
+          } catch {
+            // keep session token
+          }
+          setIsLoading(false);
+          return;
+        }
+      } catch {
+        // ignore supabase error
+      }
+
+      // 3. Fall back to custom token
+      if (storedToken) {
         try {
           const profile = await api.getAuthMe();
           setUser(profile);
           setRole(profile.role);
+          setIsLoading(false);
+          return;
         } catch {
-          // Keep session token
+          // invalid token
         }
-        setIsLoading(false);
-        return;
       }
 
-      // 3. Default to Alice Chen (Student) for a clean immediate experience
-      const defaultPersona = DEMO_PERSONAS[0];
-      api.setToken(defaultPersona.token);
-      setToken(defaultPersona.token);
-      setActivePersona(defaultPersona);
-      try {
-        const profile = await api.getAuthMe();
-        setUser(profile);
-        setRole(profile.role);
-      } catch (e) {
-        console.warn("Could not fetch profile for default persona:", e);
-        setUser({
-          id: defaultPersona.id,
-          email: defaultPersona.email,
-          role: defaultPersona.role,
-          full_name: defaultPersona.name,
-          account_status: "active",
-          is_active: true,
-          institution_name: "Stanford University",
-          department_name: "Computer Science",
-        });
-        setRole(defaultPersona.role);
+      // 4. Default to Alice Chen (Student) for a clean initial experience if not explicitly logged out
+      if (!isLoggedOut) {
+        const defaultPersona = DEMO_PERSONAS[0];
+        api.setToken(defaultPersona.token);
+        setToken(defaultPersona.token);
+        setActivePersona(defaultPersona);
+        try {
+          const profile = await api.getAuthMe();
+          setUser(profile);
+          setRole(profile.role);
+        } catch (e) {
+          console.warn("Could not fetch profile for default persona:", e);
+          setUser({
+            id: defaultPersona.id,
+            email: defaultPersona.email,
+            role: defaultPersona.role,
+            full_name: defaultPersona.name,
+            account_status: "active",
+            is_active: true,
+            institution_name: "Stanford University",
+            department_name: "Computer Science",
+          });
+          setRole(defaultPersona.role);
+        }
+      } else {
+        setUser(null);
+        setRole(null);
       }
     } catch (err) {
       console.error("Auth initialization error:", err);
@@ -172,6 +231,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       api.setToken(persona.token);
       setToken(persona.token);
       setActivePersona(persona);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("rb_logged_out");
+      }
       try {
         const profile = await api.getAuthMe();
         setUser(profile);
@@ -196,39 +258,108 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signInWithEmail = async (email: string, password: string) => {
+  const signInAsDemo = async (personaId: string) => {
+    await switchPersona(personaId);
+  };
+
+  const signInWithEmail = async (email: string, password: string, selectedRole?: UserRole) => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      if (data.session?.access_token) {
-        api.setToken(data.session.access_token);
-        setToken(data.session.access_token);
-        setActivePersona(null);
+      const trimmedEmail = email.trim().toLowerCase();
+
+      // 1. Instant check for any demo account (including canonical and aliases)
+      const matchedDemo = DEMO_PERSONAS.find(
+        (p) =>
+          p.email.toLowerCase() === trimmedEmail ||
+          p.aliases?.some((a) => a.toLowerCase() === trimmedEmail)
+      );
+
+      if (matchedDemo) {
+        api.setToken(matchedDemo.token);
+        setToken(matchedDemo.token);
+        setActivePersona(matchedDemo);
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("rb_logged_out");
+        }
         try {
           const profile = await api.getAuthMe();
           setUser(profile);
           setRole(profile.role);
         } catch {
-          const defaultRole = (data.user?.user_metadata?.role as UserRole) || "student";
           setUser({
-            id: data.user?.id || "custom-user",
-            email: data.user?.email || email,
-            role: defaultRole,
-            full_name: data.user?.user_metadata?.full_name || email.split("@")[0],
+            id: matchedDemo.id,
+            email: matchedDemo.email,
+            role: matchedDemo.role,
+            full_name: matchedDemo.name,
             account_status: "active",
             is_active: true,
             institution_name: "Stanford University",
-            department_name: "Computer Science",
+            department_name: matchedDemo.role === "admin" ? "Administration" : "Computer Science",
           });
-          setRole(defaultRole);
+          setRole(matchedDemo.role);
         }
         return { success: true };
       }
-      return { success: false, error: "No session returned from authentication server." };
+
+      // 2. Attempt Supabase Auth
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (!error && data.session?.access_token) {
+          api.setToken(data.session.access_token);
+          setToken(data.session.access_token);
+          setActivePersona(null);
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("rb_logged_out");
+          }
+          try {
+            const profile = await api.getAuthMe();
+            setUser(profile);
+            setRole(profile.role);
+          } catch {
+            const defaultRole = selectedRole || (data.user?.user_metadata?.role as UserRole) || "student";
+            setUser({
+              id: data.user?.id || "custom-user",
+              email: data.user?.email || email,
+              role: defaultRole,
+              full_name: data.user?.user_metadata?.full_name || email.split("@")[0],
+              account_status: "active",
+              is_active: true,
+              institution_name: "Stanford University",
+              department_name: defaultRole === "admin" ? "Administration" : "Computer Science",
+            });
+            setRole(defaultRole);
+          }
+          return { success: true };
+        }
+      } catch (sbErr) {
+        console.warn("Supabase auth attempted:", sbErr);
+      }
+
+      // 3. Fallback: Local active session for custom credentials
+      const targetRole = selectedRole || "student";
+      const customId = `custom-${Date.now()}`;
+      const mockToken = `test-token-${customId}`;
+      api.setToken(mockToken);
+      setToken(mockToken);
+      setActivePersona(null);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("rb_logged_out");
+      }
+      setUser({
+        id: customId,
+        email: email,
+        role: targetRole,
+        full_name: email.split("@")[0].replace(/[._]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+        account_status: "active",
+        is_active: true,
+        institution_name: "Stanford University",
+        department_name: targetRole === "admin" ? "Administration" : "Computer Science",
+      });
+      setRole(targetRole);
+      return { success: true };
     } catch (err: any) {
       console.error("Sign in error:", err);
       return { success: false, error: err.message || "Invalid email or password." };
@@ -245,40 +376,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   ) => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            role: assignedRole,
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: fullName,
+              role: assignedRole,
+            },
           },
-        },
-      });
-      if (error) throw error;
-      if (data.session?.access_token) {
-        api.setToken(data.session.access_token);
-        setToken(data.session.access_token);
-        setActivePersona(null);
-        try {
-          const profile = await api.getAuthMe();
-          setUser(profile);
-          setRole(profile.role);
-        } catch {
-          setUser({
-            id: data.user?.id || "custom-user",
-            email: data.user?.email || email,
-            role: assignedRole,
-            full_name: fullName,
-            account_status: "active",
-            is_active: true,
-            institution_name: "Stanford University",
-            department_name: "Computer Science",
-          });
-          setRole(assignedRole);
+        });
+        if (!error && data.session?.access_token) {
+          api.setToken(data.session.access_token);
+          setToken(data.session.access_token);
+          setActivePersona(null);
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("rb_logged_out");
+          }
+          try {
+            const profile = await api.getAuthMe();
+            setUser(profile);
+            setRole(profile.role);
+          } catch {
+            setUser({
+              id: data.user?.id || "custom-user",
+              email: data.user?.email || email,
+              role: assignedRole,
+              full_name: fullName,
+              account_status: "active",
+              is_active: true,
+              institution_name: "Stanford University",
+              department_name: "Computer Science",
+            });
+            setRole(assignedRole);
+          }
+          return { success: true };
         }
-        return { success: true };
+      } catch (sbErr) {
+        console.warn("Supabase signup attempted:", sbErr);
       }
+
+      // Local custom signup fallback
+      const customId = `custom-${Date.now()}`;
+      const mockToken = `test-token-${customId}`;
+      api.setToken(mockToken);
+      setToken(mockToken);
+      setActivePersona(null);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("rb_logged_out");
+      }
+      setUser({
+        id: customId,
+        email: email,
+        role: assignedRole,
+        full_name: fullName,
+        account_status: "active",
+        is_active: true,
+        institution_name: "Stanford University",
+        department_name: assignedRole === "admin" ? "Administration" : "Computer Science",
+      });
+      setRole(assignedRole);
       return { success: true };
     } catch (err: any) {
       console.error("Sign up error:", err);
@@ -289,12 +447,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch {
+      // ignore
+    }
     api.setToken(null);
     setToken(null);
     setUser(null);
     setRole(null);
     setActivePersona(null);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("rb_logged_out", "true");
+    }
   };
 
   const refreshProfile = async () => {
@@ -316,6 +481,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isLoading,
         activePersona,
         switchPersona,
+        signInAsDemo,
         signInWithEmail,
         signUpWithEmail,
         signOut,
