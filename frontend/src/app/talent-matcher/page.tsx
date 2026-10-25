@@ -40,14 +40,18 @@ export default function TalentMatcherPage() {
         if (safeProjs.length > 0) {
           setProjects(safeProjs);
           setSelectedProjectId(safeProjs[0].id);
-          runAnalysis(safeProjs[0].id);
+          if (role === "professor" || role === "admin") {
+            runAnalysis(safeProjs[0].id);
+          } else {
+            setMatcherResult(null);
+          }
         }
       } catch (err) {
         console.error("Failed to load projects:", err);
       }
     }
     loadProjects();
-  }, []);
+  }, [role]);
 
   const runAnalysis = async (projId: string) => {
     if (!projId) return;
@@ -239,6 +243,14 @@ export default function TalentMatcherPage() {
                 </div>
               </div>
             )}
+          </div>
+        ) : role === "student" ? (
+          <div className="p-6 rounded-xl bg-amber-50/70 border border-amber-200 text-center space-y-2">
+            <GraduationCap className="w-8 h-8 text-amber-600 mx-auto" />
+            <h3 className="text-sm font-semibold text-amber-900">Faculty &amp; Administrator Feature</h3>
+            <p className="text-xs text-amber-700 max-w-lg mx-auto">
+              Candidate evaluation and explainable talent ranking are restricted to faculty supervisors and administrators. Switch persona to Professor or Admin in the navigation bar to evaluate student cohorts, or explore the Cross-Department Discovery tool below.
+            </p>
           </div>
         ) : (
           <div className="text-center py-12 text-xs text-slate-400">

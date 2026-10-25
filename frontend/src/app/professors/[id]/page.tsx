@@ -87,6 +87,10 @@ export default function ProfessorDetailPage() {
       setSubmitError("Please fill in both the subject and motivation statement.");
       return;
     }
+    if (motivation.trim().length < 20) {
+      setSubmitError("Motivation statement must be at least 20 characters.");
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitError(null);

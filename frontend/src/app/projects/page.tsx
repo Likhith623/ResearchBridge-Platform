@@ -130,6 +130,7 @@ export default function ProjectsPage() {
         weekly_hours: Number(newHours),
         openings_count: Number(newOpenings),
         status: "open",
+        arrangement: "hybrid",
         work_arrangement: "hybrid",
         compensation_type: "unpaid",
       });
@@ -148,6 +149,10 @@ export default function ProjectsPage() {
   const handleApplySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProject) return;
+    if (motivation.trim().length < 20) {
+      alert("Motivation statement must be at least 20 characters.");
+      return;
+    }
     setIsSubmitting(true);
     try {
       await api.createResearchRequest({

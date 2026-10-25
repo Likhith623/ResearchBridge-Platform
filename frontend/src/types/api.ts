@@ -95,6 +95,7 @@ export interface ResearchProject {
   openings_count: number;
   status: ProjectStatus;
   work_arrangement: ProjectArrangement;
+  arrangement?: ProjectArrangement;
   compensation_type: CompensationType;
   created_at: string;
   professor_name?: string;

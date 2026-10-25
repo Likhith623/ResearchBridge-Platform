@@ -61,7 +61,11 @@ export default function RequestsPage() {
       } else if (decisionModal.type === "reject") {
         await api.rejectRequest(decisionModal.requestId, decisionNotes);
       } else if (decisionModal.type === "info") {
-        await api.requestInfo(decisionModal.requestId, decisionNotes || "Please provide your transcript and GitHub profile.");
+        const infoNotes =
+          decisionNotes.trim().length >= 5
+            ? decisionNotes.trim()
+            : "Please provide your academic transcript, resume, and GitHub repository.";
+        await api.requestInfo(decisionModal.requestId, infoNotes);
       } else if (decisionModal.type === "withdraw") {
         await api.withdrawRequest(decisionModal.requestId);
       }

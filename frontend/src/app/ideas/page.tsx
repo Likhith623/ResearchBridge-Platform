@@ -59,6 +59,14 @@ export default function IdeasPage() {
 
   const handleCreateIdea = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (newTitle.trim().length < 5) {
+      alert("Research initiative title must be at least 5 characters.");
+      return;
+    }
+    if (newProblem.trim().length < 20 || newVision.trim().length < 20) {
+      alert("Both the problem statement and vision description must be at least 20 characters.");
+      return;
+    }
     setIsSubmittingIdea(true);
     try {
       const created = await api.createPipelineIdea({
@@ -81,6 +89,14 @@ export default function IdeasPage() {
   const handleSubmitProposal = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedIdea) return;
+    if (proposalTitle.trim().length < 5) {
+      alert("Proposal title must be at least 5 characters.");
+      return;
+    }
+    if (approach.trim().length < 20) {
+      alert("Proposed approach must be at least 20 characters.");
+      return;
+    }
 
     setIsSubmittingProposal(true);
     try {

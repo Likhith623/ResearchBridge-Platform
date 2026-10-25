@@ -73,7 +73,18 @@ export default function ContributionsPage() {
 
   const handleLogContribution = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!taskName.trim() || !deliverableSummary.trim() || !selectedProjectId) return;
+    if (!taskName.trim() || !deliverableSummary.trim() || !selectedProjectId) {
+      alert("Please select a project and provide both a task title and deliverable summary.");
+      return;
+    }
+    if (taskName.trim().length < 3) {
+      alert("Task name must be at least 3 characters.");
+      return;
+    }
+    if (deliverableSummary.trim().length < 10) {
+      alert("Deliverable summary must be at least 10 characters.");
+      return;
+    }
 
     setIsLogging(true);
     try {
