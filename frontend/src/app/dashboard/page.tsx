@@ -86,20 +86,20 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 p-6 sm:p-9 text-white shadow-xl border border-slate-800/80">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-indigo-950/80 to-slate-900 p-6 sm:p-9 text-white shadow-2xl border border-white/10">
         {/* Ambient glow in banner */}
-        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-blue-600/15 rounded-full blur-[90px] pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-teal-500/10 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
+        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
 
         <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs font-semibold backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <span suppressHydrationWarning>
               Live Session: {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"} ({mounted ? (role || "student") : "student"})
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight" suppressHydrationWarning>
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent" suppressHydrationWarning>
             Welcome to ResearchBridge, {mounted ? (user?.full_name || "Scholar") : "Scholar"}
           </h1>
 
@@ -113,106 +113,106 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Actions Bar */}
-        <div className="mt-6 flex flex-wrap items-center gap-2.5 pt-5 border-t border-slate-800/80 relative z-10">
+        <div className="mt-6 flex flex-wrap items-center gap-2.5 pt-5 border-t border-white/10 relative z-10">
           <Link href="/professors">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl">
-              <Users className="w-3.5 h-3.5 text-blue-300" />
+            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-cyan-500/30 hover:border-cyan-400 text-white">
+              <Users className="w-3.5 h-3.5 text-cyan-300" />
               <span>Faculty Directory</span>
             </Button>
           </Link>
           <Link href="/projects">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl">
+            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-teal-500/30 hover:border-teal-400 text-white">
               <Briefcase className="w-3.5 h-3.5 text-teal-300" />
               <span>Explore Openings</span>
             </Button>
           </Link>
           <Link href="/talent-matcher">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-purple-500/30 hover:border-purple-400 text-white">
+              <Sparkles className="w-3.5 h-3.5 text-purple-300" />
               <span>AI Matcher</span>
             </Button>
           </Link>
           <Link href="/skills">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl">
-              <Award className="w-3.5 h-3.5 text-purple-300" />
+            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-amber-500/30 hover:border-amber-400 text-white">
+              <Award className="w-3.5 h-3.5 text-amber-300" />
               <span>Skill Passport</span>
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card hoverable className="p-5 border-l-4 border-l-blue-600 bg-white shadow-xs">
+      {/* Metrics Row: 4 Vibrant Gradient Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <Card hoverable className="p-4 sm:p-5 border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-slate-900/80 to-blue-900/40 shadow-xl shadow-blue-950/30 hover:border-blue-400 hover:shadow-blue-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-blue-300 uppercase tracking-wider">
               {role === "professor" ? "Incoming Inquiries" : "My Applications"}
             </p>
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30">
               <Send className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">
+          <p className="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
             {(Array.isArray(requests) ? requests : []).length}
           </p>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <p className="text-[11px] text-blue-200 mt-1 flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>Tracked in real-time</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-5 border-l-4 border-l-teal-600 bg-white shadow-xs">
+        <Card hoverable className="p-4 sm:p-5 border border-teal-500/30 bg-gradient-to-br from-teal-950/60 via-slate-900/80 to-emerald-900/40 shadow-xl shadow-teal-950/30 hover:border-teal-400 hover:shadow-teal-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-teal-300 uppercase tracking-wider">
               Lab Openings
             </p>
-            <div className="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-teal-500/30">
               <Briefcase className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">
+          <p className="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
             {(Array.isArray(projects) ? projects : []).length}
           </p>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
-            <span>Active research projects</span>
+          <p className="text-[11px] text-teal-200 mt-1 flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+            <span>Active lab openings</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-5 border-l-4 border-l-indigo-600 bg-white shadow-xs">
+        <Card hoverable className="p-4 sm:p-5 border border-purple-500/30 bg-gradient-to-br from-purple-950/60 via-slate-900/80 to-pink-900/40 shadow-xl shadow-purple-950/30 hover:border-purple-400 hover:shadow-purple-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-purple-300 uppercase tracking-wider">
               Verified Faculty
             </p>
-            <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/30">
               <Users className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">
+          <p className="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
             {(Array.isArray(professors) ? professors : []).length > 0
               ? (Array.isArray(professors) ? professors : []).length
               : 1}
           </p>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+          <p className="text-[11px] text-purple-200 mt-1 flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
             <span>Stanford supervisors</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-5 border-l-4 border-l-amber-500 bg-white shadow-xs">
+        <Card hoverable className="p-4 sm:p-5 border border-amber-500/30 bg-gradient-to-br from-amber-950/60 via-slate-900/80 to-orange-900/40 shadow-xl shadow-amber-950/30 hover:border-amber-400 hover:shadow-amber-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
               Opportunity Radar
             </p>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/30">
               <Sparkles className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">
+          <p className="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
             {(Array.isArray(radarAlerts) ? radarAlerts : []).length}
           </p>
-          <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+          <p className="text-[11px] text-amber-200 mt-1 flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             <span>AI match notifications</span>
           </p>
         </Card>
@@ -226,32 +226,32 @@ export default function DashboardPage() {
           <Card hoverable>
             <CardHeader className="flex flex-row items-center justify-between pb-3">
               <div>
-                <CardTitle className="text-base font-bold flex items-center gap-2">
-                  <Send className="w-4 h-4 text-blue-600" />
+                <CardTitle className="text-base font-bold flex items-center gap-2 text-white">
+                  <Send className="w-4 h-4 text-cyan-400" />
                   <span>
                     {role === "professor" ? "Recent Applicant Inquiries" : "My Research Applications"}
                   </span>
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-xs text-slate-400">
                   {role === "professor"
                     ? "Students applying to your research group with tracked evaluation stages"
                     : "Status updates and decision history from supervising professors"}
                 </CardDescription>
               </div>
               <Link href="/requests">
-                <Button variant="ghost" size="sm" className="text-xs text-blue-600 gap-1">
+                <Button variant="ghost" size="sm" className="text-xs text-cyan-400 hover:text-cyan-300 gap-1">
                   <span>View All</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Button>
               </Link>
             </CardHeader>
-            <CardContent className="divide-y divide-slate-100">
+            <CardContent className="divide-y divide-white/10">
               {(Array.isArray(requests) ? requests : []).length === 0 ? (
                 <div className="text-center py-10 space-y-2">
-                  <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center mx-auto">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 flex items-center justify-center mx-auto">
                     <Send className="w-5 h-5" />
                   </div>
-                  <p className="text-xs font-semibold text-slate-700">No applications recorded yet</p>
+                  <p className="text-xs font-semibold text-slate-200">No applications recorded yet</p>
                   <p className="text-[11px] text-slate-400">
                     Explore active faculty openings and submit collaboration requests.
                   </p>
@@ -266,7 +266,7 @@ export default function DashboardPage() {
                   <div key={req.id} className="py-3.5 flex items-center justify-between gap-4">
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="text-xs font-bold text-slate-900 truncate">
+                        <p className="text-xs font-bold text-white truncate">
                           {req.subject}
                         </p>
                         <Badge
@@ -285,7 +285,7 @@ export default function DashboardPage() {
                           {req.status?.replace("_", " ") || "submitted"}
                         </Badge>
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate">
+                      <p className="text-[11px] text-slate-400 truncate">
                         {role === "professor"
                           ? `Applicant: ${req.student_name || "Student"}`
                           : `Professor: ${req.professor_name || "Faculty Supervisor"}`}
@@ -294,7 +294,7 @@ export default function DashboardPage() {
                       </p>
                     </div>
                     <Link href={`/requests`}>
-                      <Button size="xs" variant="outline" className="shrink-0">
+                      <Button size="xs" variant="outline" className="shrink-0 border-white/15 text-slate-200 hover:text-white">
                         Details
                       </Button>
                     </Link>
@@ -308,16 +308,16 @@ export default function DashboardPage() {
           <Card hoverable>
             <CardHeader className="flex flex-row items-center justify-between pb-3">
               <div>
-                <CardTitle className="text-base font-bold flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-teal-600" />
+                <CardTitle className="text-base font-bold flex items-center gap-2 text-white">
+                  <Briefcase className="w-4 h-4 text-teal-400" />
                   <span>Advertised Research Openings</span>
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-xs text-slate-400">
                   Supervised laboratory vacancies actively accepting applications
                 </CardDescription>
               </div>
               <Link href="/projects">
-                <Button variant="ghost" size="sm" className="text-xs text-blue-600 gap-1">
+                <Button variant="ghost" size="sm" className="text-xs text-teal-400 hover:text-teal-300 gap-1">
                   <span>Browse All</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Button>
@@ -332,24 +332,24 @@ export default function DashboardPage() {
                 (Array.isArray(projects) ? projects : []).slice(0, 2).map((proj) => (
                   <div
                     key={proj.id}
-                    className="p-4 rounded-2xl border border-slate-100 bg-slate-50/60 hover:bg-slate-50 hover:border-slate-200 transition-all space-y-2.5"
+                    className="p-4 rounded-2xl border border-white/10 bg-slate-800/50 hover:bg-slate-800 hover:border-cyan-500/40 transition-all space-y-2.5"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <h4 className="text-xs font-bold text-slate-900 leading-snug">
+                      <h4 className="text-xs font-bold text-white leading-snug">
                         {proj.title}
                       </h4>
-                      <Badge variant="teal" withDot className="text-[10px] shrink-0">
+                      <Badge variant="teal" withDot className="text-[10px] shrink-0 font-semibold">
                         {proj.openings_count || 1} Openings
                       </Badge>
                     </div>
 
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
                       {proj.summary}
                     </p>
-                    <div className="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-200/50">
+                    <div className="flex items-center justify-between pt-1 text-[11px] text-slate-400 border-t border-white/10">
                       <span>{proj.weekly_hours} hrs/week • {proj.work_arrangement}</span>
                       <Link href={`/projects`}>
-                        <span className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1">
+                        <span className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer">
                           <span>Apply Now</span>
                           <ArrowRight className="w-3 h-3" />
                         </span>
@@ -367,11 +367,11 @@ export default function DashboardPage() {
           {/* Faculty Profiles Quick View */}
           <Card hoverable>
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-bold flex items-center gap-2">
-                <Users className="w-4 h-4 text-indigo-600" />
+              <CardTitle className="text-base font-bold flex items-center gap-2 text-white">
+                <Users className="w-4 h-4 text-purple-400" />
                 <span>Featured Faculty Supervisors</span>
               </CardTitle>
-              <CardDescription className="text-xs">
+              <CardDescription className="text-xs text-slate-400">
                 Verified principal investigators &amp; lab directors
               </CardDescription>
             </CardHeader>
@@ -379,23 +379,23 @@ export default function DashboardPage() {
               {(Array.isArray(professors) ? professors : []).slice(0, 3).map((prof: any) => (
                 <div
                   key={prof.id}
-                  className="p-3 rounded-2xl border border-slate-100 hover:bg-slate-50/80 transition-all flex items-start gap-3"
+                  className="p-3 rounded-2xl border border-white/10 bg-slate-800/40 hover:bg-slate-800/80 transition-all flex items-start gap-3"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold flex items-center justify-center shrink-0 text-xs shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shrink-0 text-xs shadow-md shadow-cyan-500/20">
                     {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-xs font-bold text-slate-900 truncate">
+                    <h4 className="text-xs font-bold text-white truncate">
                       {prof.full_name || prof.profiles?.full_name || "Faculty Member"}
                     </h4>
-                    <p className="text-[11px] text-slate-500 truncate">
+                    <p className="text-[11px] text-slate-400 truncate">
                       {prof.academic_title || prof.title || "Professor"}
                     </p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {(Array.isArray(prof.research_interests) ? prof.research_interests : []).slice(0, 2).map((ri: any, idx: number) => (
                         <span
                           key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
-                          className="text-[9px] px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-600 font-medium"
+                          className="text-[9px] px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-cyan-300 font-medium"
                         >
                           {typeof ri === "string" ? ri : ri.name}
                         </span>
@@ -405,7 +405,7 @@ export default function DashboardPage() {
                 </div>
               ))}
               <Link href="/professors" className="block pt-1">
-                <Button variant="outline" size="sm" className="w-full text-xs font-semibold">
+                <Button variant="outline" size="sm" className="w-full text-xs font-semibold border-white/15 text-slate-200 hover:text-white">
                   Browse Faculty Directory
                 </Button>
               </Link>
@@ -413,44 +413,58 @@ export default function DashboardPage() {
           </Card>
 
           {/* AI Opportunity Radar Highlights */}
-          <Card hoverable className="bg-gradient-to-br from-blue-50/60 via-indigo-50/40 to-white border-blue-100/90 shadow-sm">
+          <Card hoverable className="bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-teal-950/80 border border-cyan-500/30 shadow-2xl shadow-cyan-950/40 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+
             <CardHeader className="pb-2">
-              <div className="flex items-center gap-1.5 text-blue-700 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
-                <span>AI Opportunity Radar</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-cyan-300 text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <span>AI Opportunity Radar</span>
+                </div>
+
+                {/* Animated Live Radar Beacon */}
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_rgba(6,182,212,0.3)]">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                  </span>
+                  <span>Scanning</span>
+                </div>
               </div>
-              <CardTitle className="text-sm font-bold">Personalized Research Matches</CardTitle>
+              <CardTitle className="text-sm font-bold text-white">Personalized Research Matches</CardTitle>
             </CardHeader>
             <CardContent className="text-xs space-y-3">
               {radarAlerts.length > 0 ? (
                 radarAlerts.slice(0, 2).map((alert, idx) => (
                   <div
                     key={alert.project_id || idx}
-                    className="p-3.5 rounded-2xl bg-white/95 border border-blue-100/80 text-slate-700 shadow-xs space-y-1.5"
+                    className="p-3.5 rounded-2xl bg-slate-900/90 border border-white/15 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 text-slate-300 shadow-md space-y-1.5 transition-all duration-200"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <p className="font-bold text-xs text-slate-900 truncate">{alert.project_title}</p>
+                      <p className="font-bold text-xs text-white truncate">{alert.project_title}</p>
                       {alert.radar_score && (
-                        <Badge variant="teal" withDot className="text-[10px] px-1.5 py-0 shrink-0">
+                        <Badge variant="teal" withDot className="text-[10px] px-2 py-0.5 shrink-0 shadow-xs font-bold">
                           {Math.round(alert.radar_score > 1 ? alert.radar_score : alert.radar_score * 100)}% Match
                         </Badge>
                       )}
                     </div>
-                    <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">
+                    <p className="text-[11px] text-slate-300 leading-relaxed line-clamp-2">
                       {alert.potential_explanation}
                     </p>
-                    <p className="text-[10px] text-blue-600 font-semibold pt-0.5">
-                      Supervisor: {alert.professor_name}
+                    <p className="text-[10px] text-cyan-400 font-semibold pt-0.5 flex items-center gap-1">
+                      <span className="text-slate-400">Supervisor:</span>
+                      <span className="text-white">{alert.professor_name}</span>
                     </p>
                   </div>
                 ))
               ) : (
-                <div className="p-3.5 rounded-2xl bg-white/95 border border-blue-100/80 text-slate-600 text-[11px] leading-relaxed">
+                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-white/10 text-slate-300 text-[11px] leading-relaxed">
                   Add verified skills to your Skill Passport to unlock proactive radar match notifications.
                 </div>
               )}
               <Link href="/projects" className="block pt-1">
-                <span className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1">
+                <span className="text-xs font-bold text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 cursor-pointer">
                   <span>View All Openings &amp; Opportunities</span>
                   <ArrowRight className="w-3 h-3" />
                 </span>

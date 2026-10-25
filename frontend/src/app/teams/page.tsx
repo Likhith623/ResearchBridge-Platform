@@ -71,47 +71,47 @@ export default function TeamComposerPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-2">
-          <Users2 className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+          <Users2 className="w-3.5 h-3.5 text-purple-400" />
           <span>Multidisciplinary Research Cohorts</span>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
           AI Team Composer
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
           Specify cross-functional roles for your lab or project; AI analyzes student profiles, skill passports, and complementary strengths to assemble a high-synergy research cohort.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Input Form */}
-        <Card className="p-6 space-y-4">
+        <Card className="p-6 space-y-4 bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
           <form onSubmit={handleCompose} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Project or Lab Initiative Title
               </label>
               <input
                 type="text"
                 value={projectTitle}
                 onChange={(e) => setProjectTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                 required
               />
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-slate-800">
+                <label className="font-semibold text-slate-300">
                   Required Team Roles &amp; Competencies
                 </label>
                 <button
                   type="button"
                   onClick={handleAddRole}
-                  className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 cursor-pointer"
+                  className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Role
                 </button>
@@ -120,15 +120,15 @@ export default function TeamComposerPage() {
               {roles.map((role, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2"
+                  className="p-3.5 rounded-xl border border-white/10 bg-slate-800/40 space-y-2"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-700">Role #{idx + 1}</span>
+                    <span className="font-bold text-cyan-300">Role #{idx + 1}</span>
                     {roles.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveRole(idx)}
-                        className="text-slate-400 hover:text-rose-600 cursor-pointer"
+                        className="text-slate-400 hover:text-rose-400 cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -140,7 +140,7 @@ export default function TeamComposerPage() {
                     value={role.role_name}
                     onChange={(e) => handleRoleChange(idx, "role_name", e.target.value)}
                     placeholder="Role Title (e.g. Lead Machine Learning Engineer)"
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 bg-white"
+                    className="w-full px-3 py-1.5 rounded-lg border border-white/15 bg-slate-850 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                     required
                   />
 
@@ -149,7 +149,7 @@ export default function TeamComposerPage() {
                     value={role.required_skills}
                     onChange={(e) => handleRoleChange(idx, "required_skills", e.target.value)}
                     placeholder="Required Skills (Comma separated: PyTorch, CUDA, etc.)"
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 bg-white"
+                    className="w-full px-3 py-1.5 rounded-lg border border-white/15 bg-slate-850 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                     required
                   />
                 </div>
@@ -160,10 +160,10 @@ export default function TeamComposerPage() {
               type="submit"
               variant="primary"
               size="md"
-              className="w-full gap-2 text-xs shadow-md shadow-blue-500/20"
+              className="w-full gap-2 text-xs shadow-md shadow-indigo-500/25"
               isLoading={isLoading}
             >
-              <Sparkles className="w-3.5 h-3.5 text-teal-300" />
+              <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-spin-slow" />
               <span>Compose Optimal Research Team</span>
             </Button>
           </form>
@@ -172,20 +172,20 @@ export default function TeamComposerPage() {
         {/* Right: Results Display */}
         <div>
           {composedResult ? (
-            <Card className="p-6 space-y-5">
+            <Card className="p-6 space-y-5 bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
-                  <Badge variant="teal" className="text-xs">
+                  <Badge variant="teal" withDot className="text-xs font-bold">
                     Cohort Assembled
                   </Badge>
-                  <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
+                  <span className="text-xs font-bold text-cyan-300 bg-cyan-950/60 px-2.5 py-1 rounded-full border border-cyan-500/30 shadow-[0_0_8px_rgba(6,182,212,0.2)]">
                     {Math.round(composedResult.recommended_team?.overall_coverage_score || 95)}% Coverage
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-bold text-white">
                   {composedResult.project_title || "Research Initiative"}
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
                   {Array.isArray(composedResult.recommended_team?.synergy_highlights) && composedResult.recommended_team.synergy_highlights.length > 0
                     ? composedResult.recommended_team.synergy_highlights.join(" • ")
                     : composedResult.team_synergy_analysis || "Optimal research synergy and complementary strength across cohort members."}
@@ -193,7 +193,7 @@ export default function TeamComposerPage() {
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                   Recommended Role Assignments
                 </h4>
                 {(composedResult.recommended_team?.members || composedResult.role_assignments || []).map((item: any, i: number) => {
@@ -204,22 +204,22 @@ export default function TeamComposerPage() {
                   return (
                     <div
                       key={i}
-                      className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs"
+                      className="p-4 rounded-xl border border-white/10 bg-slate-800/50 space-y-2 text-xs"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-blue-700 text-sm">
+                        <span className="font-bold text-cyan-300 text-sm">
                           {item.role_name}
                         </span>
-                        <Badge variant="outline">
+                        <Badge variant="outline" className="text-cyan-300">
                           {item.match_percentage || 95}% Match
                         </Badge>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[10px]">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-[10px]">
                           {studentName.charAt(0)}
                         </div>
-                        <span className="font-semibold text-slate-900">
+                        <span className="font-semibold text-white">
                           {studentName}
                         </span>
                         <span className="text-slate-400">
@@ -230,7 +230,7 @@ export default function TeamComposerPage() {
                       {covered.length > 0 && (
                         <div className="flex flex-wrap gap-1 pt-1">
                           {covered.map((s: string, idx: number) => (
-                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
+                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                               ✓ {s}
                             </span>
                           ))}
@@ -240,7 +240,7 @@ export default function TeamComposerPage() {
                       {missing.length > 0 && (
                         <div className="flex flex-wrap gap-1">
                           {missing.map((s: string, idx: number) => (
-                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-100">
+                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
                               Needs {s}
                             </span>
                           ))}
@@ -248,7 +248,7 @@ export default function TeamComposerPage() {
                       )}
 
                       {item.fit_rationale && (
-                        <p className="text-slate-600 text-[11px] leading-relaxed">
+                        <p className="text-slate-300 text-[11px] leading-relaxed">
                           {item.fit_rationale}
                         </p>
                       )}
@@ -258,17 +258,17 @@ export default function TeamComposerPage() {
               </div>
 
               {Array.isArray(composedResult.alternative_teams) && composedResult.alternative_teams.length > 0 && (
-                <div className="space-y-3 pt-4 border-t border-slate-100">
-                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                <div className="space-y-3 pt-4 border-t border-white/10">
+                  <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                     Alternative Team Formations ({composedResult.alternative_teams.length})
                   </h4>
                   {composedResult.alternative_teams.map((alt: any, idx: number) => (
-                    <div key={idx} className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5 text-xs">
+                    <div key={idx} className="p-3.5 rounded-xl border border-white/10 bg-slate-800/40 space-y-1.5 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-800">{alt.team_name || `Alternative Cohort #${idx + 1}`}</span>
+                        <span className="font-bold text-white">{alt.team_name || `Alternative Cohort #${idx + 1}`}</span>
                         <Badge variant="outline">{Math.round(alt.overall_coverage_score || 90)}% Coverage</Badge>
                       </div>
-                      <p className="text-[11px] text-slate-500">
+                      <p className="text-[11px] text-slate-400">
                         Members: {Array.isArray(alt.members) ? alt.members.map((m: any) => m.student_name).filter(Boolean).join(", ") : "Multi-disciplinary students"}
                       </p>
                     </div>
@@ -277,8 +277,8 @@ export default function TeamComposerPage() {
               )}
             </Card>
           ) : (
-            <Card className="p-16 text-center text-xs text-slate-400 space-y-2">
-              <Users2 className="w-10 h-10 text-slate-300 mx-auto" />
+            <Card className="p-16 text-center text-xs text-slate-400 space-y-2 bg-slate-900/60 border border-white/10">
+              <Users2 className="w-10 h-10 text-slate-500 mx-auto" />
               <p>Define desired roles on the left and click "Compose Optimal Research Team".</p>
             </Card>
           )}

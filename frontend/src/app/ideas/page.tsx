@@ -120,18 +120,18 @@ export default function IdeasPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold mb-2">
-            <Lightbulb className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+            <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
             <span>Early-Stage Exploration</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
             Research Idea-to-Prototype Pipeline
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
             Faculty pitch early-stage hypotheses and unanswered research questions; students propose technical approaches to build the first prototype.
           </p>
         </div>
@@ -153,14 +153,14 @@ export default function IdeasPage() {
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="p-6 animate-pulse space-y-3">
-              <div className="w-1/2 h-4 bg-slate-200 rounded"></div>
-              <div className="w-full h-12 bg-slate-100 rounded"></div>
+            <Card key={i} className="p-6 animate-pulse space-y-3 bg-slate-900/60 border border-white/10">
+              <div className="w-1/2 h-4 bg-slate-800 rounded"></div>
+              <div className="w-full h-12 bg-slate-800/60 rounded"></div>
             </Card>
           ))}
         </div>
       ) : (Array.isArray(ideas) ? ideas : []).length === 0 ? (
-        <Card className="p-12 text-center text-slate-400 text-xs">
+        <Card className="p-12 text-center text-slate-400 text-xs bg-slate-900/60 border border-white/10">
           No early concepts open for proposals right now.
         </Card>
       ) : (
@@ -168,27 +168,27 @@ export default function IdeasPage() {
           {(Array.isArray(ideas) ? ideas : []).map((idea: any) => (
             <Card
               key={idea.id}
-              className="p-5 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all space-y-4"
+              className="p-5 flex flex-col justify-between bg-slate-900/70 backdrop-blur-xl border border-white/10 hover:border-amber-400/50 hover:shadow-xl hover:shadow-amber-500/15 transition-all space-y-4"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-bold text-white">
                       {idea.title}
                     </h3>
                     {idea.professor_name && (
-                      <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                      <p className="text-[11px] text-cyan-300 font-medium mt-0.5">
                         PI: {idea.professor_name}
                       </p>
                     )}
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0">
                     {idea.is_beginner_friendly && (
-                      <Badge variant="outline" className="text-[9px] text-emerald-700 bg-emerald-50 border-emerald-200">
+                      <Badge variant="outline" className="text-[9px] text-emerald-300 bg-emerald-500/15 border-emerald-500/30">
                         Beginner Friendly
                       </Badge>
                     )}
-                    <Badge variant="teal" className="text-[10px] capitalize">
+                    <Badge variant="teal" withDot className="text-[10px] capitalize font-bold">
                       {(idea.status || idea.stage || "open_for_proposals").replace(/_/g, " ")}
                     </Badge>
                   </div>
@@ -196,19 +196,19 @@ export default function IdeasPage() {
 
                 <div className="space-y-2 text-xs">
                   <div>
-                    <span className="font-semibold text-slate-700">Problem Statement:</span>
-                    <p className="text-slate-600 mt-0.5 leading-relaxed">{idea.problem_statement}</p>
+                    <span className="font-semibold text-slate-300">Problem Statement:</span>
+                    <p className="text-slate-300 mt-0.5 leading-relaxed">{idea.problem_statement}</p>
                   </div>
 
                   <div>
-                    <span className="font-semibold text-slate-700">Prototype Vision:</span>
-                    <p className="text-slate-600 mt-0.5 leading-relaxed italic">{idea.vision_description}</p>
+                    <span className="font-semibold text-slate-300">Prototype Vision:</span>
+                    <p className="text-slate-300 mt-0.5 leading-relaxed italic">{idea.vision_description}</p>
                   </div>
 
                   {Array.isArray(idea.required_disciplines) && idea.required_disciplines.length > 0 && (
                     <div className="flex flex-wrap gap-1 pt-1">
                       {idea.required_disciplines.map((d: string, idx: number) => (
-                        <span key={idx} className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                        <span key={idx} className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-cyan-300 font-medium">
                           {d}
                         </span>
                       ))}
@@ -217,7 +217,7 @@ export default function IdeasPage() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
                 <span className="text-slate-400">{formatDate(idea.created_at)}</span>
                 <Button
                   size="sm"
@@ -246,7 +246,7 @@ export default function IdeasPage() {
       >
         <form onSubmit={handleCreateIdea} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Concept Title
             </label>
             <input
@@ -254,13 +254,13 @@ export default function IdeasPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="e.g. Neuromorphic Sensor Benchmarking for Edge Computing"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Problem Statement
             </label>
             <textarea
@@ -268,13 +268,13 @@ export default function IdeasPage() {
               onChange={(e) => setNewProblem(e.target.value)}
               rows={3}
               placeholder="What core scientific or engineering bottleneck needs to be investigated?"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Vision for Prototype / Desired Outcome
             </label>
             <textarea
@@ -282,12 +282,12 @@ export default function IdeasPage() {
               onChange={(e) => setNewVision(e.target.value)}
               rows={3}
               placeholder="What would a successful 8-week demonstration look like?"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-100">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
             <Button
               type="button"
               variant="ghost"
@@ -312,26 +312,26 @@ export default function IdeasPage() {
       >
         {proposalSuccess ? (
           <div className="p-6 text-center space-y-3">
-            <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto" />
-            <p className="text-sm font-bold text-slate-900">{proposalSuccess}</p>
+            <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto animate-bounce" />
+            <p className="text-sm font-bold text-white">{proposalSuccess}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmitProposal} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Proposal Title
               </label>
               <input
                 type="text"
                 value={proposalTitle}
                 onChange={(e) => setProposalTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Proposed Technical Approach &amp; Milestones
               </label>
               <textarea
@@ -339,13 +339,13 @@ export default function IdeasPage() {
                 onChange={(e) => setApproach(e.target.value)}
                 rows={4}
                 placeholder="Detail your algorithms, datasets, benchmark methods, and weekly plan..."
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Your Role in the Prototype
               </label>
               <input
@@ -353,12 +353,12 @@ export default function IdeasPage() {
                 value={contributorRole}
                 onChange={(e) => setContributorRole(e.target.value)}
                 placeholder="e.g. Lead Machine Learning Engineer"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 required
               />
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-100">
+            <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
               <Button
                 type="button"
                 variant="ghost"

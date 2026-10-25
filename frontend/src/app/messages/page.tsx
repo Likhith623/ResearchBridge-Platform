@@ -98,28 +98,32 @@ export default function MessagesPage() {
   const selectedRequest = safeRequests.find((r) => r.id === selectedRequestId);
 
   return (
-    <div className="max-w-6xl mx-auto h-[calc(100vh-8rem)] flex flex-col space-y-4">
+    <div className="max-w-6xl mx-auto h-[calc(100vh-8rem)] flex flex-col space-y-4 pb-4">
       {/* Title */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+          <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Realtime Collaboration Channel</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
           Research Collaboration Messaging
         </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs sm:text-sm text-slate-300 mt-0.5">
           Secure communication channel scoped to specific research applications.
         </p>
       </div>
 
       {/* Main 2-Panel Messenger */}
-      <Card className="flex-1 flex overflow-hidden border-slate-200">
+      <Card className="flex-1 flex overflow-hidden bg-slate-900/80 backdrop-blur-2xl border border-white/10 shadow-2xl">
         {/* Left Column: Conversation List */}
-        <div className="w-80 border-r border-slate-100 flex flex-col bg-slate-50/50">
-          <div className="p-3.5 border-b border-slate-100 bg-white">
-            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+        <div className="w-80 border-r border-white/10 flex flex-col bg-slate-950/60">
+          <div className="p-3.5 border-b border-white/10 bg-slate-900/60 flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
               Conversations ({safeRequests.length})
             </span>
           </div>
 
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
+          <div className="flex-1 overflow-y-auto divide-y divide-white/5">
             {isLoadingRequests ? (
               <div className="p-6 text-center text-xs text-slate-400">
                 Loading conversations...
@@ -133,19 +137,19 @@ export default function MessagesPage() {
                 <button
                   key={req.id}
                   onClick={() => setSelectedRequestId(req.id)}
-                  className={`w-full text-left p-3.5 transition-colors cursor-pointer hover:bg-slate-100/70 ${
-                    selectedRequestId === req.id ? "bg-blue-50/70 border-r-2 border-r-blue-600" : ""
+                  className={`w-full text-left p-3.5 transition-colors cursor-pointer hover:bg-white/5 ${
+                    selectedRequestId === req.id ? "bg-indigo-600/20 border-r-2 border-r-cyan-400" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="text-xs font-bold text-slate-900 truncate">
+                    <span className="text-xs font-bold text-white truncate">
                       {role === "professor" ? (req.student_name || "Applicant") : (req.professor_name || "Supervisor")}
                     </span>
-                    <Badge variant="outline" className="text-[9px] px-1.5 py-0 capitalize">
+                    <Badge variant="outline" className="text-[9px] px-1.5 py-0 capitalize text-cyan-300">
                       {req.status?.replace("_", " ") || "submitted"}
                     </Badge>
                   </div>
-                  <p className="text-[11px] text-slate-600 truncate font-medium">
+                  <p className="text-[11px] text-slate-300 truncate font-medium">
                     {req.subject}
                   </p>
                   <p className="text-[10px] text-slate-400 truncate mt-1">
@@ -158,31 +162,31 @@ export default function MessagesPage() {
         </div>
 
         {/* Right Column: Chat History & Input */}
-        <div className="flex-1 flex flex-col bg-white">
+        <div className="flex-1 flex flex-col bg-slate-900/40">
           {selectedRequest ? (
             <>
               {/* Thread Header */}
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/30">
+              <div className="p-4 border-b border-white/10 flex items-center justify-between bg-slate-950/60">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">
+                  <h3 className="text-sm font-bold text-white">
                     {selectedRequest.subject}
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-400">
                     Participant:{" "}
-                    <strong>
+                    <strong className="text-cyan-300">
                       {role === "professor"
                         ? selectedRequest.student_name || "Student Applicant"
                         : selectedRequest.professor_name || "Professor"}
                     </strong>
                   </p>
                 </div>
-                <Badge variant="teal" className="text-xs capitalize">
+                <Badge variant="teal" withDot className="text-xs capitalize font-bold">
                   {selectedRequest.status?.replace("_", " ") || "submitted"}
                 </Badge>
               </div>
 
               {/* Message Bubbles Container */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50/30">
+              <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-950/50">
                 {isLoadingMessages && messages.length === 0 ? (
                   <div className="text-center py-12 text-xs text-slate-400">
                     Loading messages...
@@ -204,8 +208,8 @@ export default function MessagesPage() {
                         <div
                           className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
                             isCurrentUser
-                              ? "bg-blue-600 text-white"
-                              : "bg-slate-200 text-slate-700"
+                              ? "bg-gradient-to-tr from-cyan-500 to-blue-600 text-white shadow-sm"
+                              : "bg-slate-800 text-cyan-300 border border-white/10"
                           }`}
                         >
                           {msg.sender_role === "professor" ? "P" : "S"}
@@ -213,14 +217,14 @@ export default function MessagesPage() {
                         <div
                           className={`p-3 rounded-2xl max-w-[70%] text-xs leading-relaxed ${
                             isCurrentUser
-                              ? "bg-blue-600 text-white rounded-tr-none"
-                              : "bg-white text-slate-800 border border-slate-200/80 shadow-xs rounded-tl-none"
+                              ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-tr-none shadow-md shadow-indigo-500/20"
+                              : "bg-slate-850 text-slate-200 border border-white/10 shadow-lg rounded-tl-none"
                           }`}
                         >
                           <p>{msg.message_body}</p>
                           <span
                             className={`text-[9px] block text-right mt-1 ${
-                              isCurrentUser ? "text-blue-100" : "text-slate-400"
+                              isCurrentUser ? "text-cyan-200" : "text-slate-400"
                             }`}
                           >
                             {formatTimeAgo(msg.created_at)}
@@ -234,14 +238,14 @@ export default function MessagesPage() {
               </div>
 
               {/* Message Composer */}
-              <div className="p-3 border-t border-slate-100 bg-white">
+              <div className="p-3 border-t border-white/10 bg-slate-950/70">
                 <form onSubmit={handleSendMessage} className="flex items-center gap-2">
                   <input
                     type="text"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     placeholder="Type your message to collaborator..."
-                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 bg-slate-850 text-white placeholder-slate-400"
                   />
                   <Button
                     type="submit"

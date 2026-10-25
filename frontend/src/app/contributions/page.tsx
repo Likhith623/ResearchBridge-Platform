@@ -119,18 +119,18 @@ export default function ContributionsPage() {
   const verifiedCount = safeLoggedItems.filter((i) => i.verified_by_professor || (i as any).status === "verified").length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-2">
-            <CheckCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+            <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
             <span>Verified Research Deliverables</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
             Contribution &amp; Impact Tracker
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
             Build an immutable, verifiable academic record of completed research tasks, technical deliverables, and faculty-confirmed laboratory hours.
           </p>
         </div>
@@ -146,71 +146,71 @@ export default function ContributionsPage() {
         </Button>
       </div>
 
-      {/* Summary Metrics */}
+      {/* Summary Metrics: 3 Vibrant Gradient Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4 border-l-4 border-l-blue-600">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <Card className="p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-slate-900/80 to-blue-900/40 shadow-xl shadow-blue-950/30">
+          <p className="text-xs font-bold text-blue-300 uppercase tracking-wider">
             Total Research Hours
           </p>
-          <p className="text-2xl font-bold text-slate-900 mt-1">{totalHours} hrs</p>
+          <p className="text-2xl font-extrabold text-white mt-1">{totalHours} hrs</p>
         </Card>
 
-        <Card className="p-4 border-l-4 border-l-emerald-600">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <Card className="p-4 border border-emerald-500/30 bg-gradient-to-br from-emerald-950/60 via-slate-900/80 to-teal-900/40 shadow-xl shadow-emerald-950/30">
+          <p className="text-xs font-bold text-emerald-300 uppercase tracking-wider">
             Faculty Verified Deliverables
           </p>
-          <p className="text-2xl font-bold text-emerald-600 mt-1">{verifiedCount}</p>
+          <p className="text-2xl font-extrabold text-emerald-300 mt-1">{verifiedCount}</p>
         </Card>
 
-        <Card className="p-4 border-l-4 border-l-teal-600">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <Card className="p-4 border border-teal-500/30 bg-gradient-to-br from-teal-950/60 via-slate-900/80 to-cyan-900/40 shadow-xl shadow-teal-950/30">
+          <p className="text-xs font-bold text-teal-300 uppercase tracking-wider">
             Active Research Projects
           </p>
-          <p className="text-2xl font-bold text-slate-900 mt-1">
+          <p className="text-2xl font-extrabold text-cyan-300 mt-1">
             {new Set(safeLoggedItems.map((i) => i.project_id)).size}
           </p>
         </Card>
       </div>
 
       {/* Contributions Timeline List */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Verified Deliverables Transcript</CardTitle>
-          <CardDescription className="text-xs">
+      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-white/10">
+          <CardTitle className="text-base font-bold text-white">Verified Deliverables Transcript</CardTitle>
+          <CardDescription className="text-xs text-slate-400">
             Chronological academic record certified by supervising faculty
           </CardDescription>
         </CardHeader>
-        <CardContent className="divide-y divide-slate-100 p-0">
+        <CardContent className="divide-y divide-white/5 p-0">
           {safeLoggedItems.length === 0 ? (
             <div className="p-8 text-center text-xs text-slate-400">
               No research deliverables recorded yet. Click "Log Research Deliverable" above to start your verified record.
             </div>
           ) : (
             safeLoggedItems.map((item) => (
-              <div key={item.id} className="p-5 space-y-2 hover:bg-slate-50/50 transition-colors">
+              <div key={item.id} className="p-5 space-y-2 hover:bg-white/5 transition-colors">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-bold text-white">
                       {item.task_name}
                     </h3>
-                    <Badge variant={item.verified_by_professor ? "success" : "warning"} className="text-[10px]">
+                    <Badge variant={item.verified_by_professor ? "success" : "warning"} withDot className="text-[10px] font-bold">
                       {item.verified_by_professor ? "Faculty Certified" : "Pending Review"}
                     </Badge>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
-                    <span className="font-semibold text-slate-800">{item.hours_logged} hours</span>
+                  <div className="flex items-center gap-3 text-xs text-slate-400">
+                    <span className="font-semibold text-cyan-300">{item.hours_logged} hours</span>
                     <span>•</span>
                     <span>{formatDate(item.created_at)}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed">
                   {item.deliverable_summary}
                 </p>
 
                 {item.project_title && (
-                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-blue-600 font-medium">
-                    <Briefcase className="w-3.5 h-3.5 text-blue-500" />
+                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-400 font-semibold">
+                    <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
                     <span>{item.project_title}</span>
                   </div>
                 )}
@@ -230,13 +230,13 @@ export default function ContributionsPage() {
       >
         <form onSubmit={handleLogContribution} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Associated Research Project
             </label>
             <select
               value={selectedProjectId}
               onChange={(e) => setSelectedProjectId(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white focus:outline-none focus:border-cyan-400"
               required
             >
               {(Array.isArray(projects) ? projects : []).map((p) => (
@@ -248,7 +248,7 @@ export default function ContributionsPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Task / Milestone Name
             </label>
             <input
@@ -256,13 +256,13 @@ export default function ContributionsPage() {
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
               placeholder="e.g. Implemented Custom CUDA FlashAttention Kernel"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Deliverable Summary &amp; Results
             </label>
             <textarea
@@ -270,13 +270,13 @@ export default function ContributionsPage() {
               onChange={(e) => setDeliverableSummary(e.target.value)}
               rows={3}
               placeholder="Detail benchmarks, pull request links, experimental error bounds, or papers drafted..."
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               Hours Dedicated
             </label>
             <input
@@ -285,12 +285,12 @@ export default function ContributionsPage() {
               max={100}
               value={hoursLogged}
               onChange={(e) => setHoursLogged(Number(e.target.value))}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white focus:outline-none focus:border-cyan-400"
               required
             />
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-100">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
             <Button
               type="button"
               variant="ghost"

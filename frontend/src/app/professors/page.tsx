@@ -13,6 +13,7 @@ import {
   ExternalLink,
   ChevronRight,
   Briefcase,
+  Users,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import { ProfessorProfile, Department } from "@/types/api";
@@ -75,19 +76,23 @@ export default function ProfessorsPage() {
   });
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto">
+    <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+          <Users className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Faculty Directory</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
           Faculty &amp; Principal Investigator Directory
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
           Explore verified university researchers, ongoing laboratory grants, publications, and supervision availability.
         </p>
       </div>
 
       {/* Filter & Search Bar */}
-      <Card className="p-4 bg-white/90">
+      <Card className="p-4 bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-xl">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -97,7 +102,7 @@ export default function ProfessorsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              className="w-full pl-9 pr-4 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-slate-50/50"
+              className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-white/15 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 bg-slate-950 text-white placeholder-slate-400 shadow-md"
             />
           </div>
 
@@ -108,7 +113,7 @@ export default function ProfessorsPage() {
                 setSelectedDept(e.target.value);
                 handleSearch(e.target.value);
               }}
-              className="px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 text-slate-700"
+              className="px-3 py-2 text-xs rounded-xl border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
             >
               <option value="">All Departments</option>
               {(Array.isArray(departments) ? departments : []).map((d) => (
@@ -121,7 +126,7 @@ export default function ProfessorsPage() {
             <select
               value={availabilityFilter}
               onChange={(e) => setAvailabilityFilter(e.target.value)}
-              className="px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 text-slate-700"
+              className="px-3 py-2 text-xs rounded-xl border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
             >
               <option value="all">Any Availability</option>
               <option value="open">Open to Applications</option>
@@ -139,15 +144,15 @@ export default function ProfessorsPage() {
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="p-6 animate-pulse space-y-3">
-              <div className="w-1/3 h-4 bg-slate-200 rounded"></div>
-              <div className="w-2/3 h-3 bg-slate-200 rounded"></div>
-              <div className="w-full h-12 bg-slate-100 rounded"></div>
+            <Card key={i} className="p-6 animate-pulse space-y-3 bg-slate-900/60 border border-white/10">
+              <div className="w-1/3 h-4 bg-slate-800 rounded"></div>
+              <div className="w-2/3 h-3 bg-slate-800/80 rounded"></div>
+              <div className="w-full h-12 bg-slate-800/40 rounded"></div>
             </Card>
           ))}
         </div>
       ) : filteredProfessors.length === 0 ? (
-        <Card className="p-12 text-center text-slate-400 text-xs">
+        <Card className="p-12 text-center text-slate-400 text-xs bg-slate-900/60 border border-white/10">
           No faculty members match your criteria. Try adjusting your search query or department filter.
         </Card>
       ) : (
@@ -156,32 +161,33 @@ export default function ProfessorsPage() {
             <Card
               key={prof.id}
               hoverable
-              className="flex flex-col justify-between"
+              className="flex flex-col justify-between bg-slate-900/70 backdrop-blur-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
             >
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 font-bold text-base flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-base flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25">
                       {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
                         {prof.full_name || prof.profiles?.full_name || "Faculty Member"}
                       </h3>
-                      <p className="text-xs text-slate-500">{prof.academic_title || prof.title || "Professor"}</p>
+                      <p className="text-xs text-cyan-300 font-medium">{prof.academic_title || prof.title || "Professor"}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-1.5 shrink-0">
                     {appliedProfIds.has(prof.id) && (
-                      <Badge variant="teal" className="text-[10px] gap-1 font-semibold">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                      <Badge variant="teal" withDot className="text-[10px] gap-1 font-semibold">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                         <span>Applied</span>
                       </Badge>
                     )}
                     <Badge
                       variant={prof.open_to_applications ? "success" : "secondary"}
-                      className="text-[10px] shrink-0"
+                      withDot
+                      className="text-[10px] shrink-0 font-semibold"
                     >
                       {prof.open_to_applications
                         ? "Open to Students"
@@ -191,15 +197,15 @@ export default function ProfessorsPage() {
                 </div>
 
                 {(prof.bio || prof.profiles?.bio) && (
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
                     {prof.bio || prof.profiles?.bio}
                   </p>
                 )}
 
                 {/* Laboratory Info & Research Interests */}
                 <div className="space-y-2 pt-1">
-                  <div className="flex items-center gap-2 text-[11px] text-slate-500">
-                    <Building className="w-3.5 h-3.5 text-slate-400" />
+                  <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                    <Building className="w-3.5 h-3.5 text-cyan-400" />
                     <span>
                       {prof.lab_name || "Computer Science Research Group"}
                       {prof.office_location ? ` • ${prof.office_location}` : ""}
@@ -210,7 +216,7 @@ export default function ProfessorsPage() {
                     {(Array.isArray(prof.research_interests) ? prof.research_interests : []).map((ri: any, idx: number) => (
                       <span
                         key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
-                        className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium"
+                        className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-cyan-300 font-medium"
                       >
                         {typeof ri === "string" ? ri : ri.name}
                       </span>
@@ -220,11 +226,11 @@ export default function ProfessorsPage() {
               </CardContent>
 
               {/* Card Footer / Action */}
-              <div className="px-5 py-3 bg-slate-50/60 border-t border-slate-100 rounded-b-xl flex items-center justify-between">
-                <div className="text-[11px] text-slate-500 flex items-center gap-3">
+              <div className="px-5 py-3 bg-slate-950/60 border-t border-white/10 rounded-b-2xl flex items-center justify-between">
+                <div className="text-[11px] text-slate-400 flex items-center gap-3">
                   <span>
                     Supervising:{" "}
-                    <strong className="text-slate-800">
+                    <strong className="text-cyan-300">
                       {prof.current_supervision_count || 1}/{prof.max_capacity || 4}
                     </strong>
                   </span>

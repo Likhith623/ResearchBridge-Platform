@@ -220,10 +220,14 @@ export default function LoginPage() {
                 <div
                   key={rc.role}
                   onClick={() => handleRoleSelect(rc.role)}
-                  className={`relative p-5 rounded-2xl cursor-pointer transition-all duration-200 border text-left flex flex-col justify-between ${
+                  className={`relative p-5 rounded-2xl cursor-pointer transition-all duration-300 border text-left flex flex-col justify-between ${
                     isSelected
-                      ? "bg-slate-800/90 border-blue-500 shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/50"
-                      : "bg-slate-800/40 border-slate-700/60 hover:bg-slate-800/60 hover:border-slate-600"
+                      ? rc.role === "student"
+                        ? "bg-gradient-to-b from-slate-900/95 to-blue-950/60 border-blue-500 shadow-xl shadow-blue-500/20 ring-2 ring-blue-500/50 -translate-y-0.5"
+                        : rc.role === "professor"
+                        ? "bg-gradient-to-b from-slate-900/95 to-teal-950/60 border-teal-500 shadow-xl shadow-teal-500/20 ring-2 ring-teal-500/50 -translate-y-0.5"
+                        : "bg-gradient-to-b from-slate-900/95 to-purple-950/60 border-purple-500 shadow-xl shadow-purple-500/20 ring-2 ring-purple-500/50 -translate-y-0.5"
+                      : "bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/60 hover:border-slate-700 hover:-translate-y-1"
                   }`}
                 >
                   <div className="space-y-3">
@@ -430,12 +434,20 @@ export default function LoginPage() {
                 return (
                   <div
                     key={persona.id}
-                    className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-700 transition-all flex flex-col justify-between shadow-md"
+                    className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between shadow-md hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 font-bold text-sm flex items-center justify-center shrink-0 border border-blue-500/30">
+                          <div
+                            className={`w-9 h-9 rounded-xl font-bold text-sm flex items-center justify-center shrink-0 shadow-md ${
+                              persona.role === "student"
+                                ? "bg-gradient-to-tr from-blue-600 to-cyan-500 text-white shadow-blue-500/25"
+                                : persona.role === "professor"
+                                ? "bg-gradient-to-tr from-teal-600 to-emerald-400 text-white shadow-teal-500/25"
+                                : "bg-gradient-to-tr from-purple-600 to-pink-500 text-white shadow-purple-500/25"
+                            }`}
+                          >
                             {persona.name.charAt(0)}
                           </div>
                           <div>

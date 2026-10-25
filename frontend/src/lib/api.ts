@@ -271,6 +271,18 @@ class ApiClient {
     });
   }
 
+  async submitResearchRequest(payload: {
+    professor_id: string;
+    project_id?: string;
+    subject: string;
+    motivation_statement: string;
+    student_skills: string[];
+    proposed_availability_hours: number;
+    supporting_document_id?: string;
+  }): Promise<ResearchRequest> {
+    return this.createResearchRequest(payload);
+  }
+
   async acceptRequest(id: string, notes?: string): Promise<ResearchRequest> {
     return this.request<ResearchRequest>(`/research-requests/${id}/accept`, {
       method: "POST",
@@ -392,6 +404,10 @@ class ApiClient {
       method: "POST",
       body: JSON.stringify({ research_idea: researchIdea }),
     });
+  }
+
+  async breakdownProjectIdea(researchIdea: string): Promise<any> {
+    return this.breakdownProject(researchIdea);
   }
 
   // Recommendations

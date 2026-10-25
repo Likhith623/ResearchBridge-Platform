@@ -33,6 +33,7 @@ export function Sidebar() {
   const sections = [
     {
       title: "Core Discovery",
+      colorClass: "text-cyan-400",
       items: [
         {
           name: "Dashboard",
@@ -62,6 +63,7 @@ export function Sidebar() {
     },
     {
       title: "AI & Intelligence",
+      colorClass: "text-purple-400",
       items: [
         {
           name: "Talent Matcher",
@@ -104,6 +106,7 @@ export function Sidebar() {
     },
     {
       title: "Collaboration",
+      colorClass: "text-emerald-400",
       items: [
         {
           name: role === "professor" ? "Student Applications" : "My Applications",
@@ -121,6 +124,7 @@ export function Sidebar() {
     },
     {
       title: "Governance",
+      colorClass: "text-amber-400",
       items: [
         {
           name: "Admin Governance",
@@ -134,7 +138,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-slate-50/90 backdrop-blur-md border-r border-slate-200/80 shrink-0 flex flex-col justify-between hidden md:flex min-h-[calc(100vh-4rem)] select-none">
+    <aside className="w-64 bg-slate-950/70 backdrop-blur-2xl border-r border-white/10 shrink-0 flex flex-col justify-between hidden md:flex min-h-[calc(100vh-4rem)] select-none">
       <div className="p-4 space-y-6 overflow-y-auto">
         {sections.map((section) => {
           const visibleItems = section.items.filter(
@@ -145,8 +149,9 @@ export function Sidebar() {
 
           return (
             <div key={section.title} className="space-y-1">
-              <p className="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">
-                {section.title}
+              <p className={cn("px-3 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1.5", section.colorClass)}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
+                <span>{section.title}</span>
               </p>
               <nav className="space-y-0.5">
                 {visibleItems.map((item) => {
@@ -162,8 +167,8 @@ export function Sidebar() {
                       className={cn(
                         "flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 group relative",
                         isActive
-                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/20 font-semibold"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+                          ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 font-semibold ring-1 ring-white/20"
+                          : "text-slate-400 hover:text-white hover:bg-white/5 hover:translate-x-0.5"
                       )}
                     >
                       <div className="flex items-center gap-2.5">
@@ -172,7 +177,7 @@ export function Sidebar() {
                             "w-4 h-4 transition-colors shrink-0",
                             isActive
                               ? "text-white"
-                              : "text-slate-400 group-hover:text-blue-600"
+                              : "text-slate-400 group-hover:text-cyan-400"
                           )}
                         />
                         <span className="truncate">{item.name}</span>
@@ -184,7 +189,7 @@ export function Sidebar() {
                             "text-[9px] px-1.5 py-0.2 rounded font-semibold uppercase tracking-wider",
                             isActive
                               ? "bg-white/20 text-white"
-                              : "bg-blue-50 text-blue-700 border border-blue-200/60"
+                              : "bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shadow-[0_0_8px_rgba(99,102,241,0.25)]"
                           )}
                         >
                           {item.badge}
@@ -200,17 +205,17 @@ export function Sidebar() {
       </div>
 
       {/* Institutional Context & Session Card at Sidebar Bottom */}
-      <div className="p-3.5 border-t border-slate-200/80 bg-white/70 backdrop-blur-md space-y-3">
+      <div className="p-3.5 border-t border-white/10 bg-slate-900/60 backdrop-blur-xl space-y-3">
         <div className="flex items-center gap-2.5 p-1">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-md shadow-cyan-500/20">
             {(user?.full_name || "U").charAt(0)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold text-slate-800 truncate" suppressHydrationWarning>
+            <p className="text-xs font-semibold text-white truncate" suppressHydrationWarning>
               {user?.full_name || "Guest Scholar"}
             </p>
             <p className="text-[10px] text-slate-400 truncate capitalize flex items-center gap-1" suppressHydrationWarning>
-              <span className="font-medium text-blue-600">{role || "Visitor"}</span>
+              <span className="font-semibold text-cyan-400">{role || "Visitor"}</span>
               <span>•</span>
               <span className="truncate">{user?.department_name || "Stanford Univ"}</span>
             </p>
@@ -223,7 +228,7 @@ export function Sidebar() {
               await signOut();
               window.location.href = "/login";
             }}
-            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl border border-slate-200/80 hover:border-rose-200 hover:bg-rose-50/80 text-slate-500 hover:text-rose-600 text-[11px] font-medium transition-all duration-150 cursor-pointer shadow-2xs"
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl border border-white/10 hover:border-rose-500/40 hover:bg-rose-500/15 text-slate-400 hover:text-rose-300 text-[11px] font-semibold transition-all duration-150 cursor-pointer shadow-sm"
             title="Sign out of account"
           >
             <LogOut className="w-3.5 h-3.5" />
@@ -232,7 +237,7 @@ export function Sidebar() {
         ) : (
           <Link
             href="/login"
-            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-[11px] font-semibold transition-all shadow-sm shadow-blue-500/20"
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-[11px] font-semibold transition-all shadow-md shadow-indigo-500/25"
           >
             <UserCheck className="w-3.5 h-3.5" />
             <span>Sign In / Choose Role</span>

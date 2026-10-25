@@ -87,9 +87,9 @@ export default function AdminPage() {
   if (role !== "admin") {
     return (
       <div className="max-w-md mx-auto text-center py-20 space-y-3">
-        <ShieldCheck className="w-12 h-12 text-slate-300 mx-auto" />
-        <h2 className="text-lg font-bold text-slate-900">Administrator Access Required</h2>
-        <p className="text-xs text-slate-500">
+        <ShieldCheck className="w-12 h-12 text-slate-500 mx-auto" />
+        <h2 className="text-lg font-bold text-white">Administrator Access Required</h2>
+        <p className="text-xs text-slate-400">
           Switch to the System Admin persona in the top navigation bar to access this governance module.
         </p>
       </div>
@@ -97,40 +97,44 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(244,63,94,0.2)]">
+          <ShieldCheck className="w-3.5 h-3.5 text-rose-400" />
+          <span>Institutional Governance</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
           University Research Governance &amp; Administration
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
           Review faculty verification credentials, enforce account status policies, and audit platform activity.
         </p>
       </div>
 
       {actionSuccess && (
-        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-          <CheckCircle className="w-4 h-4 text-emerald-600" />
+        <div className="p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+          <CheckCircle className="w-4 h-4 text-emerald-400" />
           <span>{actionSuccess}</span>
         </div>
       )}
 
       {/* Pending Faculty Applications */}
-      <Card>
-        <CardHeader>
+      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-white/10">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-base">
+              <CardTitle className="text-base font-bold text-white">
                 Pending Faculty Verification Requests ({(Array.isArray(pendingProfessors) ? pendingProfessors : []).length})
               </CardTitle>
-              <CardDescription className="text-xs">
+              <CardDescription className="text-xs text-slate-400">
                 Applicants requesting professor privileges requiring administrative credential verification
               </CardDescription>
             </div>
-            <Badge variant="warning">Action Required</Badge>
+            <Badge variant="warning" withDot className="font-bold">Action Required</Badge>
           </div>
         </CardHeader>
-        <CardContent className="divide-y divide-slate-100 p-0">
+        <CardContent className="divide-y divide-white/5 p-0">
           {isLoading ? (
             <div className="p-8 text-center text-xs text-slate-400">Loading requests...</div>
           ) : (Array.isArray(pendingProfessors) ? pendingProfessors : []).length === 0 ? (
@@ -139,31 +143,31 @@ export default function AdminPage() {
             </div>
           ) : (
             (Array.isArray(pendingProfessors) ? pendingProfessors : []).map((p) => (
-              <div key={p.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div key={p.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-white/5 transition-colors">
                 <div className="space-y-1 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-900 text-sm">
+                    <span className="font-bold text-white text-sm">
                       {p.academic_title || "Professor Applicant"}
                     </span>
-                    <Badge variant="outline" className="text-[10px]">
+                    <Badge variant="outline" className="text-[10px] text-cyan-300">
                       {p.institutional_email}
                     </Badge>
                   </div>
-                  <p className="text-slate-500">
-                    Institution: <strong>{p.institution_name || "Stanford University"}</strong>
+                  <p className="text-slate-400">
+                    Institution: <strong className="text-white">{p.institution_name || "Stanford University"}</strong>
                     {p.department_name ? ` • Department: ${p.department_name}` : ""}
                   </p>
                   {p.verification_notes && (
-                    <p className="text-slate-600 italic">Notes: "{p.verification_notes}"</p>
+                    <p className="text-slate-300 italic">Notes: "{p.verification_notes}"</p>
                   )}
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
                   <Button
                     size="sm"
-                    variant="primary"
+                    variant="teal"
                     onClick={() => handleApprove(p.id)}
-                    className="text-xs bg-emerald-600 hover:bg-emerald-700"
+                    className="text-xs"
                   >
                     Approve Faculty
                   </Button>
@@ -184,47 +188,47 @@ export default function AdminPage() {
 
       {/* Feature 10: Algorithmic Fair Opportunity & Diversity Monitor */}
       {fairnessReport && (
-        <Card className="border-slate-200">
-          <CardHeader>
+        <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+          <CardHeader className="border-b border-white/10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <CardTitle className="text-base flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   <span>Fair Opportunity &amp; Academic Diversity Monitor</span>
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-xs text-slate-400">
                   Automated parity ledger monitoring equitable recommendation dispersion and interdisciplinary access
                 </CardDescription>
               </div>
-              <Badge variant={fairnessReport.fairness_audit_passed ? "success" : "warning"} className="text-xs shrink-0 font-bold">
+              <Badge variant={fairnessReport.fairness_audit_passed ? "success" : "warning"} withDot className="text-xs shrink-0 font-bold">
                 {fairnessReport.fairness_audit_passed ? "Fairness Audit Certified" : "Audit Review Advised"}
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 p-6">
             {/* Parity Metric Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="p-3.5 rounded-xl bg-slate-800/60 border border-white/10">
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Evaluated Students</span>
-                <span className="text-xl font-bold text-slate-900 mt-1 block">
+                <span className="text-xl font-extrabold text-white mt-1 block">
                   {fairnessReport.total_evaluated_students ?? 120}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-100">
-                <span className="text-[10px] uppercase font-bold text-blue-500 block">Unique Matches</span>
-                <span className="text-xl font-bold text-blue-700 mt-1 block">
+              <div className="p-3.5 rounded-xl bg-blue-950/40 border border-blue-500/30">
+                <span className="text-[10px] uppercase font-bold text-blue-300 block">Unique Matches</span>
+                <span className="text-xl font-extrabold text-cyan-300 mt-1 block">
                   {fairnessReport.total_unique_students_recommended ?? 88}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100">
-                <span className="text-[10px] uppercase font-bold text-emerald-600 block">Dispersal Gini Index</span>
-                <span className="text-xl font-bold text-emerald-700 mt-1 block">
+              <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
+                <span className="text-[10px] uppercase font-bold text-emerald-300 block">Dispersal Gini Index</span>
+                <span className="text-xl font-extrabold text-emerald-300 mt-1 block">
                   {(fairnessReport.recommendation_concentration_index ?? 0.24).toFixed(2)}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
-                <span className="text-[10px] uppercase font-bold text-indigo-500 block">Beginner Openings</span>
-                <span className="text-xl font-bold text-indigo-700 mt-1 block">
+              <div className="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30">
+                <span className="text-[10px] uppercase font-bold text-indigo-300 block">Beginner Openings</span>
+                <span className="text-xl font-extrabold text-indigo-300 mt-1 block">
                   {Math.round((fairnessReport.beginner_friendly_openings_ratio ?? 0.45) * 100)}%
                 </span>
               </div>
@@ -232,23 +236,23 @@ export default function AdminPage() {
 
             {/* Department Diversity Distribution Table */}
             {Array.isArray(fairnessReport.department_metrics) && fairnessReport.department_metrics.length > 0 && (
-              <div className="rounded-xl border border-slate-200 overflow-hidden">
+              <div className="rounded-xl border border-white/10 overflow-hidden bg-slate-950/40">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                  <thead className="bg-slate-900 text-slate-400 font-semibold border-b border-white/10">
                     <tr>
-                      <th className="py-2 px-3.5">Department</th>
-                      <th className="py-2 px-3.5">Total Scholars</th>
-                      <th className="py-2 px-3.5">Recommended</th>
-                      <th className="py-2 px-3.5 text-right">Coverage Rate</th>
+                      <th className="py-2.5 px-3.5">Department</th>
+                      <th className="py-2.5 px-3.5">Total Scholars</th>
+                      <th className="py-2.5 px-3.5">Recommended</th>
+                      <th className="py-2.5 px-3.5 text-right">Coverage Rate</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-white/5">
                     {fairnessReport.department_metrics.map((dm: any, i: number) => (
-                      <tr key={i} className="hover:bg-slate-50/50">
-                        <td className="py-2 px-3.5 font-medium text-slate-800">{dm.department_name}</td>
-                        <td className="py-2 px-3.5 text-slate-600">{dm.total_students}</td>
-                        <td className="py-2 px-3.5 text-slate-600">{dm.recommended_count}</td>
-                        <td className="py-2 px-3.5 text-right font-semibold text-emerald-600">
+                      <tr key={i} className="hover:bg-white/5">
+                        <td className="py-2 px-3.5 font-medium text-white">{dm.department_name}</td>
+                        <td className="py-2 px-3.5 text-slate-300">{dm.total_students}</td>
+                        <td className="py-2 px-3.5 text-slate-300">{dm.recommended_count}</td>
+                        <td className="py-2 px-3.5 text-right font-bold text-emerald-400">
                           {Math.round(dm.coverage_rate * 100)}%
                         </td>
                       </tr>
@@ -260,11 +264,11 @@ export default function AdminPage() {
 
             {/* Audit Notes */}
             {Array.isArray(fairnessReport.audit_notes) && fairnessReport.audit_notes.length > 0 && (
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+              <div className="p-3.5 rounded-xl bg-slate-800/40 border border-white/10 space-y-1">
+                <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block">
                   Algorithmic Observations
                 </span>
-                <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-300">
                   {fairnessReport.audit_notes.map((note: string, idx: number) => (
                     <li key={idx}>{note}</li>
                   ))}
@@ -276,31 +280,31 @@ export default function AdminPage() {
       )}
 
       {/* Audit Logs */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <History className="w-4 h-4 text-blue-600" />
+      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-white/10">
+          <CardTitle className="text-base font-bold text-white flex items-center gap-2">
+            <History className="w-4 h-4 text-cyan-400" />
             <span>Administrative Audit Log</span>
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-xs text-slate-400">
             Immutable security ledger tracking platform decisions and permission changes
           </CardDescription>
         </CardHeader>
-        <CardContent className="divide-y divide-slate-100 p-0">
+        <CardContent className="divide-y divide-white/5 p-0">
           {(Array.isArray(auditLogs) ? auditLogs : []).length === 0 ? (
             <div className="p-8 text-center text-xs text-slate-400">
               No audit log entries recorded yet.
             </div>
           ) : (
             (Array.isArray(auditLogs) ? auditLogs : []).slice(0, 10).map((log, i) => (
-              <div key={i} className="p-4 flex items-center justify-between text-xs hover:bg-slate-50/50">
+              <div key={i} className="p-4 flex items-center justify-between text-xs hover:bg-white/5 transition-colors">
                 <div className="space-y-0.5">
-                  <span className="font-semibold text-slate-900">{log.action}</span>
-                  <p className="text-slate-500 text-[11px]">
+                  <span className="font-semibold text-white">{log.action}</span>
+                  <p className="text-slate-400 text-[11px]">
                     Target: {log.target_table} ({String(log.target_id || "").slice(0, 8)}...)
                   </p>
                 </div>
-                <span className="text-[10px] text-slate-400">
+                <span className="text-[10px] text-cyan-300 font-mono">
                   {formatDate(log.created_at)}
                 </span>
               </div>

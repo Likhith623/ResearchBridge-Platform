@@ -89,15 +89,19 @@ export default function RequestsPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto">
+    <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+          <Send className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Application Tracker</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
           {role === "professor"
             ? "Student Research Applications & Decisions"
             : "My Research Collaboration Inquiries"}
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
           {role === "professor"
             ? "Review applicants, examine demonstrated technical skills, request clarifications, and accept laboratory members."
             : "Track real-time evaluation status, professor feedback, and decision history."}
@@ -105,16 +109,17 @@ export default function RequestsPage() {
       </div>
 
       {/* Requests Table / Cards */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            All Applications ({(Array.isArray(requests) ? requests : []).length})
+      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-white/10">
+          <CardTitle className="text-base font-bold text-white flex items-center justify-between">
+            <span>All Applications</span>
+            <span className="text-xs text-cyan-400">({(Array.isArray(requests) ? requests : []).length})</span>
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-xs text-slate-400">
             Persistent records synchronized with university research governance
           </CardDescription>
         </CardHeader>
-        <CardContent className="divide-y divide-slate-100 p-0">
+        <CardContent className="divide-y divide-white/5 p-0">
           {isLoading ? (
             <div className="p-8 text-center text-xs text-slate-400">
               Loading research requests...
@@ -127,27 +132,28 @@ export default function RequestsPage() {
             (Array.isArray(requests) ? requests : []).map((req) => (
               <div
                 key={req.id}
-                className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors"
+                className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-white/5 transition-colors"
               >
                 <div className="space-y-1.5 min-w-0 max-w-xl">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-sm font-bold text-slate-900 truncate">
+                    <h3 className="text-sm font-bold text-white truncate">
                       {req.subject}
                     </h3>
                     <Badge
                       variant={statusVariantMap[req.status] || "default"}
-                      className="text-[10px] capitalize"
+                      withDot
+                      className="text-[10px] capitalize font-bold"
                     >
                       {(req.status || "submitted").replace(/_/g, " ")}
                     </Badge>
                   </div>
 
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
                     {req.motivation_statement}
                   </p>
 
                   <div className="flex items-center gap-3 text-[11px] text-slate-400 pt-1">
-                    <span>
+                    <span className="text-cyan-300">
                       {role === "professor"
                         ? `Applicant: ${req.student_name || "Student"}`
                         : `Supervisor: ${req.professor_name || "Faculty Supervisor"}`}
@@ -163,7 +169,7 @@ export default function RequestsPage() {
                       {req.student_skills.map((s, idx) => (
                         <span
                           key={idx}
-                          className="text-[9px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600"
+                          className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-cyan-300 font-medium"
                         >
                           {s}
                         </span>
@@ -175,8 +181,8 @@ export default function RequestsPage() {
                 {/* Actions depending on Role and Status */}
                 <div className="flex items-center gap-2 shrink-0">
                   <Link href="/messages">
-                    <Button size="sm" variant="outline" className="text-xs gap-1">
-                      <MessageSquare className="w-3.5 h-3.5" />
+                    <Button size="sm" variant="outline" className="text-xs gap-1 border-white/15 text-slate-200 hover:text-white">
+                      <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
                       <span>Chat</span>
                     </Button>
                   </Link>
@@ -185,11 +191,11 @@ export default function RequestsPage() {
                     <>
                       <Button
                         size="sm"
-                        variant="primary"
+                        variant="teal"
                         onClick={() =>
                           setDecisionModal({ type: "accept", requestId: req.id })
                         }
-                        className="text-xs bg-emerald-600 hover:bg-emerald-700"
+                        className="text-xs"
                       >
                         Accept
                       </Button>
@@ -223,7 +229,7 @@ export default function RequestsPage() {
                       onClick={() =>
                         setDecisionModal({ type: "withdraw", requestId: req.id })
                       }
-                      className="text-xs text-rose-600 border-rose-200 hover:bg-rose-50"
+                      className="text-xs text-rose-400 border-rose-500/30 hover:bg-rose-500/15"
                     >
                       Withdraw
                     </Button>
@@ -253,7 +259,7 @@ export default function RequestsPage() {
       >
         <div className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-800 mb-1">
+            <label className="block font-semibold text-slate-300 mb-1">
               {decisionModal?.type === "info" ? "Questions for Student" : "Decision Notes"}
             </label>
             <textarea
@@ -267,11 +273,11 @@ export default function RequestsPage() {
                   ? "e.g. Please link your GitHub repository or relevant coursework grades."
                   : "Notes for student..."
               }
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+              className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
             />
           </div>
 
-          <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
+          <div className="pt-3 flex items-center justify-end gap-2 border-t border-white/10">
             <Button
               variant="ghost"
               size="sm"

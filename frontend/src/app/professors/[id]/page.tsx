@@ -98,38 +98,34 @@ export default function ProfessorDetailPage() {
       setSubmitError("Subject must be at least 3 characters.");
       return;
     }
-    if (motivation.trim().length < 20) {
-      setSubmitError("Motivation statement must be at least 20 characters.");
-      return;
-    }
 
     setIsSubmitting(true);
     setSubmitError(null);
-    try {
-      const skillsArray = skills
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
 
-      const createdReq = await api.createResearchRequest({
+    try {
+      await api.submitResearchRequest({
         professor_id: profId,
         project_id: selectedProjectId || undefined,
         subject,
         motivation_statement: motivation,
-        student_skills: skillsArray.length > 0 ? skillsArray : ["Python", "Research Analysis"],
+        student_skills: skills
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
         proposed_availability_hours: Number(hours),
       });
-      setExistingApplication(createdReq);
 
-      setSubmitSuccess("Your research collaboration application was submitted successfully!");
+      setSubmitSuccess("Your research application was successfully submitted!");
+      setExistingApplication({ status: "submitted" });
       setTimeout(() => {
         setIsApplyModalOpen(false);
         setSubmitSuccess(null);
         setSubject("");
         setMotivation("");
-      }, 2000);
+        setSkills("");
+      }, 2500);
     } catch (err: any) {
-      setSubmitError(err.message || "Failed to submit application.");
+      setSubmitError(err.message || "Failed to submit application");
     } finally {
       setIsSubmitting(false);
     }
@@ -137,17 +133,17 @@ export default function ProfessorDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="max-w-5xl mx-auto space-y-6 animate-pulse">
-        <div className="h-40 bg-slate-200 rounded-2xl"></div>
-        <div className="h-64 bg-slate-100 rounded-2xl"></div>
+      <div className="max-w-4xl mx-auto py-12 space-y-6">
+        <div className="h-40 bg-slate-800/60 rounded-2xl animate-pulse"></div>
+        <div className="h-64 bg-slate-800/40 rounded-2xl animate-pulse"></div>
       </div>
     );
   }
 
   if (!professor) {
     return (
-      <div className="max-w-md mx-auto text-center py-16 space-y-4">
-        <p className="text-slate-500 text-sm">Faculty profile could not be found.</p>
+      <div className="max-w-md mx-auto text-center py-20 space-y-4">
+        <p className="text-slate-400 text-sm">Faculty profile could not be found.</p>
         <Link href="/professors">
           <Button variant="outline" size="sm">
             Return to Directory
@@ -158,40 +154,41 @@ export default function ProfessorDetailPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-6 pb-12">
       {/* Back button */}
       <Link
         href="/professors"
-        className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         <span>Back to Faculty Directory</span>
       </Link>
 
       {/* Professor Header Card */}
-      <Card className="p-6 sm:p-8 bg-white border-slate-200/90 shadow-sm">
+      <Card className="p-6 sm:p-8 bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-md">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/25">
               {(professor.full_name || professor.profiles?.full_name || "P").charAt(0)}
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {professor.full_name || professor.profiles?.full_name || "Faculty Supervisor"}
                 </h1>
                 <Badge
                   variant={professor.open_to_applications ? "success" : "secondary"}
-                  className="text-xs"
+                  withDot
+                  className="text-xs font-bold"
                 >
                   {professor.open_to_applications ? "Open to Students" : "At Capacity"}
                 </Badge>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              <p className="text-xs sm:text-sm text-cyan-300 font-medium">
                 {professor.academic_title || professor.title || "Professor"}
               </p>
               <p className="text-xs text-slate-400 flex items-center gap-2">
-                <Building className="w-3.5 h-3.5" />
+                <Building className="w-3.5 h-3.5 text-cyan-400" />
                 <span>
                   {professor.lab_name || "Research Group"} •{" "}
                   {professor.office_location || "Campus Office"}
@@ -202,8 +199,8 @@ export default function ProfessorDetailPage() {
 
           {existingApplication ? (
             <div className="flex flex-col sm:flex-row items-center gap-2">
-              <div className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-1.5 shadow-xs">
-                <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <div className="px-3.5 py-2 rounded-xl bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                <CheckCircle className="w-4 h-4 text-emerald-400" />
                 <span>
                   Application Submitted (
                   {(existingApplication.status || "under_review").replace(/_/g, " ")}
@@ -211,7 +208,7 @@ export default function ProfessorDetailPage() {
                 </span>
               </div>
               <Link href="/requests">
-                <Button size="sm" variant="outline" className="text-xs">
+                <Button size="sm" variant="outline" className="text-xs border-white/15 text-slate-200 hover:text-white">
                   View in Applications →
                 </Button>
               </Link>
@@ -221,7 +218,7 @@ export default function ProfessorDetailPage() {
               size="md"
               variant="primary"
               onClick={() => setIsApplyModalOpen(true)}
-              className="w-full sm:w-auto text-xs gap-1.5 shadow-md shadow-blue-600/20"
+              className="w-full sm:w-auto text-xs gap-1.5 shadow-lg shadow-indigo-500/25"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Apply for Research Supervision</span>
@@ -230,13 +227,13 @@ export default function ProfessorDetailPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-4 border-b border-slate-100 mt-8 text-xs font-semibold">
+        <div className="flex gap-4 border-b border-white/10 mt-8 text-xs font-semibold">
           <button
             onClick={() => setActiveTab("overview")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer ${
               activeTab === "overview"
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                ? "border-cyan-400 text-cyan-400"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
             Academic Overview
@@ -245,8 +242,8 @@ export default function ProfessorDetailPage() {
             onClick={() => setActiveTab("publications")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
               activeTab === "publications"
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                ? "border-cyan-400 text-cyan-400"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
             <span>Publications</span>
@@ -258,8 +255,8 @@ export default function ProfessorDetailPage() {
             onClick={() => setActiveTab("projects")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
               activeTab === "projects"
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                ? "border-cyan-400 text-cyan-400"
+                : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
             <span>Open Projects</span>
@@ -274,27 +271,27 @@ export default function ProfessorDetailPage() {
       {activeTab === "overview" && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Biography & Research Vision</CardTitle>
+            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-white/10">
+                <CardTitle className="text-base font-bold text-white">Biography & Research Vision</CardTitle>
               </CardHeader>
-              <CardContent className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+              <CardContent className="text-xs text-slate-300 leading-relaxed whitespace-pre-line p-6">
                 {professor.bio ||
                   professor.profiles?.bio ||
                   "Conducting foundational and applied scientific research in modern computer systems and artificial intelligence."}
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Research Focus Areas</CardTitle>
+            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-white/10">
+                <CardTitle className="text-base font-bold text-white">Research Focus Areas</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="flex flex-wrap gap-2">
                   {(Array.isArray(professor.research_interests) ? professor.research_interests : []).map((ri: any, idx: number) => (
                     <div
                       key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
-                      className="px-3 py-1.5 rounded-lg bg-blue-50/70 border border-blue-200 text-blue-800 text-xs font-medium"
+                      className="px-3 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-medium"
                     >
                       {typeof ri === "string" ? ri : ri.name}
                     </div>
@@ -305,26 +302,26 @@ export default function ProfessorDetailPage() {
           </div>
 
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">Supervision Parameters</CardTitle>
+            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-white/10">
+                <CardTitle className="text-sm font-bold text-white">Supervision Parameters</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 text-xs">
-                <div className="flex justify-between py-1 border-b border-slate-100">
-                  <span className="text-slate-500">Active Students</span>
-                  <span className="font-semibold text-slate-900">
+              <CardContent className="space-y-3 text-xs p-6">
+                <div className="flex justify-between py-1 border-b border-white/10">
+                  <span className="text-slate-400">Active Students</span>
+                  <span className="font-semibold text-white">
                     {professor.current_supervision_count || 1} / {professor.max_capacity || 4}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-100">
-                  <span className="text-slate-500">Weekly Commitment</span>
-                  <span className="font-semibold text-slate-900">
+                <div className="flex justify-between py-1 border-b border-white/10">
+                  <span className="text-slate-400">Weekly Commitment</span>
+                  <span className="font-semibold text-white">
                     ~{professor.preferred_weekly_hours || 12} hrs/week
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Application Status</span>
-                  <span className="font-semibold text-emerald-600">
+                  <span className="text-slate-400">Application Status</span>
+                  <span className="font-bold text-emerald-400">
                     {professor.open_to_applications ? "Accepting Applicants" : "Full Capacity"}
                   </span>
                 </div>
@@ -336,14 +333,14 @@ export default function ProfessorDetailPage() {
 
       {/* Tab 2: Publications */}
       {activeTab === "publications" && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Authored Academic Papers</CardTitle>
-            <CardDescription className="text-xs">
+        <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+          <CardHeader className="border-b border-white/10">
+            <CardTitle className="text-base font-bold text-white">Authored Academic Papers</CardTitle>
+            <CardDescription className="text-xs text-slate-400">
               Peer-reviewed articles, conference proceedings, and technical preprints
             </CardDescription>
           </CardHeader>
-          <CardContent className="divide-y divide-slate-100">
+          <CardContent className="divide-y divide-white/5 p-6">
             {(Array.isArray(publications) ? publications : []).length === 0 ? (
               <div className="py-8 text-center text-xs text-slate-400">
                 No publications listed yet.
@@ -351,16 +348,16 @@ export default function ProfessorDetailPage() {
             ) : (
               (Array.isArray(publications) ? publications : []).map((pub) => (
                 <div key={pub.id} className="py-4 space-y-1.5">
-                  <h4 className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                  <h4 className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors">
                     {pub.title}
                   </h4>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-cyan-300">
                     {pub.venue ? `${pub.venue} ` : ""}
                     {pub.year ? `(${pub.year})` : ""}
                     {pub.doi ? ` • DOI: ${pub.doi}` : ""}
                   </p>
                   {pub.abstract && (
-                    <p className="text-xs text-slate-600 leading-relaxed pt-1 line-clamp-3">
+                    <p className="text-xs text-slate-300 leading-relaxed pt-1 line-clamp-3">
                       {pub.abstract}
                     </p>
                   )}
@@ -375,28 +372,28 @@ export default function ProfessorDetailPage() {
       {activeTab === "projects" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {(Array.isArray(projects) ? projects : []).length === 0 ? (
-            <Card className="col-span-2 p-12 text-center text-slate-400 text-xs">
+            <Card className="col-span-2 p-12 text-center text-slate-400 text-xs bg-slate-900/60 border border-white/10">
               No active project openings currently listed. You can still submit a general research inquiry!
             </Card>
           ) : (
             (Array.isArray(projects) ? projects : []).map((proj) => (
-              <Card key={proj.id} className="p-5 space-y-3 flex flex-col justify-between">
+              <Card key={proj.id} className="p-5 space-y-3 flex flex-col justify-between bg-slate-900/70 backdrop-blur-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-sm font-bold text-slate-900">{proj.title}</h4>
-                    <Badge variant="teal" className="text-[10px]">
+                    <h4 className="text-sm font-bold text-white">{proj.title}</h4>
+                    <Badge variant="teal" withDot className="text-[10px] font-bold">
                       {proj.openings_count} Openings
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed">
                     {proj.summary}
                   </p>
                 </div>
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-slate-500">{proj.weekly_hours} hrs/week</span>
+                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span className="text-slate-400">{proj.weekly_hours} hrs/week</span>
                   <Button
                     size="sm"
-                    variant="outline"
+                    variant="primary"
                     onClick={() => {
                       setSelectedProjectId(proj.id);
                       setSubject(`Application for: ${proj.title}`);
@@ -423,20 +420,20 @@ export default function ProfessorDetailPage() {
       >
         {submitSuccess ? (
           <div className="p-6 text-center space-y-3">
-            <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto animate-bounce" />
-            <h4 className="text-base font-bold text-slate-900">Application Submitted!</h4>
-            <p className="text-xs text-slate-600 max-w-sm mx-auto">{submitSuccess}</p>
+            <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto animate-bounce" />
+            <h4 className="text-base font-bold text-white">Application Submitted!</h4>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto">{submitSuccess}</p>
           </div>
         ) : (
           <form onSubmit={handleApplySubmit} className="space-y-4 text-xs">
             {submitError && (
-              <div className="p-3 rounded-lg bg-rose-50 text-rose-700 border border-rose-200">
+              <div className="p-3 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30">
                 {submitError}
               </div>
             )}
 
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Subject
               </label>
               <input
@@ -444,20 +441,20 @@ export default function ProfessorDetailPage() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="e.g. Undergraduate Research Inquiry — Machine Learning Lab"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 required
               />
             </div>
 
             {(Array.isArray(projects) ? projects : []).length > 0 && (
               <div>
-                <label className="block font-semibold text-slate-800 mb-1">
+                <label className="block font-semibold text-slate-300 mb-1">
                   Associated Project Opening (Optional)
                 </label>
                 <select
                   value={selectedProjectId}
                   onChange={(e) => setSelectedProjectId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 >
                   <option value="">General Lab Inquiry (No specific project)</option>
                   {(Array.isArray(projects) ? projects : []).map((p) => (
@@ -470,7 +467,7 @@ export default function ProfessorDetailPage() {
             )}
 
             <div>
-              <label className="block font-semibold text-slate-800 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1">
                 Motivation Statement & Background
               </label>
               <textarea
@@ -478,14 +475,14 @@ export default function ProfessorDetailPage() {
                 onChange={(e) => setMotivation(e.target.value)}
                 rows={4}
                 placeholder="Explain why you want to work with this lab, what specific papers or problems interest you, and your relevant coursework/projects..."
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-semibold text-slate-800 mb-1">
+                <label className="block font-semibold text-slate-300 mb-1">
                   Demonstrated Skills (Comma separated)
                 </label>
                 <input
@@ -493,12 +490,12 @@ export default function ProfessorDetailPage() {
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
                   placeholder="Python, PyTorch, C++, Linear Algebra"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-800 mb-1">
+                <label className="block font-semibold text-slate-300 mb-1">
                   Available Weekly Hours
                 </label>
                 <input
@@ -507,12 +504,12 @@ export default function ProfessorDetailPage() {
                   max={40}
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
+                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
                 />
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-100">
+            <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
               <Button
                 type="button"
                 variant="ghost"
