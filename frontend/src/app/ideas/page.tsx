@@ -246,7 +246,7 @@ export default function IdeasPage() {
       >
         <form onSubmit={handleCreateIdea} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Concept Title
             </label>
             <input
@@ -254,13 +254,13 @@ export default function IdeasPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="e.g. Neuromorphic Sensor Benchmarking for Edge Computing"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Problem Statement
             </label>
             <textarea
@@ -268,13 +268,13 @@ export default function IdeasPage() {
               onChange={(e) => setNewProblem(e.target.value)}
               rows={3}
               placeholder="What core scientific or engineering bottleneck needs to be investigated?"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Vision for Prototype / Desired Outcome
             </label>
             <textarea
@@ -282,12 +282,12 @@ export default function IdeasPage() {
               onChange={(e) => setNewVision(e.target.value)}
               rows={3}
               placeholder="What would a successful 8-week demonstration look like?"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
             <Button
               type="button"
               variant="ghost"
@@ -313,25 +313,25 @@ export default function IdeasPage() {
         {proposalSuccess ? (
           <div className="p-6 text-center space-y-3">
             <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto animate-bounce" />
-            <p className="text-sm font-bold text-white">{proposalSuccess}</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">{proposalSuccess}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmitProposal} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Proposal Title
               </label>
               <input
                 type="text"
                 value={proposalTitle}
                 onChange={(e) => setProposalTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Proposed Technical Approach &amp; Milestones
               </label>
               <textarea
@@ -339,13 +339,13 @@ export default function IdeasPage() {
                 onChange={(e) => setApproach(e.target.value)}
                 rows={4}
                 placeholder="Detail your algorithms, datasets, benchmark methods, and weekly plan..."
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Your Role in the Prototype
               </label>
               <input
@@ -353,12 +353,12 @@ export default function IdeasPage() {
                 value={contributorRole}
                 onChange={(e) => setContributorRole(e.target.value)}
                 placeholder="e.g. Lead Machine Learning Engineer"
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 required
               />
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+            <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
               <Button
                 type="button"
                 variant="ghost"

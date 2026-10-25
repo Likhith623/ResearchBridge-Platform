@@ -263,15 +263,15 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-200/80 dark:border-white/10 flex flex-wrap items-center justify-between gap-2">
+              <div className="pt-4 mt-4 border-t border-slate-200/80 dark:border-white/10 flex flex-col xs:flex-row xs:items-center justify-between gap-2.5">
                 <Link
                   href={`/professors/${proj.professor_id}`}
-                  className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 hover:underline flex items-center gap-1"
+                  className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 hover:underline flex items-center gap-1 self-start xs:self-auto"
                 >
                   <span>Supervisor Profile</span>
                 </Link>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 w-full xs:w-auto justify-end">
                   <Button
                     size="sm"
                     variant="outline"
@@ -458,7 +458,7 @@ export default function ProjectsPage() {
       >
         <form onSubmit={handleCreateProject} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Project Title
             </label>
             <input
@@ -466,13 +466,13 @@ export default function ProjectsPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="e.g. Distributed Consensus in Asynchronous Networks"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               One-Sentence Summary
             </label>
             <input
@@ -480,23 +480,23 @@ export default function ProjectsPage() {
               value={newSummary}
               onChange={(e) => setNewSummary(e.target.value)}
               placeholder="Brief summary of the research questions and objectives."
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="font-semibold text-slate-300">
+              <label className="font-semibold text-slate-700 dark:text-slate-300">
                 Full Project Description &amp; Milestones
               </label>
               <button
                 type="button"
                 onClick={handleAIProjectBreakdown}
                 disabled={isBreakingDown}
-                className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer"
+                className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-500 animate-spin-slow" />
                 <span>{isBreakingDown ? "Decomposing..." : "AI Auto-Breakdown"}</span>
               </button>
             </div>
@@ -505,14 +505,14 @@ export default function ProjectsPage() {
               onChange={(e) => setNewDescription(e.target.value)}
               rows={5}
               placeholder="Detail the technical stack, data pipelines, expected deliverables, and milestones..."
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 font-mono text-[11px] focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-mono text-[11px] focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Expected Weekly Hours
               </label>
               <input
@@ -521,12 +521,12 @@ export default function ProjectsPage() {
                 max={40}
                 value={newHours}
                 onChange={(e) => setNewHours(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white focus:outline-none focus:border-cyan-400"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Openings Count
               </label>
               <input
@@ -535,12 +535,12 @@ export default function ProjectsPage() {
                 max={10}
                 value={newOpenings}
                 onChange={(e) => setNewOpenings(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white focus:outline-none focus:border-cyan-400"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
               />
             </div>
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
             <Button
               type="button"
               variant="ghost"
@@ -566,25 +566,25 @@ export default function ProjectsPage() {
         {applySuccess ? (
           <div className="p-6 text-center space-y-3">
             <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto animate-bounce" />
-            <p className="text-sm font-bold text-white">{applySuccess}</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">{applySuccess}</p>
           </div>
         ) : (
           <form onSubmit={handleApplySubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Subject
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Motivation &amp; Relevant Coursework
               </label>
               <textarea
@@ -592,26 +592,26 @@ export default function ProjectsPage() {
                 onChange={(e) => setMotivation(e.target.value)}
                 rows={4}
                 placeholder="Why are you a strong fit for this project?"
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Skills
                 </label>
                 <input
                   type="text"
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Weekly Hours Available
                 </label>
                 <input
@@ -620,12 +620,12 @@ export default function ProjectsPage() {
                   max={40}
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+            <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
               <Button
                 type="button"
                 variant="ghost"

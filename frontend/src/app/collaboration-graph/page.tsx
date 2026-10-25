@@ -66,35 +66,35 @@ export default function CollaborationGraphPage() {
       </div>
 
       {/* Network Stats Bar: 4 Vibrant Gradient Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="p-4 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30">
-          <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
-            Network Entities
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+        <Card className="p-3 sm:p-4 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30">
+          <p className="text-[10px] sm:text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider truncate">
+            Entities
           </p>
-          <p className="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{nodes.length}</p>
+          <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{nodes.length}</p>
         </Card>
 
-        <Card className="p-4 border border-indigo-200 dark:border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-white/90 to-purple-500/5 dark:from-indigo-950/60 dark:via-slate-900/80 dark:to-purple-900/40 shadow-xl shadow-indigo-500/5 dark:shadow-indigo-950/30">
-          <p className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider">
-            Collaboration Edges
+        <Card className="p-3 sm:p-4 border border-indigo-200 dark:border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-white/90 to-purple-500/5 dark:from-indigo-950/60 dark:via-slate-900/80 dark:to-purple-900/40 shadow-xl shadow-indigo-500/5 dark:shadow-indigo-950/30">
+          <p className="text-[10px] sm:text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider truncate">
+            Edges
           </p>
-          <p className="text-2xl font-extrabold text-cyan-600 dark:text-cyan-400 mt-1">{edges.length}</p>
+          <p className="text-xl sm:text-2xl font-extrabold text-cyan-600 dark:text-cyan-400 mt-1">{edges.length}</p>
         </Card>
 
-        <Card className="p-4 border border-teal-200 dark:border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-white/90 to-emerald-500/5 dark:from-teal-950/60 dark:via-slate-900/80 dark:to-emerald-900/40 shadow-xl shadow-teal-500/5 dark:shadow-teal-950/30">
-          <p className="text-xs font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider">
-            Cross-School Bridges
+        <Card className="p-3 sm:p-4 border border-teal-200 dark:border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-white/90 to-emerald-500/5 dark:from-teal-950/60 dark:via-slate-900/80 dark:to-emerald-900/40 shadow-xl shadow-teal-500/5 dark:shadow-teal-950/30">
+          <p className="text-[10px] sm:text-xs font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider truncate">
+            Cross Bridges
           </p>
-          <p className="text-2xl font-extrabold text-teal-700 dark:text-teal-300 mt-1">
+          <p className="text-xl sm:text-2xl font-extrabold text-teal-700 dark:text-teal-300 mt-1">
             {edges.filter((e: any) => e.is_cross_department).length || 3}
           </p>
         </Card>
 
-        <Card className="p-4 border border-amber-200 dark:border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-white/90 to-orange-500/5 dark:from-amber-950/60 dark:via-slate-900/80 dark:to-orange-900/40 shadow-xl shadow-amber-500/5 dark:shadow-amber-950/30">
-          <p className="text-xs font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider">
+        <Card className="p-3 sm:p-4 border border-amber-200 dark:border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-white/90 to-orange-500/5 dark:from-amber-950/60 dark:via-slate-900/80 dark:to-orange-900/40 shadow-xl shadow-amber-500/5 dark:shadow-amber-950/30">
+          <p className="text-[10px] sm:text-xs font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider truncate">
             Connected Ratio
           </p>
-          <p className="text-2xl font-extrabold text-amber-700 dark:text-amber-300 mt-1">92.4%</p>
+          <p className="text-xl sm:text-2xl font-extrabold text-amber-700 dark:text-amber-300 mt-1">92.4%</p>
         </Card>
       </div>
 
@@ -102,16 +102,16 @@ export default function CollaborationGraphPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Interactive Graph Map */}
         <div className="lg:col-span-2 space-y-4">
-          <Card className="p-6 bg-slate-900/90 dark:bg-slate-950/80 backdrop-blur-2xl border border-slate-700/60 dark:border-white/10 text-white min-h-[460px] flex flex-col justify-between relative overflow-hidden shadow-2xl">
+          <Card className="p-4 sm:p-6 bg-slate-900/90 dark:bg-slate-950/80 backdrop-blur-2xl border border-slate-700/60 dark:border-white/10 text-white min-h-[460px] flex flex-col justify-between relative overflow-hidden shadow-2xl">
             {/* Background constellation decorative rings */}
             <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
 
-            <div className="relative z-10 flex items-center justify-between">
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5" />
                 <span>Interactive Topology Map</span>
               </span>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {["all", "professor", "student", "project"].map((type) => (
                   <button
                     key={type}
@@ -129,16 +129,16 @@ export default function CollaborationGraphPage() {
             </div>
 
             {/* Constellation Grid of Nodes */}
-            <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 gap-4 my-8">
+            <div className="relative z-10 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 my-4 sm:my-8">
               {filteredNodes.map((node: any, idx: number) => {
                 const isSelected = selectedNode?.id === node.id;
                 return (
                   <div
                     key={node.id || idx}
                     onClick={() => setSelectedNode(node)}
-                    className={`p-3.5 rounded-xl border backdrop-blur-md transition-all cursor-pointer ${
+                    className={`p-3 sm:p-3.5 rounded-xl border backdrop-blur-md transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-cyan-500/20 border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.35)] scale-105"
+                        ? "bg-cyan-500/20 border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.35)] scale-[1.02] sm:scale-105"
                         : "bg-slate-900/60 border-white/10 hover:bg-slate-800/80 hover:border-cyan-400/40"
                     }`}
                   >
@@ -167,7 +167,7 @@ export default function CollaborationGraphPage() {
               })}
             </div>
 
-            <div className="relative z-10 flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-3">
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] text-slate-400 border-t border-white/10 pt-3">
               <span className="text-cyan-300">● Blue: Faculty PIs</span>
               <span className="text-emerald-300">● Teal: Student Scholars</span>
               <span className="text-amber-300">● Amber: Research Projects</span>

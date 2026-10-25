@@ -215,7 +215,7 @@ export default function SkillPassportPage() {
       >
         <form onSubmit={handleAddSkill} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Skill Name
             </label>
             <input
@@ -223,19 +223,19 @@ export default function SkillPassportPage() {
               value={newSkillName}
               onChange={(e) => setNewSkillName(e.target.value)}
               placeholder="e.g. PyTorch, CUDA, React, Rust, Systems Benchmarking"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Proficiency Level
             </label>
             <select
               value={newLevel}
               onChange={(e) => setNewLevel(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
             >
               <option value="beginner">Beginner (Completed Coursework)</option>
               <option value="intermediate">Intermediate (Shipped Project)</option>
@@ -245,7 +245,7 @@ export default function SkillPassportPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Evidence URL (GitHub / Demo / Manuscript)
             </label>
             <input
@@ -253,11 +253,11 @@ export default function SkillPassportPage() {
               value={newEvidenceUrl}
               onChange={(e) => setNewEvidenceUrl(e.target.value)}
               placeholder="https://github.com/username/repository"
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
             />
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
             <Button
               type="button"
               variant="ghost"
@@ -282,7 +282,7 @@ export default function SkillPassportPage() {
       >
         <form onSubmit={handleEndorse} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-300 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Endorsement Statement
             </label>
             <textarea
@@ -290,12 +290,12 @@ export default function SkillPassportPage() {
               onChange={(e) => setEndorsementNotes(e.target.value)}
               rows={3}
               placeholder="e.g. Reviewed student's implementation of distributed attention layers. Code quality and execution were excellent."
-              className="w-full px-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               required
             />
           </div>
 
-          <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+          <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
             <Button
               type="button"
               variant="ghost"

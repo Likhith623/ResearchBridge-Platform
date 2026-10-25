@@ -92,13 +92,13 @@ export default function ProfessorsPage() {
       </div>
 
       {/* Filter & Search Bar */}
-      <Card className="p-4 bg-white/85 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl">
-        <div className="flex flex-col sm:flex-row gap-3">
+      <Card className="p-3 sm:p-4 bg-white/85 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl">
+        <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search by faculty name, research interest, or keywords..."
+              placeholder="Search faculty name, research interest, or keywords..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -106,7 +106,7 @@ export default function ProfessorsPage() {
             />
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:flex gap-2">
             <select
               value={selectedDept}
               onChange={(e) => {
@@ -133,7 +133,7 @@ export default function ProfessorsPage() {
               <option value="full">At Full Capacity</option>
             </select>
 
-            <Button size="sm" onClick={() => handleSearch()} className="text-xs">
+            <Button size="sm" onClick={() => handleSearch()} className="text-xs xs:col-span-2 sm:col-span-1">
               Apply Filters
             </Button>
           </div>
@@ -163,21 +163,21 @@ export default function ProfessorsPage() {
               hoverable
               className="flex flex-col justify-between bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
             >
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-base flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25">
+              <CardContent className="p-4 sm:p-6 space-y-3.5 sm:space-y-4">
+                <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2.5 sm:gap-3">
+                  <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25">
                       {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
                     </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5 truncate">
                         {prof.full_name || prof.profiles?.full_name || "Faculty Member"}
                       </h3>
-                      <p className="text-xs text-cyan-700 dark:text-cyan-300 font-medium">{prof.academic_title || prof.title || "Professor"}</p>
+                      <p className="text-xs text-cyan-700 dark:text-cyan-300 font-medium truncate">{prof.academic_title || prof.title || "Professor"}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5 shrink-0">
+                  <div className="flex items-center gap-1.5 shrink-0 self-end xs:self-auto">
                     {appliedProfIds.has(prof.id) && (
                       <Badge variant="teal" withDot className="text-[10px] gap-1 font-semibold">
                         <CheckCircle2 className="w-3 h-3 text-emerald-500 dark:text-emerald-400" />
@@ -205,8 +205,8 @@ export default function ProfessorsPage() {
                 {/* Laboratory Info & Research Interests */}
                 <div className="space-y-2 pt-1">
                   <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-                    <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                    <span>
+                    <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                    <span className="truncate">
                       {prof.lab_name || "Computer Science Research Group"}
                       {prof.office_location ? ` • ${prof.office_location}` : ""}
                     </span>
@@ -226,7 +226,7 @@ export default function ProfessorsPage() {
               </CardContent>
 
               {/* Card Footer / Action */}
-              <div className="px-5 py-3 bg-slate-50/90 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-white/10 rounded-b-2xl flex items-center justify-between">
+              <div className="px-4 sm:px-5 py-3 bg-slate-50/90 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-white/10 rounded-b-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
                 <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-3">
                   <span>
                     Supervising:{" "}
@@ -235,13 +235,13 @@ export default function ProfessorsPage() {
                     </strong>
                   </span>
                 </div>
-                <Link href={`/professors/${prof.id}`}>
+                <Link href={`/professors/${prof.id}`} className="w-full xs:w-auto">
                   <Button
                     size="sm"
                     variant={appliedProfIds.has(prof.id) ? "outline" : "primary"}
-                    className="text-xs gap-1"
+                    className="w-full xs:w-auto text-xs gap-1"
                   >
-                    <span>{appliedProfIds.has(prof.id) ? "View Application" : "View Academic Profile"}</span>
+                    <span>{appliedProfIds.has(prof.id) ? "View Application" : "View Profile"}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>

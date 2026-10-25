@@ -65,26 +65,26 @@ export default function LandingPage() {
 
       {/* Top Glass Navigation */}
       <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/70 backdrop-blur-xl sticky top-0 z-50 shadow-md dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
-              <GraduationCap className="w-5 h-5" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1">
                 Research<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-400 dark:to-teal-300">Bridge</span>
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-semibold tracking-widest">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-semibold tracking-widest">
                 ACADEMIC NETWORK
               </span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group"
+              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
               title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
             >
@@ -97,7 +97,7 @@ export default function LandingPage() {
 
             <Link
               href="/login"
-              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 hover:border-blue-500/60 transition-all flex items-center gap-1.5 shadow-xs hover:shadow-blue-500/10"
+              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 hover:border-blue-500/60 transition-all flex items-center gap-1.5 shadow-xs hover:shadow-blue-500/10 shrink-0"
             >
               <UserCheck className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span><span className="hidden sm:inline">Demo Roles &amp; </span>Sign In</span>
@@ -114,16 +114,16 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-16 sm:pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-7">
+      <section className="relative pt-10 sm:pt-20 pb-12 sm:pb-20 px-3 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-5 sm:space-y-7">
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-teal-500/15 border border-blue-500/30 text-blue-300 text-xs font-semibold shadow-lg shadow-blue-500/10 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-teal-500/15 border border-blue-500/30 text-blue-700 dark:text-blue-300 text-[11px] sm:text-xs font-semibold shadow-lg shadow-blue-500/10 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-ping" />
             <span>Stanford University Academic Network • Version 2.0</span>
           </div>
 
           {/* Hero Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15]">
             Connecting Students &amp; Faculty for{" "}
             <span className="shimmer-text">
               Breakthrough Academic Discovery

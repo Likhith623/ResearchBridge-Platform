@@ -88,7 +88,7 @@ export default function TeamComposerPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Input Form */}
-        <Card className="p-6 space-y-4 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl dark:shadow-2xl">
+        <Card className="p-4 sm:p-6 space-y-4 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl dark:shadow-2xl">
           <form onSubmit={handleCompose} className="space-y-4 text-xs">
             <div>
               <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
@@ -98,7 +98,7 @@ export default function TeamComposerPage() {
                 type="text"
                 value={projectTitle}
                 onChange={(e) => setProjectTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                 required
               />
             </div>
@@ -120,7 +120,7 @@ export default function TeamComposerPage() {
               {roles.map((role, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40 space-y-2"
+                  className="p-3 sm:p-3.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40 space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-cyan-700 dark:text-cyan-300">Role #{idx + 1}</span>
@@ -140,7 +140,7 @@ export default function TeamComposerPage() {
                     value={role.role_name}
                     onChange={(e) => handleRoleChange(idx, "role_name", e.target.value)}
                     placeholder="Role Title (e.g. Lead Machine Learning Engineer)"
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-850 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-850 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                     required
                   />
 
@@ -149,7 +149,7 @@ export default function TeamComposerPage() {
                     value={role.required_skills}
                     onChange={(e) => handleRoleChange(idx, "required_skills", e.target.value)}
                     placeholder="Required Skills (Comma separated: PyTorch, CUDA, etc.)"
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-850 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-850 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                     required
                   />
                 </div>

@@ -190,31 +190,31 @@ export default function DocumentsPage() {
         {/* Right Column: Active Document Summary Viewer */}
         <div className="lg:col-span-2">
           {selectedDoc ? (
-            <Card className="p-6 space-y-6 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+            <Card className="p-4 sm:p-6 space-y-4 sm:space-y-6 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
               {/* Document Overview Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80 dark:border-white/10">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-slate-200/80 dark:border-white/10">
+                <div className="space-y-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">
                       {selectedDoc.title}
                     </h2>
-                    <Badge variant="teal" withDot className="text-xs font-bold">
+                    <Badge variant="teal" withDot className="text-xs font-bold shrink-0">
                       {selectedDoc.mime_type}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
                     Uploaded {formatDate(selectedDoc.created_at)} • File: {selectedDoc.file_name}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   {!summary && (
                     <Button
                       size="sm"
                       variant="primary"
                       onClick={handleGenerateSummary}
                       isLoading={isSummarizing}
-                      className="text-xs gap-1.5 shadow-md shadow-indigo-500/25"
+                      className="text-xs gap-1.5 shadow-md shadow-indigo-500/25 w-full sm:w-auto"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
                       <span>Generate AI Summary</span>

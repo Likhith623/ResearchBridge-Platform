@@ -86,20 +86,20 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 dark:from-slate-950 dark:via-indigo-950/80 dark:to-slate-900 p-6 sm:p-9 text-white shadow-2xl border border-indigo-500/20 dark:border-white/10">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 dark:from-slate-950 dark:via-indigo-950/80 dark:to-slate-900 p-4 sm:p-9 text-white shadow-2xl border border-indigo-500/20 dark:border-white/10">
         {/* Ambient glow in banner */}
         <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
         <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
 
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-xs font-semibold backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.25)]">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span suppressHydrationWarning>
+        <div className="relative z-10 max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.25)] max-w-full">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+            <span className="truncate" suppressHydrationWarning>
               Live Session: {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"} ({mounted ? (role || "student") : "student"})
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-100 to-cyan-200 bg-clip-text text-transparent" suppressHydrationWarning>
+          <h1 className="text-xl xs:text-2xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-100 to-cyan-200 bg-clip-text text-transparent leading-tight" suppressHydrationWarning>
             Welcome to ResearchBridge, {mounted ? (user?.full_name || "Scholar") : "Scholar"}
           </h1>
 
@@ -113,28 +113,28 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Actions Bar */}
-        <div className="mt-6 flex flex-wrap items-center gap-2.5 pt-5 border-t border-white/15 relative z-10">
+        <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2.5 pt-4 sm:pt-5 border-t border-white/15 relative z-10">
           <Link href="/professors">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-cyan-400/40 hover:border-cyan-300 text-white shadow-xs">
-              <Users className="w-3.5 h-3.5 text-cyan-300" />
-              <span>Faculty Directory</span>
+            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-cyan-400/40 hover:border-cyan-300 text-white shadow-xs">
+              <Users className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
+              <span>Faculty</span>
             </Button>
           </Link>
           <Link href="/projects">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-teal-400/40 hover:border-teal-300 text-white shadow-xs">
-              <Briefcase className="w-3.5 h-3.5 text-teal-300" />
-              <span>Explore Openings</span>
+            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-teal-400/40 hover:border-teal-300 text-white shadow-xs">
+              <Briefcase className="w-3.5 h-3.5 text-teal-300 shrink-0" />
+              <span>Openings</span>
             </Button>
           </Link>
           <Link href="/talent-matcher">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-purple-400/40 hover:border-purple-300 text-white shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-purple-400/40 hover:border-purple-300 text-white shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-purple-300 shrink-0" />
               <span>AI Matcher</span>
             </Button>
           </Link>
           <Link href="/skills">
-            <Button size="sm" variant="glass" className="text-xs gap-1.5 rounded-xl border-amber-400/40 hover:border-amber-300 text-white shadow-xs">
-              <Award className="w-3.5 h-3.5 text-amber-300" />
+            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-amber-400/40 hover:border-amber-300 text-white shadow-xs">
+              <Award className="w-3.5 h-3.5 text-amber-300 shrink-0" />
               <span>Skill Passport</span>
             </Button>
           </Link>
@@ -142,78 +142,78 @@ export default function DashboardPage() {
       </div>
 
       {/* Metrics Row: 4 Vibrant Gradient Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <Card hoverable className="p-4 sm:p-5 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30 hover:border-blue-400 hover:shadow-blue-500/20 transition-all">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+        <Card hoverable className="p-3 sm:p-5 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30 hover:border-blue-400 hover:shadow-blue-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
-              {role === "professor" ? "Incoming Inquiries" : "My Applications"}
+            <p className="text-[10px] sm:text-[11px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider truncate">
+              {role === "professor" ? "Inquiries" : "Applications"}
             </p>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <Send className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
+              <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(requests) ? requests : []).length}
           </p>
-          <p className="text-[11px] text-blue-600 dark:text-blue-200 mt-1 flex items-center gap-1.5 font-medium">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            <span>Tracked in real-time</span>
+          <p className="text-[10px] sm:text-[11px] text-blue-600 dark:text-blue-200 mt-1 flex items-center gap-1.5 font-medium truncate">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse shrink-0" />
+            <span>Tracked live</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-4 sm:p-5 border border-teal-200 dark:border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-white/90 to-emerald-500/5 dark:from-teal-950/60 dark:via-slate-900/80 dark:to-emerald-900/40 shadow-xl shadow-teal-500/5 dark:shadow-teal-950/30 hover:border-teal-400 hover:shadow-teal-500/20 transition-all">
+        <Card hoverable className="p-3 sm:p-5 border border-teal-200 dark:border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-white/90 to-emerald-500/5 dark:from-teal-950/60 dark:via-slate-900/80 dark:to-emerald-900/40 shadow-xl shadow-teal-500/5 dark:shadow-teal-950/30 hover:border-teal-400 hover:shadow-teal-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider">
+            <p className="text-[10px] sm:text-[11px] font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider truncate">
               Lab Openings
             </p>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-teal-500/30">
-              <Briefcase className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-teal-500/30 shrink-0">
+              <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(projects) ? projects : []).length}
           </p>
-          <p className="text-[11px] text-teal-600 dark:text-teal-200 mt-1 flex items-center gap-1.5 font-medium">
-            <span className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 animate-pulse" />
-            <span>Active lab openings</span>
+          <p className="text-[10px] sm:text-[11px] text-teal-600 dark:text-teal-200 mt-1 flex items-center gap-1.5 font-medium truncate">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-500 dark:bg-teal-400 animate-pulse shrink-0" />
+            <span>Active openings</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-4 sm:p-5 border border-purple-200 dark:border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-white/90 to-pink-500/5 dark:from-purple-950/60 dark:via-slate-900/80 dark:to-pink-900/40 shadow-xl shadow-purple-500/5 dark:shadow-purple-950/30 hover:border-purple-400 hover:shadow-purple-500/20 transition-all">
+        <Card hoverable className="p-3 sm:p-5 border border-purple-200 dark:border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-white/90 to-pink-500/5 dark:from-purple-950/60 dark:via-slate-900/80 dark:to-pink-900/40 shadow-xl shadow-purple-500/5 dark:shadow-purple-950/30 hover:border-purple-400 hover:shadow-purple-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider">
-              Verified Faculty
+            <p className="text-[10px] sm:text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider truncate">
+              Faculty
             </p>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/30">
-              <Users className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/30 shrink-0">
+              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(professors) ? professors : []).length > 0
               ? (Array.isArray(professors) ? professors : []).length
               : 1}
           </p>
-          <p className="text-[11px] text-purple-600 dark:text-purple-200 mt-1 flex items-center gap-1.5 font-medium">
-            <span className="w-2 h-2 rounded-full bg-purple-500 dark:bg-purple-400 animate-pulse" />
-            <span>Stanford supervisors</span>
+          <p className="text-[10px] sm:text-[11px] text-purple-600 dark:text-purple-200 mt-1 flex items-center gap-1.5 font-medium truncate">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-500 dark:bg-purple-400 animate-pulse shrink-0" />
+            <span>Supervisors</span>
           </p>
         </Card>
 
-        <Card hoverable className="p-4 sm:p-5 border border-amber-200 dark:border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-white/90 to-orange-500/5 dark:from-amber-950/60 dark:via-slate-900/80 dark:to-orange-900/40 shadow-xl shadow-amber-500/5 dark:shadow-amber-950/30 hover:border-amber-400 hover:shadow-amber-500/20 transition-all">
+        <Card hoverable className="p-3 sm:p-5 border border-amber-200 dark:border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-white/90 to-orange-500/5 dark:from-amber-950/60 dark:via-slate-900/80 dark:to-orange-900/40 shadow-xl shadow-amber-500/5 dark:shadow-amber-950/30 hover:border-amber-400 hover:shadow-amber-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider">
-              Opportunity Radar
+            <p className="text-[10px] sm:text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider truncate">
+              Radar Alerts
             </p>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/30">
-              <Sparkles className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/30 shrink-0">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2 tracking-tight">
+          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(radarAlerts) ? radarAlerts : []).length}
           </p>
-          <p className="text-[11px] text-amber-600 dark:text-amber-200 mt-1 flex items-center gap-1.5 font-medium">
-            <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse" />
-            <span>AI match notifications</span>
+          <p className="text-[10px] sm:text-[11px] text-amber-600 dark:text-amber-200 mt-1 flex items-center gap-1.5 font-medium truncate">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse shrink-0" />
+            <span>AI matches</span>
           </p>
         </Card>
       </div>
@@ -263,10 +263,10 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 (Array.isArray(requests) ? requests : []).slice(0, 3).map((req) => (
-                  <div key={req.id} className="py-3.5 flex items-center justify-between gap-4">
+                  <div key={req.id} className="py-3 sm:py-3.5 flex flex-col xs:flex-row xs:items-center justify-between gap-2.5 sm:gap-4">
                     <div className="space-y-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate max-w-[200px] xs:max-w-[240px] sm:max-w-none">
                           {req.subject}
                         </p>
                         <Badge
@@ -293,8 +293,8 @@ export default function DashboardPage() {
                         {formatDate(req.created_at)}
                       </p>
                     </div>
-                    <Link href={`/requests`}>
-                      <Button size="xs" variant="outline" className="shrink-0 border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
+                    <Link href={`/requests`} className="self-end xs:self-auto shrink-0">
+                      <Button size="xs" variant="outline" className="border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
                         Details
                       </Button>
                     </Link>
@@ -332,7 +332,7 @@ export default function DashboardPage() {
                 (Array.isArray(projects) ? projects : []).slice(0, 2).map((proj) => (
                   <div
                     key={proj.id}
-                    className="p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 hover:border-cyan-500/40 transition-all space-y-2.5"
+                    className="p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 hover:border-cyan-500/40 transition-all space-y-2.5"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-snug">
@@ -346,7 +346,7 @@ export default function DashboardPage() {
                     <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                       {proj.summary}
                     </p>
-                    <div className="flex items-center justify-between pt-1 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-200/80 dark:border-white/10">
+                    <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1.5 pt-1 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-200/80 dark:border-white/10">
                       <span>{proj.weekly_hours} hrs/week • {proj.work_arrangement}</span>
                       <Link href={`/projects`}>
                         <span className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer">

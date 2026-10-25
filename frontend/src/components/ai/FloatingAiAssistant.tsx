@@ -105,12 +105,13 @@ export function FloatingAiAssistant({
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-[0_0_25px_rgba(99,102,241,0.5)] hover:shadow-[0_0_35px_rgba(99,102,241,0.75)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30 animate-pulse-glow"
+          className="group relative flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-[0_0_25px_rgba(99,102,241,0.5)] hover:shadow-[0_0_35px_rgba(99,102,241,0.75)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30 animate-pulse-glow"
         >
-          <div className="relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white">
+          <div className="relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white shrink-0">
             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin-slow" />
           </div>
-          <span className="text-xs sm:text-sm font-bold pr-1 tracking-wide">Academic AI Guide</span>
+          <span className="hidden sm:inline text-xs sm:text-sm font-bold pr-1 tracking-wide">Academic AI Guide</span>
+          <span className="sm:hidden text-xs font-bold pr-0.5 tracking-wide">AI Guide</span>
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyan-400"></span>
@@ -123,8 +124,8 @@ export function FloatingAiAssistant({
         <div
           className={`bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/20 overflow-hidden flex flex-col transition-all duration-200 ${
             isMinimized
-              ? "w-[calc(100vw-2rem)] sm:w-80 h-14"
-              : "w-[calc(100vw-2rem)] sm:w-[420px] h-[520px] sm:h-[560px] max-h-[82vh]"
+              ? "w-[calc(100vw-1.5rem)] sm:w-80 h-14"
+              : "w-[calc(100vw-1.5rem)] sm:w-[420px] h-[480px] sm:h-[560px] max-h-[85vh]"
           }`}
         >
           {/* Header */}

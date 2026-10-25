@@ -103,7 +103,7 @@ export default function TalentMatcherPage() {
 
       {/* Feature 1: Project Talent Matcher */}
       <Card className="p-6 space-y-6 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
             <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Zap className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
@@ -114,7 +114,7 @@ export default function TalentMatcherPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-2 w-full sm:w-auto">
             <select
               value={selectedProjectId}
               onChange={(e) => {
@@ -123,7 +123,7 @@ export default function TalentMatcherPage() {
                   runAnalysis(e.target.value);
                 }
               }}
-              className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs"
+              className="max-w-full truncate px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs"
             >
               {(Array.isArray(projects) ? projects : []).map((p) => (
                 <option key={p.id} value={p.id}>
@@ -136,7 +136,7 @@ export default function TalentMatcherPage() {
               onClick={() => runAnalysis(selectedProjectId)}
               isLoading={isLoadingMatcher}
               disabled={role !== "professor" && role !== "admin"}
-              className="text-xs"
+              className="text-xs shrink-0"
             >
               Refresh Match
             </Button>
@@ -283,7 +283,7 @@ export default function TalentMatcherPage() {
           </p>
         </div>
 
-        <form onSubmit={handleCrossSearch} className="flex gap-2">
+        <form onSubmit={handleCrossSearch} className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={crossSkill}
@@ -292,7 +292,7 @@ export default function TalentMatcherPage() {
             className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs"
             required
           />
-          <Button type="submit" size="sm" isLoading={isSearchingCross} className="text-xs">
+          <Button type="submit" size="sm" isLoading={isSearchingCross} className="text-xs shrink-0">
             Discover Interdisciplinary Talent
           </Button>
         </form>

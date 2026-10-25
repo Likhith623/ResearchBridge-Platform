@@ -165,21 +165,21 @@ export default function ProfessorDetailPage() {
       </Link>
 
       {/* Professor Header Card */}
-      <Card className="p-6 sm:p-8 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
-        <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/25">
+      <Card className="p-4 sm:p-8 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6">
+          <div className="flex items-start gap-3 sm:gap-4 min-w-0">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-xl sm:text-2xl flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/25">
               {(professor.full_name || professor.profiles?.full_name || "P").charAt(0)}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                <h1 className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight truncate">
                   {professor.full_name || professor.profiles?.full_name || "Faculty Supervisor"}
                 </h1>
                 <Badge
                   variant={professor.open_to_applications ? "success" : "secondary"}
                   withDot
-                  className="text-xs font-bold"
+                  className="text-xs font-bold shrink-0"
                 >
                   {professor.open_to_applications ? "Open to Students" : "At Capacity"}
                 </Badge>
@@ -187,9 +187,9 @@ export default function ProfessorDetailPage() {
               <p className="text-xs sm:text-sm text-cyan-700 dark:text-cyan-300 font-medium">
                 {professor.academic_title || professor.title || "Professor"}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-                <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                <span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 sm:gap-2">
+                <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                <span className="truncate">
                   {professor.lab_name || "Research Group"} •{" "}
                   {professor.office_location || "Campus Office"}
                 </span>
@@ -198,17 +198,17 @@ export default function ProfessorDetailPage() {
           </div>
 
           {existingApplication ? (
-            <div className="flex flex-col sm:flex-row items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
               <div className="px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
-                <CheckCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
+                <CheckCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
                 <span>
                   Application Submitted (
                   {(existingApplication.status || "under_review").replace(/_/g, " ")}
                   )
                 </span>
               </div>
-              <Link href="/requests">
-                <Button size="sm" variant="outline" className="text-xs border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
+              <Link href="/requests" className="w-full sm:w-auto">
+                <Button size="sm" variant="outline" className="w-full sm:w-auto text-xs border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
                   View in Applications →
                 </Button>
               </Link>
@@ -218,7 +218,7 @@ export default function ProfessorDetailPage() {
               size="md"
               variant="primary"
               onClick={() => setIsApplyModalOpen(true)}
-              className="w-full sm:w-auto text-xs gap-1.5 shadow-lg shadow-indigo-500/25"
+              className="w-full sm:w-auto text-xs gap-1.5 shadow-lg shadow-indigo-500/25 shrink-0"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Apply for Research Supervision</span>
@@ -226,11 +226,11 @@ export default function ProfessorDetailPage() {
           )}
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex gap-4 border-b border-slate-200/80 dark:border-white/10 mt-8 text-xs font-semibold">
+        {/* Tab Navigation - with horizontal scroll on small devices */}
+        <div className="flex gap-2 sm:gap-4 border-b border-slate-200/80 dark:border-white/10 mt-6 sm:mt-8 text-xs font-semibold overflow-x-auto whitespace-nowrap scrollbar-none pb-0">
           <button
             onClick={() => setActiveTab("overview")}
-            className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer ${
+            className={`pb-3 px-2 sm:px-1 transition-colors border-b-2 cursor-pointer shrink-0 ${
               activeTab === "overview"
                 ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -240,7 +240,7 @@ export default function ProfessorDetailPage() {
           </button>
           <button
             onClick={() => setActiveTab("publications")}
-            className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
+            className={`pb-3 px-2 sm:px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeTab === "publications"
                 ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -253,7 +253,7 @@ export default function ProfessorDetailPage() {
           </button>
           <button
             onClick={() => setActiveTab("projects")}
-            className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
+            className={`pb-3 px-2 sm:px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeTab === "projects"
                 ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -433,7 +433,7 @@ export default function ProfessorDetailPage() {
             )}
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Subject
               </label>
               <input
@@ -441,20 +441,20 @@ export default function ProfessorDetailPage() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="e.g. Undergraduate Research Inquiry — Machine Learning Lab"
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 required
               />
             </div>
 
             {(Array.isArray(projects) ? projects : []).length > 0 && (
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Associated Project Opening (Optional)
                 </label>
                 <select
                   value={selectedProjectId}
                   onChange={(e) => setSelectedProjectId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 >
                   <option value="">General Lab Inquiry (No specific project)</option>
                   {(Array.isArray(projects) ? projects : []).map((p) => (
@@ -467,22 +467,22 @@ export default function ProfessorDetailPage() {
             )}
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">
-                Motivation Statement & Background
+              <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Motivation Statement &amp; Background
               </label>
               <textarea
                 value={motivation}
                 onChange={(e) => setMotivation(e.target.value)}
                 rows={4}
                 placeholder="Explain why you want to work with this lab, what specific papers or problems interest you, and your relevant coursework/projects..."
-                className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Demonstrated Skills (Comma separated)
                 </label>
                 <input
@@ -490,12 +490,12 @@ export default function ProfessorDetailPage() {
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
                   placeholder="Python, PyTorch, C++, Linear Algebra"
-                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Available Weekly Hours
                 </label>
                 <input
@@ -504,12 +504,12 @@ export default function ProfessorDetailPage() {
                   max={40}
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-white/15 focus:outline-none focus:border-cyan-400 bg-slate-800 text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-2 border-t border-white/10">
+            <div className="pt-4 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-white/10">
               <Button
                 type="button"
                 variant="ghost"

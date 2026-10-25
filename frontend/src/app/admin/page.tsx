@@ -206,61 +206,61 @@ export default function AdminPage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4 p-6">
-            {/* Parity Metric Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10">
-                <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">Evaluated Students</span>
-                <span className="text-xl font-extrabold text-slate-900 dark:text-white mt-1 block">
-                  {fairnessReport.total_evaluated_students ?? 120}
-                </span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-500/30">
-                <span className="text-[10px] uppercase font-bold text-blue-700 dark:text-blue-300 block">Unique Matches</span>
-                <span className="text-xl font-extrabold text-blue-700 dark:text-cyan-300 mt-1 block">
-                  {fairnessReport.total_unique_students_recommended ?? 88}
-                </span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/30">
-                <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-300 block">Dispersal Gini Index</span>
-                <span className="text-xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1 block">
-                  {(fairnessReport.recommendation_concentration_index ?? 0.24).toFixed(2)}
-                </span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-purple-50 dark:bg-indigo-950/40 border border-purple-200 dark:border-indigo-500/30">
-                <span className="text-[10px] uppercase font-bold text-purple-700 dark:text-indigo-300 block">Beginner Openings</span>
-                <span className="text-xl font-extrabold text-purple-700 dark:text-indigo-300 mt-1 block">
-                  {Math.round((fairnessReport.beginner_friendly_openings_ratio ?? 0.45) * 100)}%
-                </span>
-              </div>
+          {/* Parity Metric Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10">
+              <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block truncate">Evaluated</span>
+              <span className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-1 block">
+                {fairnessReport.total_evaluated_students ?? 120}
+              </span>
             </div>
+            <div className="p-3 sm:p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-500/30">
+              <span className="text-[10px] uppercase font-bold text-blue-700 dark:text-blue-300 block truncate">Unique Matches</span>
+              <span className="text-lg sm:text-xl font-extrabold text-blue-700 dark:text-cyan-300 mt-1 block">
+                {fairnessReport.total_unique_students_recommended ?? 88}
+              </span>
+            </div>
+            <div className="p-3 sm:p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/30">
+              <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-300 block truncate">Gini Index</span>
+              <span className="text-lg sm:text-xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1 block">
+                {(fairnessReport.recommendation_concentration_index ?? 0.24).toFixed(2)}
+              </span>
+            </div>
+            <div className="p-3 sm:p-3.5 rounded-xl bg-purple-50 dark:bg-indigo-950/40 border border-purple-200 dark:border-indigo-500/30">
+              <span className="text-[10px] uppercase font-bold text-purple-700 dark:text-indigo-300 block truncate">Beginner Ratio</span>
+              <span className="text-lg sm:text-xl font-extrabold text-purple-700 dark:text-indigo-300 mt-1 block">
+                {Math.round((fairnessReport.beginner_friendly_openings_ratio ?? 0.45) * 100)}%
+              </span>
+            </div>
+          </div>
 
-            {/* Department Diversity Distribution Table */}
-            {Array.isArray(fairnessReport.department_metrics) && fairnessReport.department_metrics.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden bg-slate-50/50 dark:bg-slate-950/40">
-                <table className="w-full text-xs text-left">
-                  <thead className="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-white/10">
-                    <tr>
-                      <th className="py-2.5 px-3.5">Department</th>
-                      <th className="py-2.5 px-3.5">Total Scholars</th>
-                      <th className="py-2.5 px-3.5">Recommended</th>
-                      <th className="py-2.5 px-3.5 text-right">Coverage Rate</th>
+          {/* Department Diversity Distribution Table - with horizontal scroll on small devices */}
+          {Array.isArray(fairnessReport.department_metrics) && fairnessReport.department_metrics.length > 0 && (
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40">
+              <table className="w-full text-xs text-left min-w-[480px]">
+                <thead className="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-white/10">
+                  <tr>
+                    <th className="py-2.5 px-3.5">Department</th>
+                    <th className="py-2.5 px-3.5">Total Scholars</th>
+                    <th className="py-2.5 px-3.5">Recommended</th>
+                    <th className="py-2.5 px-3.5 text-right">Coverage Rate</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200/70 dark:divide-white/5">
+                  {fairnessReport.department_metrics.map((dm: any, i: number) => (
+                    <tr key={i} className="hover:bg-slate-100/50 dark:hover:bg-white/5">
+                      <td className="py-2 px-3.5 font-medium text-slate-900 dark:text-white">{dm.department_name}</td>
+                      <td className="py-2 px-3.5 text-slate-600 dark:text-slate-300">{dm.total_students}</td>
+                      <td className="py-2 px-3.5 text-slate-600 dark:text-slate-300">{dm.recommended_count}</td>
+                      <td className="py-2 px-3.5 text-right font-bold text-emerald-600 dark:text-emerald-400">
+                        {Math.round(dm.coverage_rate * 100)}%
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200/70 dark:divide-white/5">
-                    {fairnessReport.department_metrics.map((dm: any, i: number) => (
-                      <tr key={i} className="hover:bg-slate-100/50 dark:hover:bg-white/5">
-                        <td className="py-2 px-3.5 font-medium text-slate-900 dark:text-white">{dm.department_name}</td>
-                        <td className="py-2 px-3.5 text-slate-600 dark:text-slate-300">{dm.total_students}</td>
-                        <td className="py-2 px-3.5 text-slate-600 dark:text-slate-300">{dm.recommended_count}</td>
-                        <td className="py-2 px-3.5 text-right font-bold text-emerald-600 dark:text-emerald-400">
-                          {Math.round(dm.coverage_rate * 100)}%
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
 
             {/* Audit Notes */}
             {Array.isArray(fairnessReport.audit_notes) && fairnessReport.audit_notes.length > 0 && (

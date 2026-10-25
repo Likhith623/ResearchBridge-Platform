@@ -18,6 +18,18 @@ import {
   UserPlus,
   Sun,
   Moon,
+  LayoutDashboard,
+  Users,
+  Briefcase,
+  Award,
+  Lightbulb,
+  Users2,
+  CheckCircle,
+  Network,
+  Send,
+  MessageSquare,
+  FileText,
+  ShieldCheck,
 } from "lucide-react";
 import { useAuth, DEMO_PERSONAS } from "@/context/AuthContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -81,19 +93,19 @@ export function Navbar() {
   };
 
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", roles: ["student", "professor", "admin"] },
-    { name: "Faculty Directory", href: "/professors", roles: ["student", "professor", "admin"] },
-    { name: "Research Openings", href: "/projects", roles: ["student", "professor", "admin"] },
-    { name: "Talent Matcher", href: "/talent-matcher", roles: ["professor", "admin", "student"] },
-    { name: "Skill Passport", href: "/skills", roles: ["student", "professor", "admin"] },
-    { name: "Idea Pipeline", href: "/ideas", roles: ["student", "professor", "admin"] },
-    { name: "Team Composer", href: "/teams", roles: ["professor", "admin"] },
-    { name: "Contributions", href: "/contributions", roles: ["student", "professor", "admin"] },
-    { name: "Collab Graph", href: "/collaboration-graph", roles: ["student", "professor", "admin"] },
-    { name: role === "professor" ? "Student Applications" : "My Applications", href: "/requests", roles: ["student", "professor", "admin"] },
-    { name: "Messages & Collab", href: "/messages", roles: ["student", "professor", "admin"] },
-    { name: "Paper Library", href: "/documents", roles: ["student", "professor", "admin"] },
-    { name: "Admin Governance", href: "/admin", roles: ["admin"] },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["student", "professor", "admin"] },
+    { name: "Faculty Directory", href: "/professors", icon: Users, roles: ["student", "professor", "admin"] },
+    { name: "Research Openings", href: "/projects", icon: Briefcase, roles: ["student", "professor", "admin"] },
+    { name: "Talent Matcher", href: "/talent-matcher", icon: Sparkles, roles: ["professor", "admin", "student"] },
+    { name: "Skill Passport", href: "/skills", icon: Award, roles: ["student", "professor", "admin"] },
+    { name: "Idea Pipeline", href: "/ideas", icon: Lightbulb, roles: ["student", "professor", "admin"] },
+    { name: "Team Composer", href: "/teams", icon: Users2, roles: ["professor", "admin"] },
+    { name: "Contributions", href: "/contributions", icon: CheckCircle, roles: ["student", "professor", "admin"] },
+    { name: "Collab Graph", href: "/collaboration-graph", icon: Network, roles: ["student", "professor", "admin"] },
+    { name: role === "professor" ? "Student Applications" : "My Applications", href: "/requests", icon: Send, roles: ["student", "professor", "admin"] },
+    { name: "Messages & Collab", href: "/messages", icon: MessageSquare, roles: ["student", "professor", "admin"] },
+    { name: "Paper Library", href: "/documents", icon: FileText, roles: ["student", "professor", "admin"] },
+    { name: "Admin Governance", href: "/admin", icon: ShieldCheck, roles: ["admin"] },
   ];
 
   const permittedNav = navigation.filter(
@@ -102,9 +114,9 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/10 shadow-lg dark:shadow-2xl shadow-slate-200/40 dark:shadow-black/40 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Left: Brand Identity, Mobile Hamburger, & Campus Pill */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/10 transition-colors cursor-pointer"
@@ -113,15 +125,15 @@ export function Navbar() {
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          <Link href="/dashboard" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/25 group-hover:scale-105 group-hover:shadow-cyan-500/40 transition-all">
-              <GraduationCap className="w-5 h-5" />
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/25 group-hover:scale-105 group-hover:shadow-cyan-500/40 transition-all shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1">
                 Research<span className="text-cyan-600 dark:text-cyan-400">Bridge</span>
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-semibold tracking-wider">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-semibold tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
@@ -134,11 +146,11 @@ export function Navbar() {
         </div>
 
         {/* Right: Controls & User Profile */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-sm active:scale-95 flex items-center justify-center group"
+            className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-sm active:scale-95 flex items-center justify-center group shrink-0"
             title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle theme"
           >
@@ -154,7 +166,7 @@ export function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setIsPersonaOpen(!isPersonaOpen)}
-                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-cyan-500/50 transition-all shadow-sm cursor-pointer max-w-[130px] sm:max-w-none"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-cyan-500/50 transition-all shadow-sm cursor-pointer max-w-[100px] xs:max-w-[140px] sm:max-w-none"
                 title="Switch demo persona for testing"
               >
                 <UserCheck className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
@@ -285,39 +297,69 @@ export function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 py-3 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto text-slate-900 dark:text-slate-100">
-          <nav className="space-y-1">
+        <div className="md:hidden border-t border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-3 py-3 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto text-slate-900 dark:text-slate-100">
+          <nav className="grid grid-cols-1 sm:grid-cols-2 gap-1">
             {permittedNav.map((item) => {
               const isActive =
                 pathname === item.href ||
                 (item.href !== "/dashboard" && pathname.startsWith(item.href));
+              const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                  className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold shadow-md"
-                      : "text-slate-300 hover:text-white hover:bg-white/5"
+                      ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold shadow-md shadow-indigo-500/25"
+                      : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
                   }`}
                 >
-                  {item.name}
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-cyan-600 dark:text-cyan-400"}`} />
+                  <span>{item.name}</span>
                 </Link>
               );
             })}
           </nav>
 
+          {/* Quick Demo Role Switcher in Mobile Drawer */}
+          <div className="pt-3 mt-3 border-t border-slate-200/80 dark:border-white/10 space-y-2">
+            <p className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider px-1">
+              Quick Switch Role:
+            </p>
+            <div className="grid grid-cols-3 gap-1.5">
+              {DEMO_PERSONAS.map((p) => {
+                const isCurrent = activePersona?.id === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => {
+                      switchPersona(p.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`py-1.5 px-2 rounded-xl text-[11px] font-semibold flex items-center justify-center gap-1 transition-all cursor-pointer border ${
+                      isCurrent
+                        ? "bg-cyan-50 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 border-cyan-400 shadow-xs"
+                        : "bg-slate-100 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-cyan-400/40"
+                    }`}
+                  >
+                    <span className="capitalize">{p.role}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Mobile Profile & Sign Out Bar */}
           {user ? (
-            <div className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-3 mt-3 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold text-xs flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-xs">
                   {(user?.full_name || "U").charAt(0)}
                 </div>
                 <div className="text-xs">
-                  <p className="font-semibold text-white">{user?.full_name || "Scholar"}</p>
-                  <p className="text-[10px] text-cyan-400 capitalize">{role}</p>
+                  <p className="font-semibold text-slate-900 dark:text-white truncate max-w-[150px]">{user?.full_name || "Scholar"}</p>
+                  <p className="text-[10px] text-cyan-700 dark:text-cyan-400 capitalize">{role}</p>
                 </div>
               </div>
               <button
@@ -326,13 +368,13 @@ export function Navbar() {
                   setIsMobileMenuOpen(false);
                   window.location.href = "/login";
                 }}
-                className="text-xs text-rose-400 hover:text-rose-300 font-semibold px-2 py-1 rounded-lg hover:bg-rose-500/10 cursor-pointer"
+                className="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-semibold px-2.5 py-1.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-500/10 cursor-pointer transition-colors"
               >
                 Sign Out
               </button>
             </div>
           ) : (
-            <div className="pt-3 mt-3 border-t border-white/10">
+            <div className="pt-3 mt-3 border-t border-slate-200/80 dark:border-white/10">
               <Link
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}

@@ -167,26 +167,26 @@ export default function LoginPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white transition-colors duration-300">
       {/* Top Header */}
       <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md sticky top-0 z-50 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors">
-              <GraduationCap className="w-5 h-5" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
                 Research<span className="text-blue-600 dark:text-blue-400">Bridge</span>
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium tracking-wider">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group"
+              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
               title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
             >
@@ -199,27 +199,27 @@ export default function LoginPage() {
 
             <Link
               href="/"
-              className="text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+              className="text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1.5 transition-colors shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Home</span>
+              <span className="hidden sm:inline">Back to </span>Home
             </Link>
           </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-10">
+      <main className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 w-full space-y-6 sm:space-y-10">
         {/* Hero Section */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
+        <div className="text-center space-y-2.5 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-medium">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Academic Portal • Multi-Role Access</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Sign In to ResearchBridge
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed px-1">
             Select your academic role to proceed with your institutional email, or use
             the pre-configured demo credentials below for instant role evaluation.
           </p>
@@ -227,7 +227,7 @@ export default function LoginPage() {
 
         {/* STEP 1: Role Selection Cards */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between px-1">
             <h2 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
               <span>Step 1: Select Your Academic Role</span>
             </h2>
@@ -236,7 +236,7 @@ export default function LoginPage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
             {roleCards.map((rc) => {
               const Icon = rc.icon;
               const isSelected = selectedRole === rc.role;
@@ -503,8 +503,8 @@ export default function LoginPage() {
                       <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-700/80 space-y-1.5 text-[11px] font-mono">
                         <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
                           <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">EMAIL:</span>
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-slate-900 dark:text-white font-semibold select-all">{persona.email}</span>
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="text-slate-900 dark:text-white font-semibold select-all break-all text-[10px] sm:text-[11px] truncate max-w-[140px] xs:max-w-[190px] sm:max-w-none">{persona.email}</span>
                             <button
                               type="button"
                               onClick={() => copyToClipboard(persona.email)}

@@ -9,6 +9,7 @@ import {
   CheckCheck,
   Briefcase,
   GraduationCap,
+  ArrowLeft,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -116,7 +117,7 @@ export default function MessagesPage() {
       {/* Main 2-Panel Messenger */}
       <Card className="flex-1 flex overflow-hidden bg-white/85 dark:bg-slate-900/80 backdrop-blur-2xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
         {/* Left Column: Conversation List */}
-        <div className="w-80 border-r border-slate-200/80 dark:border-white/10 flex flex-col bg-slate-50 dark:bg-slate-950/60">
+        <div className={`w-full md:w-80 border-r border-slate-200/80 dark:border-white/10 flex-col bg-slate-50 dark:bg-slate-950/60 shrink-0 ${selectedRequestId ? "hidden md:flex" : "flex"}`}>
           <div className="p-3.5 border-b border-slate-200/80 dark:border-white/10 bg-slate-100 dark:bg-slate-900/60 flex items-center justify-between">
             <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
               Conversations ({safeRequests.length})
@@ -162,25 +163,34 @@ export default function MessagesPage() {
         </div>
 
         {/* Right Column: Chat History & Input */}
-        <div className="flex-1 flex flex-col bg-slate-50/50 dark:bg-slate-900/40">
+        <div className={`flex-1 flex-col bg-slate-50/50 dark:bg-slate-900/40 min-w-0 ${selectedRequestId ? "flex" : "hidden md:flex"}`}>
           {selectedRequest ? (
             <>
               {/* Thread Header */}
-              <div className="p-4 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between bg-slate-100 dark:bg-slate-950/60">
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                    {selectedRequest.subject}
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Participant:{" "}
-                    <strong className="text-cyan-700 dark:text-cyan-300">
-                      {role === "professor"
-                        ? selectedRequest.student_name || "Student Applicant"
-                        : selectedRequest.professor_name || "Professor"}
-                    </strong>
-                  </p>
+              <div className="p-3 sm:p-4 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between bg-slate-100 dark:bg-slate-950/60 gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <button
+                    onClick={() => setSelectedRequestId(null)}
+                    className="md:hidden p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
+                    title="Back to conversation list"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                  </button>
+                  <div className="min-w-0">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">
+                      {selectedRequest.subject}
+                    </h3>
+                    <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 truncate">
+                      Participant:{" "}
+                      <strong className="text-cyan-700 dark:text-cyan-300">
+                        {role === "professor"
+                          ? selectedRequest.student_name || "Student Applicant"
+                          : selectedRequest.professor_name || "Professor"}
+                      </strong>
+                    </p>
+                  </div>
                 </div>
-                <Badge variant="teal" withDot className="text-xs capitalize font-bold">
+                <Badge variant="teal" withDot className="text-[10px] sm:text-xs capitalize font-bold shrink-0">
                   {selectedRequest.status?.replace("_", " ") || "submitted"}
                 </Badge>
               </div>
