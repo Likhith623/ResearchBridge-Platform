@@ -134,11 +134,8 @@ export function FloatingAiAssistant({
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-xs font-semibold text-white tracking-wide flex items-center gap-1.5">
+                <h3 className="text-xs font-semibold text-white tracking-wide">
                   ResearchBridge Assistant
-                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-teal-500/20 text-teal-300 font-normal">
-                    Gemini 2.5
-                  </span>
                 </h3>
                 {contextTitle && (
                   <p className="text-[10px] text-slate-300 truncate max-w-[200px]">
