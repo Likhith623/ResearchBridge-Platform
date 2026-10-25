@@ -242,20 +242,20 @@ export default function LoginPage() {
                       <h3 className="text-sm font-bold text-white tracking-tight">
                         {rc.title}
                       </h3>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                      <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
                         {rc.description}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-slate-700/50 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400">
+                    <span className="text-slate-300">
                       Default Demo:{" "}
-                      <strong className="text-slate-200">{rc.demoPersona.name}</strong>
+                      <strong className="text-white font-semibold">{rc.demoPersona.name}</strong>
                     </span>
                     <span
                       className={`text-xs font-semibold ${
-                        isSelected ? "text-blue-400" : "text-slate-500"
+                        isSelected ? "text-blue-400" : "text-slate-400"
                       }`}
                     >
                       {isSelected ? "Selected ✓" : "Click to Select"}
@@ -276,7 +276,7 @@ export default function LoginPage() {
                 <h3 className="text-sm font-bold text-white">
                   {authMode === "login" ? "Sign In with Email" : "Register Account"}
                 </h3>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-300">
                   Role: <span className="text-blue-400 font-semibold capitalize">{selectedRole}</span>
                 </p>
               </div>
@@ -291,8 +291,8 @@ export default function LoginPage() {
                   }}
                   className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                     authMode === "login"
-                      ? "bg-blue-600 text-white font-medium shadow-xs"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-blue-600 text-white font-semibold shadow-xs"
+                      : "text-slate-300 hover:text-white"
                   }`}
                 >
                   Sign In
@@ -305,8 +305,8 @@ export default function LoginPage() {
                   }}
                   className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                     authMode === "register"
-                      ? "bg-blue-600 text-white font-medium shadow-xs"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-blue-600 text-white font-semibold shadow-xs"
+                      : "text-slate-300 hover:text-white"
                   }`}
                 >
                   Register
@@ -324,7 +324,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {authMode === "register" && (
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-200 mb-1">
                     Full Name &amp; Title
                   </label>
                   <div className="relative">
@@ -335,14 +335,14 @@ export default function LoginPage() {
                       placeholder="e.g. Dr. John von Neumann"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+                <label className="block text-[11px] font-semibold text-slate-200 mb-1">
                   Institutional Email ID
                 </label>
                 <div className="relative">
@@ -353,16 +353,16 @@ export default function LoginPage() {
                     placeholder="name@university.edu"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                <label className="block text-[11px] font-semibold text-slate-200 mb-1 flex items-center justify-between">
                   <span>Password</span>
-                  <span className="text-[10px] text-slate-500 font-normal">
-                    (Use <strong className="text-slate-300">password123</strong> for demo accounts)
+                  <span className="text-[10px] text-slate-400 font-normal">
+                    (Use <strong className="text-white font-semibold">password123</strong> for demo accounts)
                   </span>
                 </label>
                 <div className="relative">
@@ -442,7 +442,7 @@ export default function LoginPage() {
                             <h4 className="text-xs font-bold text-white tracking-tight">
                               {persona.name}
                             </h4>
-                            <p className="text-[11px] text-slate-400 line-clamp-1">
+                            <p className="text-[11px] text-slate-300 font-medium line-clamp-1">
                               {persona.title}
                             </p>
                           </div>
@@ -463,29 +463,29 @@ export default function LoginPage() {
                       </div>
 
                       {/* Credentials Display Box */}
-                      <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 text-[11px] font-mono">
-                        <div className="flex items-center justify-between text-slate-400">
-                          <span className="text-[10px] uppercase text-slate-500">Email:</span>
-                          <div className="flex items-center gap-1">
-                            <span className="text-slate-200 select-all">{persona.email}</span>
+                      <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-700/80 space-y-1.5 text-[11px] font-mono">
+                        <div className="flex items-center justify-between text-slate-300">
+                          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">EMAIL:</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-white font-semibold select-all">{persona.email}</span>
                             <button
                               type="button"
                               onClick={() => copyToClipboard(persona.email)}
-                              className="text-slate-500 hover:text-slate-300 cursor-pointer"
+                              className="text-slate-400 hover:text-white transition-colors cursor-pointer"
                               title="Copy email"
                             >
                               {copiedEmail === persona.email ? (
-                                <Check className="w-3 h-3 text-emerald-400" />
+                                <Check className="w-3.5 h-3.5 text-emerald-400" />
                               ) : (
-                                <Copy className="w-3 h-3" />
+                                <Copy className="w-3.5 h-3.5" />
                               )}
                             </button>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between text-slate-400">
-                          <span className="text-[10px] uppercase text-slate-500">Password:</span>
-                          <span className="text-slate-200">{persona.password || "password123"}</span>
+                        <div className="flex items-center justify-between text-slate-300">
+                          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">PASSWORD:</span>
+                          <span className="text-white font-semibold">{persona.password || "password123"}</span>
                         </div>
                       </div>
                     </div>
@@ -498,21 +498,19 @@ export default function LoginPage() {
                         variant="primary"
                         onClick={() => handle1ClickDemoLogin(persona.id)}
                         disabled={isSubmitting}
-                        className="flex-1 text-[11px] py-1.5"
+                        className="flex-1 text-[11px] py-1.5 font-semibold"
                       >
                         <span>1-Click Sign In</span>
                         <ArrowRight className="w-3 h-3" />
                       </Button>
 
-                      <Button
+                      <button
                         type="button"
-                        size="sm"
-                        variant="outline"
                         onClick={() => handleAutofillDemo(persona)}
-                        className="text-[11px] py-1.5 border-slate-700 hover:bg-slate-800 text-slate-300"
+                        className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-semibold text-[11px] border border-slate-600 hover:border-slate-500 transition-all cursor-pointer shadow-xs select-none"
                       >
                         Autofill
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 );

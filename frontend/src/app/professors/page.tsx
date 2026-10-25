@@ -155,9 +155,10 @@ export default function ProfessorsPage() {
           {filteredProfessors.map((prof) => (
             <Card
               key={prof.id}
-              className="hover:border-slate-300 hover:shadow-md transition-all flex flex-col justify-between"
+              hoverable
+              className="flex flex-col justify-between"
             >
-              <CardContent className="p-5 space-y-4">
+              <CardContent className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 font-bold text-base flex items-center justify-center shrink-0 shadow-xs">

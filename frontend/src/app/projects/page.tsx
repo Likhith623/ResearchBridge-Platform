@@ -245,7 +245,8 @@ export default function ProjectsPage() {
           {(Array.isArray(projects) ? projects : []).map((proj) => (
             <Card
               key={proj.id}
-              className="p-5 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all"
+              hoverable
+              className="p-6 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
