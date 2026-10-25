@@ -3,6 +3,8 @@
 
 <div align="center">
 
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-hack--gen--seven.vercel.app-0070F3.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://hack-gen-seven.vercel.app/)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-black.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/likhith623s-projects/hack-gen)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16_Turbopack-black.svg?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Python](https://img.shields.io/badge/Python-3.12+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
@@ -10,14 +12,19 @@
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL_16_&_RLS-3ECF8E.svg?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash_SDK-4285F4.svg?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
 [![Pytest](https://img.shields.io/badge/Tests-53%2F53_Passed-success.svg?style=for-the-badge&logo=pytest&logoColor=white)](backend/app/tests)
-[![Build](https://img.shields.io/badge/Frontend_Build-18%2F18_Routes_Optimized-success.svg?style=for-the-badge&logo=vercel&logoColor=white)](frontend)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg?style=for-the-badge)](LICENSE)
+
+<br/>
+
+> 🚀 **Live Production Deployment**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**  
+> 🔗 **Vercel Dashboard**: [likhith623s-projects/hack-gen](https://vercel.com/likhith623s-projects/hack-gen)  
+> ✨ *Experience instant 1-click role switching between Student, Faculty, and Admin personas directly in the live app.*
 
 <br/>
 
 **ResearchBridge** is a modern, high-performance university research collaboration ecosystem connecting undergraduate and graduate scholars with research supervising faculty, active lab openings, and an institutional AI research intelligence engine powered by Google Gemini.
 
-[Explore Features](#-key-capabilities--11-innovation-modules) • [System Architecture](#-system-architecture) • [Demo Personas](#-one-click-demo-personas) • [API Directory](#-api-reference-48-endpoints) • [Quickstart](#-local-development-quickstart)
+[🌐 Live Demo](https://hack-gen-seven.vercel.app/) • [Key Modules](#-key-capabilities--11-innovation-modules) • [System Architecture](#-system-architecture) • [Demo Personas](#-one-click-demo-personas) • [API Directory](#-api-reference-48-endpoints) • [Quickstart](#-local-development-quickstart)
 
 </div>
 
@@ -52,17 +59,17 @@ ResearchBridge implements 11 specialized, production-ready research orchestratio
 
 ```mermaid
 graph TD
-    A[ResearchBridge Intelligence Engine] --> B1[1. Explainable AI Talent Matcher]
-    A --> B2[2. Evidence-Based Skill Passport]
-    A --> B3[3. AI Team Composer]
-    A --> B4[4. Opportunity Gap Analyzer]
-    A --> B5[5. Idea-to-Prototype Pipeline]
-    A --> B6[6. Contribution & Impact Tracker]
-    A --> B7[7. Cross-Department Discovery]
-    A --> B8[8. Opportunity Radar]
-    A --> B9[9. Collaboration Topology Graph]
-    A --> B10[10. Fair Opportunity Monitor]
-    A --> B11[11. Automatic Project Breakdown]
+    A["ResearchBridge Intelligence Engine"] --> B1["1. Explainable AI Talent Matcher"]
+    A --> B2["2. Evidence-Based Skill Passport"]
+    A --> B3["3. AI Team Composer"]
+    A --> B4["4. Opportunity Gap Analyzer"]
+    A --> B5["5. Idea-to-Prototype Pipeline"]
+    A --> B6["6. Contribution & Impact Tracker"]
+    A --> B7["7. Cross-Department Discovery"]
+    A --> B8["8. Opportunity Radar"]
+    A --> B9["9. Collaboration Topology Graph"]
+    A --> B10["10. Fair Opportunity Monitor"]
+    A --> B11["11. Automatic Project Breakdown"]
 ```
 
 1. **Explainable AI Talent Matcher (`GET /api/v1/recommendations/projects/{id}/talent-matcher`)**  
@@ -102,14 +109,14 @@ graph TD
 
 ## 👥 One-Click Demo Personas
 
-The platform includes pre-seeded institutional accounts for instant one-click switching:
+The platform includes pre-seeded institutional accounts for instant one-click switching on both localhost and the [Live Website](https://hack-gen-seven.vercel.app/login):
 
 | Role | Persona Name | Email | Focus & Department | Quick Access |
 | :--- | :--- | :--- | :--- | :--- |
-| 🛡️ **Admin** | **Dr. Eleanor Vance** | `admin@stanford.edu` | Stanford Research Governance & Dean of Research | Instant Switch in Navbar |
-| 👨‍🏫 **Professor** | **Prof. Alan Turing** | `prof.turing@stanford.edu` | Computer Science & Artificial Intelligence Lab | Instant Switch in Navbar |
-| 🎓 **Student** | **Alice Chen** | `alice.student@stanford.edu` | Senior Undergrad • ML, Systems & Distributed Computing | Instant Switch in Navbar |
-| 🎓 **Student** | **Bob Williams** | `bob.student@stanford.edu` | Graduate Researcher • Quantum Information & HCI | Instant Switch in Navbar |
+| 🛡️ **Admin** | **Dr. Eleanor Vance** | `admin@stanford.edu` | Stanford Research Governance & Dean of Research | [Switch to Admin](https://hack-gen-seven.vercel.app/login) |
+| 👨‍🏫 **Professor** | **Prof. Alan Turing** | `prof.turing@stanford.edu` | Computer Science & Artificial Intelligence Lab | [Switch to Professor](https://hack-gen-seven.vercel.app/login) |
+| 🎓 **Student** | **Alice Chen** | `alice.student@stanford.edu` | Senior Undergrad • ML, Systems & Distributed Computing | [Switch to Alice](https://hack-gen-seven.vercel.app/login) |
+| 🎓 **Student** | **Bob Williams** | `bob.student@stanford.edu` | Graduate Researcher • Quantum Information & HCI | [Switch to Bob](https://hack-gen-seven.vercel.app/login) |
 
 ---
 
@@ -118,39 +125,39 @@ The platform includes pre-seeded institutional accounts for instant one-click sw
 ```mermaid
 flowchart TB
     subgraph Client["Frontend Client (Next.js 16 + TypeScript + Tailwind)"]
-        UI[Responsive Modern UI / Dark & Light Theme]
-        Nav[Navigation & Demo Persona Switcher]
-        Notif[Notification Center & Mobile Drawer]
-        AIWidget[Floating Gemini Research Copilot]
-        GraphView[Interactive D3 / SVG Collaboration Graph]
+        UI["Responsive Modern UI (Dark & Light Theme)"]
+        Nav["Navigation & Demo Persona Switcher"]
+        Notif["Notification Center & Mobile Drawer"]
+        AIWidget["Floating Gemini Research Copilot"]
+        GraphView["Interactive Collaboration Network Graph"]
     end
 
     subgraph Gateway["API Gateway Layer (FastAPI)"]
-        Router[API v1 Router / OpenAPI 3.1]
-        AuthGuard[JWT Auth & RBAC Security Guard]
-        RateLimiter[IP & User In-Memory Rate Limiter]
-        ErrHandler[Centralized Exception Handler]
+        Router["API v1 Router (OpenAPI 3.1)"]
+        AuthGuard["JWT Auth & RBAC Security Guard"]
+        RateLimiter["IP & User In-Memory Rate Limiter"]
+        ErrHandler["Centralized Exception Handler"]
     end
 
     subgraph Services["Core Application Services"]
-        InnovService[11-Module Innovation Suite]
-        GeminiService[Google Gemini AI Engine (google-genai SDK)]
-        DocService[Magic-Byte PDF Validator & Storage Client]
-        ReqService[Research Request State Machine]
+        InnovService["11-Module Innovation Suite"]
+        GeminiService["Google Gemini AI Engine (google-genai SDK)"]
+        DocService["Magic-Byte PDF Validator & Storage Client"]
+        ReqService["Research Request State Machine"]
     end
 
     subgraph Data["Persistent Storage Layer (Supabase)"]
-        Postgres[(PostgreSQL 16 Database with Row Level Security)]
-        Storage[(Supabase Storage: research-documents)]
-        Realtime[Supabase Realtime Pub/Sub Engine]
+        Postgres[("PostgreSQL 16 Database with RLS")]
+        Storage[("Supabase Storage (research-documents)")]
+        Realtime["Supabase Realtime Pub/Sub Engine"]
     end
 
-    Client -->|REST & Bearer JWT| Gateway
+    Client -->|"REST & Bearer JWT"| Gateway
     Gateway --> Services
     Services --> Postgres
     Services --> Storage
     Services --> GeminiService
-    Client -.->|WebSocket Notifications| Realtime
+    Client -.->|"WebSocket Notifications"| Realtime
 ```
 
 ### Security & Privacy Protections
@@ -432,6 +439,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-publishable-key
 
 ## 🚢 Production Deployment
 
+### 🌐 Live Production Application
+- **Live URL**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**
+- **Vercel Dashboard**: [https://vercel.com/likhith623s-projects/hack-gen](https://vercel.com/likhith623s-projects/hack-gen)
+- **Edge Deployment**: Globally distributed on Vercel's Edge Network with Next.js Turbopack compilation.
+
 ### Docker Deployment
 The backend includes a production-ready `Dockerfile`:
 ```bash
@@ -440,10 +452,10 @@ docker build -t researchbridge-backend:latest .
 docker run -p 8000:8000 --env-file .env researchbridge-backend:latest
 ```
 
-### Deploying to Cloud
-- **Backend (FastAPI)**: Deploy directly to [Railway](https://railway.app), [Render](https://render.com), or [Fly.io](https://fly.io) using the included `Dockerfile` and `railway.json`.
-- **Frontend (Next.js)**: Connect the GitHub repository to [Vercel](https://vercel.com) for zero-configuration edge deployments with automatic Turbopack builds.
-- **Database (PostgreSQL)**: Fully hosted on [Supabase](https://supabase.com) with automated backups, Point-in-Time Recovery, and global CDN caching.
+### Cloud Architecture & Hosting
+- **Frontend (Next.js)**: Deployed to [Vercel](https://vercel.com) with automated continuous deployment on `git push origin main`.
+- **Backend (FastAPI)**: Deployable to [Railway](https://railway.app), [Render](https://render.com), or [Fly.io](https://fly.io) via `Dockerfile`.
+- **Database & Storage (PostgreSQL 16)**: Hosted on [Supabase](https://supabase.com) with automated backups, Point-in-Time Recovery, and global CDN caching.
 
 ---
 
