@@ -441,7 +441,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-publishable-key
 
 ### 🌐 Live Production Application
 - **Live URL**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**
-- **Vercel Dashboard**: [https://vercel.com/likhith623s-projects/hack-gen](https://vercel.com/likhith623s-projects/hack-gen)
 - **Edge Deployment**: Globally distributed on Vercel's Edge Network with Next.js Turbopack compilation.
 
 ### Docker Deployment
