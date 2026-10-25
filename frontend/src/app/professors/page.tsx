@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/Button";
 export default function ProfessorsPage() {
   const [professors, setProfessors] = useState<ProfessorProfile[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [appliedProfIds, setAppliedProfIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [selectedDept, setSelectedDept] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState<string>("all");
@@ -31,12 +32,17 @@ export default function ProfessorsPage() {
   useEffect(() => {
     async function loadInitial() {
       try {
-        const [profData, deptData] = await Promise.all([
+        const [profData, deptData, reqData] = await Promise.allSettled([
           api.getProfessors(),
           api.getDepartments(),
+          api.getResearchRequests(),
         ]);
-        setProfessors(profData || []);
-        setDepartments(deptData || []);
+        if (profData.status === "fulfilled") setProfessors(profData.value || []);
+        if (deptData.status === "fulfilled") setDepartments(deptData.value || []);
+        if (reqData.status === "fulfilled") {
+          const list = Array.isArray(reqData.value) ? reqData.value : (reqData.value as any)?.items || [];
+          setAppliedProfIds(new Set(list.map((r: any) => r.professor_id)));
+        }
       } catch (err) {
         console.error("Failed to load professors:", err);
       } finally {
@@ -165,14 +171,22 @@ export default function ProfessorsPage() {
                     </div>
                   </div>
 
-                  <Badge
-                    variant={prof.open_to_applications ? "success" : "secondary"}
-                    className="text-[10px] shrink-0"
-                  >
-                    {prof.open_to_applications
-                      ? "Open to Students"
-                      : "Capacity Full"}
-                  </Badge>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {appliedProfIds.has(prof.id) && (
+                      <Badge variant="teal" className="text-[10px] gap-1 font-semibold">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        <span>Applied</span>
+                      </Badge>
+                    )}
+                    <Badge
+                      variant={prof.open_to_applications ? "success" : "secondary"}
+                      className="text-[10px] shrink-0"
+                    >
+                      {prof.open_to_applications
+                        ? "Open to Students"
+                        : "Capacity Full"}
+                    </Badge>
+                  </div>
                 </div>
 
                 {(prof.bio || prof.profiles?.bio) && (
@@ -192,9 +206,9 @@ export default function ProfessorsPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-1.5">
-                    {(Array.isArray(prof.research_interests) ? prof.research_interests : []).map((ri: any) => (
+                    {(Array.isArray(prof.research_interests) ? prof.research_interests : []).map((ri: any, idx: number) => (
                       <span
-                        key={ri.id || ri.name || ri}
+                        key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
                         className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium"
                       >
                         {typeof ri === "string" ? ri : ri.name}
@@ -215,8 +229,12 @@ export default function ProfessorsPage() {
                   </span>
                 </div>
                 <Link href={`/professors/${prof.id}`}>
-                  <Button size="sm" variant="primary" className="text-xs gap-1">
-                    <span>View Academic Profile</span>
+                  <Button
+                    size="sm"
+                    variant={appliedProfIds.has(prof.id) ? "outline" : "primary"}
+                    className="text-xs gap-1"
+                  >
+                    <span>{appliedProfIds.has(prof.id) ? "View Application" : "View Academic Profile"}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>

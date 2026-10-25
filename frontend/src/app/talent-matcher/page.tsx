@@ -55,12 +55,16 @@ export default function TalentMatcherPage() {
 
   const runAnalysis = async (projId: string) => {
     if (!projId) return;
+    if (role !== "professor" && role !== "admin") {
+      setMatcherResult(null);
+      return;
+    }
     setIsLoadingMatcher(true);
     try {
       const data = await api.getTalentMatcher(projId);
       setMatcherResult(data);
-    } catch (err) {
-      console.error("Talent matcher error:", err);
+    } catch (err: any) {
+      console.warn("Talent matcher error:", err);
     } finally {
       setIsLoadingMatcher(false);
     }
@@ -113,7 +117,9 @@ export default function TalentMatcherPage() {
               value={selectedProjectId}
               onChange={(e) => {
                 setSelectedProjectId(e.target.value);
-                runAnalysis(e.target.value);
+                if (role === "professor" || role === "admin") {
+                  runAnalysis(e.target.value);
+                }
               }}
               className="px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800"
             >
@@ -127,6 +133,7 @@ export default function TalentMatcherPage() {
               size="sm"
               onClick={() => runAnalysis(selectedProjectId)}
               isLoading={isLoadingMatcher}
+              disabled={role !== "professor" && role !== "admin"}
               className="text-xs"
             >
               Refresh Match

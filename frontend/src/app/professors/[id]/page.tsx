@@ -48,15 +48,17 @@ export default function ProfessorDetailPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [existingApplication, setExistingApplication] = useState<any | null>(null);
 
   useEffect(() => {
     async function fetchProfessorData() {
       setIsLoading(true);
       try {
-        const [profData, pubData, projData] = await Promise.allSettled([
+        const [profData, pubData, projData, reqData] = await Promise.allSettled([
           api.getProfessor(profId),
           api.getProfessorPublications(profId),
           api.getProjects(),
+          api.getResearchRequests(),
         ]);
 
         if (profData.status === "fulfilled") setProfessor(profData.value);
@@ -71,6 +73,11 @@ export default function ProfessorDetailPage() {
             (p: any) => p.professor_id === profId
           );
           setProjects(profProjects);
+        }
+        if (reqData.status === "fulfilled") {
+          const reqs = Array.isArray(reqData.value) ? reqData.value : (reqData.value as any)?.items || [];
+          const matched = reqs.find((r: any) => r.professor_id === profId);
+          if (matched) setExistingApplication(matched);
         }
       } catch (err) {
         console.error("Failed to load professor detail:", err);
@@ -104,7 +111,7 @@ export default function ProfessorDetailPage() {
         .map((s) => s.trim())
         .filter(Boolean);
 
-      await api.createResearchRequest({
+      const createdReq = await api.createResearchRequest({
         professor_id: profId,
         project_id: selectedProjectId || undefined,
         subject,
@@ -112,6 +119,7 @@ export default function ProfessorDetailPage() {
         student_skills: skillsArray.length > 0 ? skillsArray : ["Python", "Research Analysis"],
         proposed_availability_hours: Number(hours),
       });
+      setExistingApplication(createdReq);
 
       setSubmitSuccess("Your research collaboration application was submitted successfully!");
       setTimeout(() => {
@@ -192,15 +200,33 @@ export default function ProfessorDetailPage() {
             </div>
           </div>
 
-          <Button
-            size="md"
-            variant="primary"
-            onClick={() => setIsApplyModalOpen(true)}
-            className="w-full sm:w-auto text-xs gap-1.5 shadow-md shadow-blue-600/20"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span>Apply for Research Supervision</span>
-          </Button>
+          {existingApplication ? (
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <div className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-1.5 shadow-xs">
+                <CheckCircle className="w-4 h-4 text-emerald-600" />
+                <span>
+                  Application Submitted (
+                  {(existingApplication.status || "under_review").replace(/_/g, " ")}
+                  )
+                </span>
+              </div>
+              <Link href="/requests">
+                <Button size="sm" variant="outline" className="text-xs">
+                  View in Applications →
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Button
+              size="md"
+              variant="primary"
+              onClick={() => setIsApplyModalOpen(true)}
+              className="w-full sm:w-auto text-xs gap-1.5 shadow-md shadow-blue-600/20"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Apply for Research Supervision</span>
+            </Button>
+          )}
         </div>
 
         {/* Tab Navigation */}
@@ -265,9 +291,9 @@ export default function ProfessorDetailPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {(Array.isArray(professor.research_interests) ? professor.research_interests : []).map((ri: any) => (
+                  {(Array.isArray(professor.research_interests) ? professor.research_interests : []).map((ri: any, idx: number) => (
                     <div
-                      key={ri.id || ri.name || ri}
+                      key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
                       className="px-3 py-1.5 rounded-lg bg-blue-50/70 border border-blue-200 text-blue-800 text-xs font-medium"
                     >
                       {typeof ri === "string" ? ri : ri.name}

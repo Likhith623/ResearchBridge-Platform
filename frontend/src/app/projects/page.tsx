@@ -52,12 +52,23 @@ export default function ProjectsPage() {
   const [gapProject, setGapProject] = useState<ResearchProject | null>(null);
   const [gapData, setGapData] = useState<any>(null);
   const [isLoadingGap, setIsLoadingGap] = useState(false);
+  const [appliedProjectIds, setAppliedProjectIds] = useState<Set<string>>(new Set());
 
   const loadProjects = async () => {
     setIsLoading(true);
     try {
-      const data = await api.getProjects({ search: search || undefined });
-      setProjects(Array.isArray(data) ? data : (data as any)?.items || []);
+      const [projsData, reqsData] = await Promise.allSettled([
+        api.getProjects({ search: search || undefined }),
+        api.getResearchRequests(),
+      ]);
+      if (projsData.status === "fulfilled") {
+        setProjects(Array.isArray(projsData.value) ? projsData.value : (projsData.value as any)?.items || []);
+      }
+      if (reqsData.status === "fulfilled") {
+        const reqList = Array.isArray(reqsData.value) ? reqsData.value : (reqsData.value as any)?.items || [];
+        const applied = new Set<string>(reqList.filter((r: any) => r.project_id).map((r: any) => r.project_id));
+        setAppliedProjectIds(applied);
+      }
     } catch (err) {
       console.error("Failed to load projects:", err);
     } finally {
@@ -163,6 +174,7 @@ export default function ProjectsPage() {
         student_skills: skills.split(",").map((s) => s.trim()),
         proposed_availability_hours: Number(hours),
       });
+      setAppliedProjectIds((prev) => new Set([...prev, selectedProject.id]));
       setApplySuccess("Application successfully submitted to the supervising professor!");
       setTimeout(() => {
         setSelectedProject(null);
@@ -280,17 +292,24 @@ export default function ProjectsPage() {
                     <span>Am I Ready?</span>
                   </Button>
 
-                  <Button
-                    size="sm"
-                    variant="primary"
-                    onClick={() => {
-                      setSelectedProject(proj);
-                      setSubject(`Application for: ${proj.title}`);
-                    }}
-                    className="text-xs"
-                  >
-                    Apply to Project
-                  </Button>
+                  {appliedProjectIds.has(proj.id) ? (
+                    <Badge variant="teal" className="text-xs px-3 py-1.5 gap-1.5 font-semibold">
+                      <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Applied</span>
+                    </Badge>
+                  ) : (
+                    <Button
+                      size="sm"
+                      variant="primary"
+                      onClick={() => {
+                        setSelectedProject(proj);
+                        setSubject(`Application for: ${proj.title}`);
+                      }}
+                      className="text-xs"
+                    >
+                      Apply to Project
+                    </Button>
+                  )}
                 </div>
               </div>
             </Card>

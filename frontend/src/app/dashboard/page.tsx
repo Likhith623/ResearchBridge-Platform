@@ -327,9 +327,9 @@ export default function DashboardPage() {
                       {prof.academic_title || prof.title || "Professor"}
                     </p>
                     <div className="mt-1 flex flex-wrap gap-1">
-                      {(Array.isArray(prof.research_interests) ? prof.research_interests : []).slice(0, 2).map((ri: any) => (
+                      {(Array.isArray(prof.research_interests) ? prof.research_interests : []).slice(0, 2).map((ri: any, idx: number) => (
                         <span
-                          key={ri.id || ri.name}
+                          key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
                           className="text-[9px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600"
                         >
                           {typeof ri === "string" ? ri : ri.name}

@@ -5,10 +5,10 @@ from app.main import app
 from app.repositories.db_adapter import db
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def reset_db_state():
-    """Ensure clean data state before tests."""
-    pass
+    """Ensure clean data state before tests in each module."""
+    db._init_memory_store()
 
 
 @pytest.fixture

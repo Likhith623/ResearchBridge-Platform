@@ -1,9 +1,15 @@
+import json
+import os
+import sys
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 from app.core.config import settings
 from app.core.logging import logger
 from app.repositories.supabase_client import get_supabase_client
+
+PERSISTENCE_FILE = Path(__file__).resolve().parent.parent.parent / "database_state.json"
 
 
 class DatabaseAdapter:
@@ -16,6 +22,57 @@ class DatabaseAdapter:
 
     def __init__(self):
         self._init_memory_store()
+        self._load_from_disk()
+
+    def _save_to_disk(self):
+        if "pytest" in sys.modules or os.environ.get("PYTEST_CURRENT_TEST"):
+            return
+        try:
+            state = {
+                "profiles": self.profiles,
+                "professor_profiles": self.professor_profiles,
+                "professor_onboarding_requests": self.professor_onboarding_requests,
+                "publications": self.publications,
+                "research_projects": self.research_projects,
+                "project_interests": self.project_interests,
+                "research_requests": self.research_requests,
+                "request_status_history": self.request_status_history,
+                "request_messages": self.request_messages,
+                "documents": self.documents,
+                "paper_summaries": self.paper_summaries,
+                "ai_conversations": self.ai_conversations,
+                "ai_messages": self.ai_messages,
+                "notifications": self.notifications,
+                "audit_logs": self.audit_logs,
+            }
+            with open(PERSISTENCE_FILE, "w", encoding="utf-8") as f:
+                json.dump(state, f, default=str, indent=2)
+        except Exception as e:
+            logger.warning(f"Failed to persist database state to disk: {e}")
+
+    def _load_from_disk(self):
+        if "pytest" in sys.modules or os.environ.get("PYTEST_CURRENT_TEST"):
+            return
+        if not PERSISTENCE_FILE.exists():
+            return
+        try:
+            with open(PERSISTENCE_FILE, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            for k, v in state.items():
+                if hasattr(self, k) and isinstance(v, (dict, list)):
+                    if isinstance(v, dict):
+                        getattr(self, k).update(v)
+                    elif isinstance(v, list):
+                        target_list = getattr(self, k)
+                        id_to_idx = {item.get("id"): idx for idx, item in enumerate(target_list) if isinstance(item, dict) and "id" in item}
+                        for item in v:
+                            if isinstance(item, dict) and "id" in item and item.get("id") in id_to_idx:
+                                target_list[id_to_idx[item.get("id")]] = item
+                            else:
+                                target_list.append(item)
+            logger.info(f"Loaded persistent database state from {PERSISTENCE_FILE}")
+        except Exception as e:
+            logger.warning(f"Failed to load database state from disk: {e}")
 
     def _init_memory_store(self):
         now = datetime.now(timezone.utc).isoformat()
@@ -293,6 +350,7 @@ class DatabaseAdapter:
                 logger.warning(f"Supabase error creating profile: {e}")
 
         self.profiles[user_id] = record
+        self._save_to_disk()
         return record
 
     @staticmethod
@@ -316,6 +374,7 @@ class DatabaseAdapter:
 
         if user_id in self.profiles:
             self.profiles[user_id].update(updates)
+            self._save_to_disk()
             return await self.get_profile(user_id)
         return updates
 
@@ -367,6 +426,7 @@ class DatabaseAdapter:
                 "updated_at": now,
             }
         self.professor_profiles[user_id].update(updates)
+        self._save_to_disk()
         return self.professor_profiles[user_id]
 
     async def list_professors(
@@ -461,6 +521,7 @@ class DatabaseAdapter:
             **data,
         }
         self.publications[pub_id] = record
+        self._save_to_disk()
         return record
 
     async def update_publication(self, pub_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
@@ -468,6 +529,7 @@ class DatabaseAdapter:
         if pub_id in self.publications:
             updates["updated_at"] = datetime.now(timezone.utc).isoformat()
             self.publications[pub_id].update(updates)
+            self._save_to_disk()
             return self.publications[pub_id]
         return None
 
@@ -475,6 +537,7 @@ class DatabaseAdapter:
         pub_id = str(pub_id)
         if pub_id in self.publications:
             del self.publications[pub_id]
+            self._save_to_disk()
             return True
         return False
 
@@ -549,6 +612,7 @@ class DatabaseAdapter:
             **data,
         }
         self.research_projects[proj_id] = record
+        self._save_to_disk()
         return await self.get_research_project(proj_id)
 
     async def update_research_project(self, project_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
@@ -556,6 +620,7 @@ class DatabaseAdapter:
         if project_id in self.research_projects:
             updates["updated_at"] = datetime.now(timezone.utc).isoformat()
             self.research_projects[project_id].update(updates)
+            self._save_to_disk()
             return await self.get_research_project(project_id)
         return None
 
@@ -563,6 +628,7 @@ class DatabaseAdapter:
         project_id = str(project_id)
         if project_id in self.research_projects:
             del self.research_projects[project_id]
+            self._save_to_disk()
             return True
         return False
 
@@ -620,6 +686,7 @@ class DatabaseAdapter:
             "notes": "Application submitted",
             "created_at": now,
         }]
+        self._save_to_disk()
         return await self.get_research_request(req_id)
 
     async def update_research_request_status(
@@ -647,6 +714,7 @@ class DatabaseAdapter:
                 "notes": notes,
                 "created_at": now,
             })
+            self._save_to_disk()
             return await self.get_research_request(req_id)
         return None
 
@@ -676,6 +744,7 @@ class DatabaseAdapter:
             **data,
         }
         self.request_messages[msg_id] = record
+        self._save_to_disk()
         
         # Format response
         sender = self.profiles.get(str(data.get("sender_id")), {})
@@ -707,6 +776,7 @@ class DatabaseAdapter:
             **data,
         }
         self.documents[doc_id] = record
+        self._save_to_disk()
         owner = self.profiles.get(str(record.get("owner_id")), {})
         record["owner_name"] = owner.get("full_name")
         return record
@@ -734,6 +804,7 @@ class DatabaseAdapter:
         doc_id = str(doc_id)
         if doc_id in self.documents:
             del self.documents[doc_id]
+            self._save_to_disk()
             return True
         return False
 
@@ -756,6 +827,7 @@ class DatabaseAdapter:
         }
         key = f"{data['document_id']}:{data.get('prompt_version', 'v1')}"
         self.paper_summaries[key] = record
+        self._save_to_disk()
         return record
 
     async def create_ai_conversation(self, data: Dict[str, Any]) -> Dict[str, Any]:
@@ -768,6 +840,7 @@ class DatabaseAdapter:
             **data,
         }
         self.ai_conversations[conv_id] = record
+        self._save_to_disk()
         return record
 
     async def get_ai_conversation(self, conv_id: str) -> Optional[Dict[str, Any]]:
@@ -806,6 +879,7 @@ class DatabaseAdapter:
         # update conversation updated_at
         if str(data["conversation_id"]) in self.ai_conversations:
             self.ai_conversations[str(data["conversation_id"])]["updated_at"] = now
+        self._save_to_disk()
         return record
 
     # -------------------------------------------------------------------------
@@ -823,6 +897,7 @@ class DatabaseAdapter:
             **data,
         }
         self.notifications[notif_id] = record
+        self._save_to_disk()
         return record
 
     async def list_notifications(self, user_id: str) -> List[Dict[str, Any]]:
@@ -857,6 +932,7 @@ class DatabaseAdapter:
             **data,
         }
         self.audit_logs.append(record)
+        self._save_to_disk()
         return record
 
     async def list_audit_logs(self, limit: int = 100) -> List[Dict[str, Any]]:
@@ -877,6 +953,7 @@ class DatabaseAdapter:
             **data,
         }
         self.professor_onboarding_requests[req_id] = record
+        self._save_to_disk()
         return record
 
     async def list_pending_professor_requests(self) -> List[Dict[str, Any]]:
@@ -891,6 +968,7 @@ class DatabaseAdapter:
         req_id = str(req_id)
         if req_id in self.professor_onboarding_requests:
             self.professor_onboarding_requests[req_id].update(updates)
+            self._save_to_disk()
             return self.professor_onboarding_requests[req_id]
         return None
 

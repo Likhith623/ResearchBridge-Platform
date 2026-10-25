@@ -1,5 +1,8 @@
 from datetime import datetime, timezone
 import json
+import os
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
@@ -35,6 +38,8 @@ from app.schemas.innovation import (
 from app.schemas.profile import ProfileResponse
 from app.services.gemini_service import gemini_service
 
+INNOVATION_PERSISTENCE_FILE = Path(__file__).resolve().parent.parent.parent / "innovation_state.json"
+
 
 class InnovationService:
     def __init__(self):
@@ -43,6 +48,37 @@ class InnovationService:
         self.research_ideas: Dict[str, Dict[str, Any]] = {}
         self.idea_proposals: Dict[str, Dict[str, Any]] = {}
         self.student_contributions: Dict[str, Dict[str, Any]] = {}
+        self._load_from_disk()
+
+    def _save_to_disk(self):
+        if "pytest" in sys.modules or os.environ.get("PYTEST_CURRENT_TEST"):
+            return
+        try:
+            state = {
+                "skill_passports": self.skill_passports,
+                "research_ideas": self.research_ideas,
+                "idea_proposals": self.idea_proposals,
+                "student_contributions": self.student_contributions,
+            }
+            with open(INNOVATION_PERSISTENCE_FILE, "w", encoding="utf-8") as f:
+                json.dump(state, f, default=str, indent=2)
+        except Exception as e:
+            logger.warning(f"Failed to persist innovation state to disk: {e}")
+
+    def _load_from_disk(self):
+        if "pytest" in sys.modules or os.environ.get("PYTEST_CURRENT_TEST"):
+            return
+        if not INNOVATION_PERSISTENCE_FILE.exists():
+            return
+        try:
+            with open(INNOVATION_PERSISTENCE_FILE, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            for k in ("skill_passports", "research_ideas", "idea_proposals", "student_contributions"):
+                if k in state and isinstance(state[k], dict):
+                    getattr(self, k).update(state[k])
+            logger.info(f"Loaded persistent innovation state from {INNOVATION_PERSISTENCE_FILE}")
+        except Exception as e:
+            logger.warning(f"Failed to load innovation state from disk: {e}")
 
     # -----------------------------------------------------------------------
     # 1. Explainable AI Talent Matcher (Faculty-facing candidate scoring)
@@ -145,6 +181,7 @@ class InnovationService:
             "updated_at": now.isoformat(),
         }
         self.skill_passports[record_id] = record
+        self._save_to_disk()
         return SkillPassportResponse(
             id=UUID(record_id),
             student_id=student_id,
@@ -173,6 +210,7 @@ class InnovationService:
         record["endorsement_notes"] = notes
         record["proficiency_level"] = verified_proficiency
         record["updated_at"] = now.isoformat()
+        self._save_to_disk()
 
         return SkillPassportResponse(
             id=skill_id,
@@ -373,6 +411,7 @@ class InnovationService:
             "created_at": now.isoformat(),
         }
         self.research_ideas[idea_id] = record
+        self._save_to_disk()
         return ResearchIdeaResponse(
             id=UUID(idea_id),
             professor_id=professor.id,
@@ -437,6 +476,7 @@ class InnovationService:
         self.idea_proposals[prop_id] = record
         idea["proposals_count"] = idea.get("proposals_count", 0) + 1
         idea["stage"] = "proposal_review"
+        self._save_to_disk()
 
         return IdeaProposalResponse(
             id=UUID(prop_id),
@@ -472,6 +512,7 @@ class InnovationService:
             "created_at": now.isoformat(),
         }
         self.student_contributions[contrib_id] = record
+        self._save_to_disk()
         return StudentContributionResponse(
             id=UUID(contrib_id),
             student_id=student_id,

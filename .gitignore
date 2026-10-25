@@ -48,3 +48,6 @@ htmlcov/
 
 # Logs
 *.log
+
+# Runtime Local State
+*state.json
