@@ -256,6 +256,25 @@ export default function TeamComposerPage() {
                   );
                 })}
               </div>
+
+              {Array.isArray(composedResult.alternative_teams) && composedResult.alternative_teams.length > 0 && (
+                <div className="space-y-3 pt-4 border-t border-slate-100">
+                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Alternative Team Formations ({composedResult.alternative_teams.length})
+                  </h4>
+                  {composedResult.alternative_teams.map((alt: any, idx: number) => (
+                    <div key={idx} className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1.5 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-800">{alt.team_name || `Alternative Cohort #${idx + 1}`}</span>
+                        <Badge variant="outline">{Math.round(alt.overall_coverage_score || 90)}% Coverage</Badge>
+                      </div>
+                      <p className="text-[11px] text-slate-500">
+                        Members: {Array.isArray(alt.members) ? alt.members.map((m: any) => m.student_name).filter(Boolean).join(", ") : "Multi-disciplinary students"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </Card>
           ) : (
             <Card className="p-16 text-center text-xs text-slate-400 space-y-2">

@@ -23,7 +23,7 @@ export interface UserProfile {
   institution_id?: string;
   department_id?: string;
   bio?: string;
-  account_status: AccountStatus;
+  account_status?: AccountStatus;
   is_active: boolean;
   institution_name?: string;
   department_name?: string;

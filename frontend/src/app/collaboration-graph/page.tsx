@@ -157,7 +157,7 @@ export default function CollaborationGraphPage() {
                       {node.label || node.name}
                     </p>
                     <p className="text-[11px] text-slate-300 truncate mt-0.5">
-                      {node.department || "Stanford Engineering"}
+                      {node.properties?.department || node.properties?.department_name || node.department || "Stanford Academic Network"}
                     </p>
                   </div>
                 );
@@ -184,7 +184,7 @@ export default function CollaborationGraphPage() {
                   {selectedNode.label || selectedNode.name}
                 </h3>
                 <p className="text-xs text-slate-500">
-                  {selectedNode.department || "Computer Science Department"}
+                  {selectedNode.properties?.department || selectedNode.properties?.department_name || selectedNode.department || "Stanford University"}
                 </p>
               </div>
 
@@ -192,22 +192,30 @@ export default function CollaborationGraphPage() {
                 <div>
                   <span className="font-semibold text-slate-700">Collaboration Connections:</span>
                   <p className="text-slate-600 mt-1">
-                    Linked to <strong>3 laboratory projects</strong> and <strong>2 interdisciplinary co-investigators</strong>.
+                    Connected to <strong>{edges.filter((e: any) => e.source === selectedNode.id || e.target === selectedNode.id).length} direct knowledge edge(s)</strong> across the academic graph.
                   </p>
                 </div>
 
                 <div>
-                  <span className="font-semibold text-slate-700">Affiliation:</span>
-                  <p className="text-slate-600 mt-1">
-                    Stanford University • School of Engineering
+                  <span className="font-semibold text-slate-700">Institution &amp; Entity ID:</span>
+                  <p className="text-slate-600 mt-1 font-mono text-[10px] break-all">
+                    {selectedNode.id}
                   </p>
                 </div>
 
-                <div className="pt-2">
-                  <Button size="sm" variant="outline" className="w-full text-xs">
-                    View Network Subgraph
-                  </Button>
-                </div>
+                {selectedNode.properties && Object.keys(selectedNode.properties).length > 0 && (
+                  <div>
+                    <span className="font-semibold text-slate-700">Entity Metadata:</span>
+                    <div className="mt-1 space-y-1">
+                      {Object.entries(selectedNode.properties).map(([k, v]: [string, any], idx: number) => (
+                        <div key={idx} className="flex justify-between text-[11px] py-0.5 border-b border-slate-50">
+                          <span className="text-slate-400 capitalize">{k.replace(/_/g, " ")}:</span>
+                          <span className="text-slate-700 font-medium truncate max-w-[150px]">{String(v)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
           ) : (

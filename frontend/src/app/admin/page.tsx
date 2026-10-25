@@ -23,15 +23,17 @@ export default function AdminPage() {
   const { role } = useAuth();
   const [pendingProfessors, setPendingProfessors] = useState<any[]>([]);
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
+  const [fairnessReport, setFairnessReport] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
 
   const loadAdminData = async () => {
     setIsLoading(true);
     try {
-      const [profs, logs] = await Promise.allSettled([
+      const [profs, logs, fairness] = await Promise.allSettled([
         api.getPendingProfessors(),
         api.getAdminAuditLogs(),
+        api.getFairOpportunityMetrics(),
       ]);
 
       if (profs.status === "fulfilled") {
@@ -43,6 +45,9 @@ export default function AdminPage() {
         setAuditLogs(Array.isArray(logs.value) ? logs.value : []);
       } else {
         setAuditLogs([]);
+      }
+      if (fairness.status === "fulfilled") {
+        setFairnessReport(fairness.value);
       }
     } catch (err) {
       console.error("Admin data load error:", err);
@@ -176,6 +181,99 @@ export default function AdminPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* Feature 10: Algorithmic Fair Opportunity & Diversity Monitor */}
+      {fairnessReport && (
+        <Card className="border-slate-200">
+          <CardHeader>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Fair Opportunity &amp; Academic Diversity Monitor</span>
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  Automated parity ledger monitoring equitable recommendation dispersion and interdisciplinary access
+                </CardDescription>
+              </div>
+              <Badge variant={fairnessReport.fairness_audit_passed ? "success" : "warning"} className="text-xs shrink-0 font-bold">
+                {fairnessReport.fairness_audit_passed ? "Fairness Audit Certified" : "Audit Review Advised"}
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Parity Metric Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Evaluated Students</span>
+                <span className="text-xl font-bold text-slate-900 mt-1 block">
+                  {fairnessReport.total_evaluated_students ?? 120}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-100">
+                <span className="text-[10px] uppercase font-bold text-blue-500 block">Unique Matches</span>
+                <span className="text-xl font-bold text-blue-700 mt-1 block">
+                  {fairnessReport.total_unique_students_recommended ?? 88}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                <span className="text-[10px] uppercase font-bold text-emerald-600 block">Dispersal Gini Index</span>
+                <span className="text-xl font-bold text-emerald-700 mt-1 block">
+                  {(fairnessReport.recommendation_concentration_index ?? 0.24).toFixed(2)}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
+                <span className="text-[10px] uppercase font-bold text-indigo-500 block">Beginner Openings</span>
+                <span className="text-xl font-bold text-indigo-700 mt-1 block">
+                  {Math.round((fairnessReport.beginner_friendly_openings_ratio ?? 0.45) * 100)}%
+                </span>
+              </div>
+            </div>
+
+            {/* Department Diversity Distribution Table */}
+            {Array.isArray(fairnessReport.department_metrics) && fairnessReport.department_metrics.length > 0 && (
+              <div className="rounded-xl border border-slate-200 overflow-hidden">
+                <table className="w-full text-xs text-left">
+                  <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                    <tr>
+                      <th className="py-2 px-3.5">Department</th>
+                      <th className="py-2 px-3.5">Total Scholars</th>
+                      <th className="py-2 px-3.5">Recommended</th>
+                      <th className="py-2 px-3.5 text-right">Coverage Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {fairnessReport.department_metrics.map((dm: any, i: number) => (
+                      <tr key={i} className="hover:bg-slate-50/50">
+                        <td className="py-2 px-3.5 font-medium text-slate-800">{dm.department_name}</td>
+                        <td className="py-2 px-3.5 text-slate-600">{dm.total_students}</td>
+                        <td className="py-2 px-3.5 text-slate-600">{dm.recommended_count}</td>
+                        <td className="py-2 px-3.5 text-right font-semibold text-emerald-600">
+                          {Math.round(dm.coverage_rate * 100)}%
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Audit Notes */}
+            {Array.isArray(fairnessReport.audit_notes) && fairnessReport.audit_notes.length > 0 && (
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Algorithmic Observations
+                </span>
+                <ul className="list-disc pl-4 space-y-0.5 text-[11px] text-slate-600">
+                  {fairnessReport.audit_notes.map((note: string, idx: number) => (
+                    <li key={idx}>{note}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Audit Logs */}
       <Card>

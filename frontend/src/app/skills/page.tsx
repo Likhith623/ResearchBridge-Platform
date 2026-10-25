@@ -163,7 +163,7 @@ export default function SkillPassportPage() {
 
                 {skill.evidence_url && (
                   <a
-                    href={skill.evidence_url}
+                    href={skill.evidence_url.startsWith("http") ? skill.evidence_url : `https://${skill.evidence_url}`}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline truncate max-w-full"

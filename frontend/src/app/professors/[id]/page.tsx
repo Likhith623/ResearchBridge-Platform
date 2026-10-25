@@ -217,7 +217,7 @@ export default function ProfessorDetailPage() {
           >
             <span>Publications</span>
             <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-              {publications.length}
+              {(Array.isArray(publications) ? publications : []).length}
             </Badge>
           </button>
           <button
@@ -230,7 +230,7 @@ export default function ProfessorDetailPage() {
           >
             <span>Open Projects</span>
             <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-              {projects.length}
+              {(Array.isArray(projects) ? projects : []).length}
             </Badge>
           </button>
         </div>
@@ -415,7 +415,7 @@ export default function ProfessorDetailPage() {
               />
             </div>
 
-            {projects.length > 0 && (
+            {(Array.isArray(projects) ? projects : []).length > 0 && (
               <div>
                 <label className="block font-semibold text-slate-800 mb-1">
                   Associated Project Opening (Optional)
@@ -426,7 +426,7 @@ export default function ProfessorDetailPage() {
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50"
                 >
                   <option value="">General Lab Inquiry (No specific project)</option>
-                  {projects.map((p) => (
+                  {(Array.isArray(projects) ? projects : []).map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.title}
                     </option>

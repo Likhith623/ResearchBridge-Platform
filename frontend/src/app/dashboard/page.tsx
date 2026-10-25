@@ -136,7 +136,7 @@ export default function DashboardPage() {
             <Send className="w-4 h-4 text-blue-600" />
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2">
-            {requests.length}
+            {(Array.isArray(requests) ? requests : []).length}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">Tracked in realtime</p>
         </Card>
@@ -149,7 +149,7 @@ export default function DashboardPage() {
             <Briefcase className="w-4 h-4 text-teal-600" />
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2">
-            {projects.length}
+            {(Array.isArray(projects) ? projects : []).length}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">Active lab openings</p>
         </Card>
@@ -162,7 +162,7 @@ export default function DashboardPage() {
             <Users className="w-4 h-4 text-indigo-600" />
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2">
-            {professors.length > 0 ? professors.length : 1}
+            {(Array.isArray(professors) ? professors : []).length > 0 ? (Array.isArray(professors) ? professors : []).length : 1}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">Supervisors registered</p>
         </Card>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
             <Sparkles className="w-4 h-4 text-amber-500" />
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2">
-            {radarAlerts.length}
+            {(Array.isArray(radarAlerts) ? radarAlerts : []).length}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">AI Match alerts</p>
         </Card>

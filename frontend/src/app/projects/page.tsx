@@ -91,9 +91,24 @@ export default function ProjectsPage() {
     setIsBreakingDown(true);
     try {
       const res = await api.breakdownProject(newTitle + (newSummary ? `: ${newSummary}` : ""));
-      if (res.phases && res.phases.length > 0) {
-        const generatedText = res.phases
-          .map((p: any, i: number) => `Phase ${i + 1}: ${p.phase_name} (${p.estimated_weeks}w)\nDeliverables: ${p.deliverables}\nPrerequisites: ${p.skills_required?.join(", ")}`)
+      if (res.executive_summary && !newSummary) {
+        setNewSummary(res.executive_summary);
+      }
+      if (res.suggested_openings_count) {
+        setNewOpenings(res.suggested_openings_count);
+      }
+      const tasks = res.recommended_tasks || res.phases || [];
+      if (tasks.length > 0) {
+        const generatedText = tasks
+          .map((t: any, i: number) => {
+            const name = t.task_name || t.phase_name || `Milestone ${i + 1}`;
+            const role = t.role ? ` [Role: ${t.role}]` : "";
+            const weeks = t.estimated_weekly_hours ? ` (${t.estimated_weekly_hours} hrs/wk)` : (t.estimated_weeks ? ` (${t.estimated_weeks} wks)` : "");
+            const deliv = t.deliverable || t.deliverables || "Milestone Report";
+            const prereqs = Array.isArray(t.prerequisite_skills) ? t.prerequisite_skills.join(", ") : (Array.isArray(t.skills_required) ? t.skills_required.join(", ") : "Scientific Inquiry");
+            const desc = t.description ? `\nScope: ${t.description}` : "";
+            return `Milestone ${i + 1}: ${name}${role}${weeks}\n• Deliverable: ${deliv}\n• Prerequisites: ${prereqs}${desc}`;
+          })
           .join("\n\n");
         setNewDescription(generatedText);
       }
@@ -292,37 +307,114 @@ export default function ProjectsPage() {
           </div>
         ) : gapData ? (
           <div className="space-y-4 text-xs">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="font-semibold text-slate-700">Readiness Assessment:</span>
+            {/* Readiness Score Bar */}
+            <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div>
+                <span className="font-bold text-slate-800 text-sm">Prerequisite Alignment</span>
+                <p className="text-[11px] text-slate-500">Based on your student profile &amp; verified skills</p>
+              </div>
               <Badge
                 variant={
-                  gapData.readiness_rating === "Ready to Apply"
+                  (gapData.readiness_percentage ?? 100) >= 80
                     ? "success"
-                    : "warning"
+                    : (gapData.readiness_percentage ?? 100) >= 50
+                    ? "warning"
+                    : "destructive"
                 }
-                className="font-bold text-xs"
+                className="font-bold text-xs px-2.5 py-1"
               >
-                {gapData.readiness_rating || "Strong Candidate"}
+                {Math.round(gapData.readiness_percentage ?? 85)}% Ready
               </Badge>
             </div>
 
-            <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-100 space-y-1 text-blue-900">
-              <span className="font-bold">Faculty Advisor Advice:</span>
-              <p className="leading-relaxed">{gapData.preparation_guidance}</p>
+            {/* Skills Breakdown */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100 space-y-1.5">
+                <span className="font-bold text-emerald-800 flex items-center gap-1">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  Qualified Prerequisite Skills
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {Array.isArray(gapData.qualified_skills) && gapData.qualified_skills.length > 0 ? (
+                    gapData.qualified_skills.map((s: string, i: number) => (
+                      <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-emerald-100/80 text-emerald-800 font-medium">
+                        ✓ {s}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-[11px] text-slate-500 italic">None yet verified</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-rose-50/60 border border-rose-100 space-y-1.5">
+                <span className="font-bold text-rose-800 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5 text-rose-600" />
+                  Gaps to Bridge
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {Array.isArray(gapData.missing_skills) && gapData.missing_skills.length > 0 ? (
+                    gapData.missing_skills.map((s: string, i: number) => (
+                      <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-rose-100/80 text-rose-800 font-medium">
+                        Needs {s}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-[11px] text-emerald-700 font-medium">All core prerequisites met!</span>
+                  )}
+                </div>
+              </div>
             </div>
 
-            {gapData.actionable_steps && gapData.actionable_steps.length > 0 && (
+            {/* Preparation Path Steps */}
+            {Array.isArray(gapData.preparation_path) && gapData.preparation_path.length > 0 && (
               <div className="space-y-2">
-                <span className="font-bold text-slate-800">Actionable Preparation Steps:</span>
-                <ul className="list-disc pl-5 space-y-1 text-slate-600">
-                  {gapData.actionable_steps.map((step: string, i: number) => (
-                    <li key={i}>{step}</li>
+                <span className="font-bold text-slate-800">Targeted Learning Roadmap:</span>
+                <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                  {gapData.preparation_path.map((step: any, i: number) => (
+                    <div key={i} className="p-3 rounded-lg border border-slate-200 bg-white space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-slate-900">
+                          Step {step.step_number || i + 1}: {step.title}
+                        </span>
+                        {step.estimated_time && (
+                          <span className="text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                            {step.estimated_time}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-slate-600 leading-relaxed text-[11px]">{step.description}</p>
+                      {Array.isArray(step.learning_resources) && step.learning_resources.length > 0 && (
+                        <div className="flex flex-wrap gap-1 pt-1">
+                          {step.learning_resources.map((res: string, idx: number) => (
+                            <span key={idx} className="text-[9px] text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">
+                              📚 {res}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recommended Beginner Tasks */}
+            {Array.isArray(gapData.recommended_beginner_tasks) && gapData.recommended_beginner_tasks.length > 0 && (
+              <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 space-y-1.5">
+                <span className="font-bold text-blue-900">Recommended First Deliverables:</span>
+                <ul className="list-disc pl-4 space-y-0.5 text-blue-800 text-[11px]">
+                  {gapData.recommended_beginner_tasks.map((task: string, i: number) => (
+                    <li key={i}>{task}</li>
                   ))}
                 </ul>
               </div>
             )}
 
-            <div className="pt-3 border-t border-slate-100 flex justify-end">
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[11px] text-slate-500">
+                {gapData.can_reapply !== false ? "You can submit an inquiry with your current experience." : "Review requirements before applying."}
+              </span>
               <Button
                 variant="primary"
                 size="sm"

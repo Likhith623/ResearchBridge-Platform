@@ -156,12 +156,26 @@ export default function IdeasPage() {
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-sm font-bold text-slate-900">
-                    {idea.title}
-                  </h3>
-                  <Badge variant="teal" className="text-[10px] capitalize">
-                    {(idea.status || idea.stage || "open_for_proposals").replace(/_/g, " ")}
-                  </Badge>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900">
+                      {idea.title}
+                    </h3>
+                    {idea.professor_name && (
+                      <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                        PI: {idea.professor_name}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {idea.is_beginner_friendly && (
+                      <Badge variant="outline" className="text-[9px] text-emerald-700 bg-emerald-50 border-emerald-200">
+                        Beginner Friendly
+                      </Badge>
+                    )}
+                    <Badge variant="teal" className="text-[10px] capitalize">
+                      {(idea.status || idea.stage || "open_for_proposals").replace(/_/g, " ")}
+                    </Badge>
+                  </div>
                 </div>
 
                 <div className="space-y-2 text-xs">
@@ -174,6 +188,16 @@ export default function IdeasPage() {
                     <span className="font-semibold text-slate-700">Prototype Vision:</span>
                     <p className="text-slate-600 mt-0.5 leading-relaxed italic">{idea.vision_description}</p>
                   </div>
+
+                  {Array.isArray(idea.required_disciplines) && idea.required_disciplines.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-1">
+                      {idea.required_disciplines.map((d: string, idx: number) => (
+                        <span key={idx} className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                          {d}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 

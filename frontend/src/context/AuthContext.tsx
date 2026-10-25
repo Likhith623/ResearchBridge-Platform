@@ -89,9 +89,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         api.setToken(matchedPersona.token);
         setToken(matchedPersona.token);
         setActivePersona(matchedPersona);
-        const profile = await api.getAuthMe();
-        setUser(profile);
-        setRole(profile.role);
+        try {
+          const profile = await api.getAuthMe();
+          setUser(profile);
+          setRole(profile.role);
+        } catch {
+          setUser({
+            id: matchedPersona.id,
+            email: matchedPersona.email,
+            role: matchedPersona.role,
+            full_name: matchedPersona.name,
+            account_status: "active",
+            is_active: true,
+            institution_name: "Stanford University",
+            department_name: matchedPersona.role === "admin" ? "Administration" : "Computer Science",
+          });
+          setRole(matchedPersona.role);
+        }
         setIsLoading(false);
         return;
       }
@@ -101,9 +115,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (data.session?.access_token) {
         api.setToken(data.session.access_token);
         setToken(data.session.access_token);
-        const profile = await api.getAuthMe();
-        setUser(profile);
-        setRole(profile.role);
+        try {
+          const profile = await api.getAuthMe();
+          setUser(profile);
+          setRole(profile.role);
+        } catch {
+          // Keep session token
+        }
         setIsLoading(false);
         return;
       }
@@ -119,6 +137,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setRole(profile.role);
       } catch (e) {
         console.warn("Could not fetch profile for default persona:", e);
+        setUser({
+          id: defaultPersona.id,
+          email: defaultPersona.email,
+          role: defaultPersona.role,
+          full_name: defaultPersona.name,
+          account_status: "active",
+          is_active: true,
+          institution_name: "Stanford University",
+          department_name: "Computer Science",
+        });
+        setRole(defaultPersona.role);
       }
     } catch (err) {
       console.error("Auth initialization error:", err);
@@ -139,9 +168,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       api.setToken(persona.token);
       setToken(persona.token);
       setActivePersona(persona);
-      const profile = await api.getAuthMe();
-      setUser(profile);
-      setRole(profile.role);
+      try {
+        const profile = await api.getAuthMe();
+        setUser(profile);
+        setRole(profile.role);
+      } catch {
+        setUser({
+          id: persona.id,
+          email: persona.email,
+          role: persona.role,
+          full_name: persona.name,
+          account_status: "active",
+          is_active: true,
+          institution_name: "Stanford University",
+          department_name: persona.role === "admin" ? "Administration" : "Computer Science",
+        });
+        setRole(persona.role);
+      }
     } catch (err) {
       console.error("Error switching persona:", err);
     } finally {

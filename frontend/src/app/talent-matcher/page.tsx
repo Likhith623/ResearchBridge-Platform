@@ -36,10 +36,11 @@ export default function TalentMatcherPage() {
     async function loadProjects() {
       try {
         const projs = await api.getProjects();
-        if (projs && projs.length > 0) {
-          setProjects(projs);
-          setSelectedProjectId(projs[0].id);
-          runAnalysis(projs[0].id);
+        const safeProjs = Array.isArray(projs) ? projs : [];
+        if (safeProjs.length > 0) {
+          setProjects(safeProjs);
+          setSelectedProjectId(safeProjs[0].id);
+          runAnalysis(safeProjs[0].id);
         }
       } catch (err) {
         console.error("Failed to load projects:", err);
@@ -112,7 +113,7 @@ export default function TalentMatcherPage() {
               }}
               className="px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800"
             >
-              {projects.map((p) => (
+              {(Array.isArray(projects) ? projects : []).map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.title}
                 </option>
@@ -206,6 +207,38 @@ export default function TalentMatcherPage() {
                 );
               })}
             </div>
+
+            {Array.isArray(matcherResult.alternative_candidates) && matcherResult.alternative_candidates.length > 0 && (
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Alternative / Emerging Potential Matches ({matcherResult.alternative_candidates.length})
+                  </h3>
+                  <Badge variant="secondary" className="text-[10px]">Interdisciplinary Talents</Badge>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {matcherResult.alternative_candidates.map((alt: any, i: number) => {
+                    const studentName = alt.full_name || alt.student_name || "Scholar";
+                    const studentDept = alt.department_name || alt.student_department || "Engineering";
+                    const explanation = alt.explanation || alt.fit_explanation || "Complementary technical foundation.";
+                    return (
+                      <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <span className="font-bold text-slate-900">{studentName}</span>
+                            <span className="text-[11px] text-slate-500 block">{studentDept}</span>
+                          </div>
+                          <Badge variant="outline" className="text-[10px]">
+                            {Math.round(alt.match_score || 85)}% Match
+                          </Badge>
+                        </div>
+                        <p className="text-slate-600 text-[11px] leading-relaxed">{explanation}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center py-12 text-xs text-slate-400">
