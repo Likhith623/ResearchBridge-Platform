@@ -39,8 +39,8 @@ export default function CollaborationGraphPage() {
     fetchGraph();
   }, []);
 
-  const nodes = graphData?.nodes || [];
-  const edges = graphData?.edges || [];
+  const nodes = Array.isArray(graphData?.nodes) ? graphData.nodes : [];
+  const edges = Array.isArray(graphData?.edges) ? graphData.edges : [];
 
   const filteredNodes = nodes.filter((n: any) => {
     if (filterType === "all") return true;

@@ -57,7 +57,7 @@ export default function ProjectsPage() {
     setIsLoading(true);
     try {
       const data = await api.getProjects({ search: search || undefined });
-      setProjects(data || []);
+      setProjects(Array.isArray(data) ? data : (data as any)?.items || []);
     } catch (err) {
       console.error("Failed to load projects:", err);
     } finally {
@@ -204,13 +204,13 @@ export default function ProjectsPage() {
             </Card>
           ))}
         </div>
-      ) : projects.length === 0 ? (
+      ) : (Array.isArray(projects) ? projects : []).length === 0 ? (
         <Card className="p-12 text-center text-slate-400 text-xs">
           No research openings found. Try adjusting your search query.
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {projects.map((proj) => (
+          {(Array.isArray(projects) ? projects : []).map((proj) => (
             <Card
               key={proj.id}
               className="p-5 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all"

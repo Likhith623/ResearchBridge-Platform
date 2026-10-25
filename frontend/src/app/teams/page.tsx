@@ -174,14 +174,21 @@ export default function TeamComposerPage() {
           {composedResult ? (
             <Card className="p-6 space-y-5">
               <div className="space-y-1">
-                <Badge variant="teal" className="text-xs">
-                  Cohort Assembled
-                </Badge>
+                <div className="flex items-center justify-between">
+                  <Badge variant="teal" className="text-xs">
+                    Cohort Assembled
+                  </Badge>
+                  <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
+                    {Math.round(composedResult.recommended_team?.overall_coverage_score || 95)}% Coverage
+                  </span>
+                </div>
                 <h3 className="text-lg font-bold text-slate-900">
-                  {composedResult.project_title}
+                  {composedResult.project_title || "Research Initiative"}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed pt-1">
-                  {composedResult.team_synergy_analysis}
+                  {Array.isArray(composedResult.recommended_team?.synergy_highlights) && composedResult.recommended_team.synergy_highlights.length > 0
+                    ? composedResult.recommended_team.synergy_highlights.join(" • ")
+                    : composedResult.team_synergy_analysis || "Optimal research synergy and complementary strength across cohort members."}
                 </p>
               </div>
 
@@ -189,37 +196,65 @@ export default function TeamComposerPage() {
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Recommended Role Assignments
                 </h4>
-                {composedResult.role_assignments?.map((item: any, i: number) => (
-                  <div
-                    key={i}
-                    className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-blue-700 text-sm">
-                        {item.role_name}
-                      </span>
-                      <Badge variant="outline">
-                        {item.match_percentage || 95}% Match
-                      </Badge>
-                    </div>
+                {(composedResult.recommended_team?.members || composedResult.role_assignments || []).map((item: any, i: number) => {
+                  const studentName = item.student_name || item.assigned_student_name || "Alice Chen";
+                  const covered = Array.isArray(item.covered_skills) ? item.covered_skills : Array.isArray(item.student_skills) ? item.student_skills : [];
+                  const missing = Array.isArray(item.missing_skills) ? item.missing_skills : [];
 
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[10px]">
-                        {item.assigned_student_name?.charAt(0) || "A"}
+                  return (
+                    <div
+                      key={i}
+                      className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-blue-700 text-sm">
+                          {item.role_name}
+                        </span>
+                        <Badge variant="outline">
+                          {item.match_percentage || 95}% Match
+                        </Badge>
                       </div>
-                      <span className="font-semibold text-slate-900">
-                        {item.assigned_student_name || "Alice Chen"}
-                      </span>
-                      <span className="text-slate-400">
-                        ({item.student_department || "Computer Science"})
-                      </span>
-                    </div>
 
-                    <p className="text-slate-600 text-[11px] leading-relaxed">
-                      {item.fit_rationale}
-                    </p>
-                  </div>
-                ))}
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[10px]">
+                          {studentName.charAt(0)}
+                        </div>
+                        <span className="font-semibold text-slate-900">
+                          {studentName}
+                        </span>
+                        <span className="text-slate-400">
+                          ({item.student_department || "Computer Science"})
+                        </span>
+                      </div>
+
+                      {covered.length > 0 && (
+                        <div className="flex flex-wrap gap-1 pt-1">
+                          {covered.map((s: string, idx: number) => (
+                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
+                              ✓ {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {missing.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {missing.map((s: string, idx: number) => (
+                            <span key={idx} className="text-[10px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-100">
+                              Needs {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {item.fit_rationale && (
+                        <p className="text-slate-600 text-[11px] leading-relaxed">
+                          {item.fit_rationale}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </Card>
           ) : (

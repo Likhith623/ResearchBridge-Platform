@@ -136,59 +136,75 @@ export default function TalentMatcherPage() {
               <div>
                 <span className="font-bold">Project Under Evaluation:</span> {matcherResult.project_title}
               </div>
-              <Badge variant="teal">{matcherResult.candidates?.length || 0} Candidates Evaluated</Badge>
+              <Badge variant="teal">
+                {(matcherResult.matched_candidates || matcherResult.candidates || []).length} Candidates Evaluated
+              </Badge>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {matcherResult.candidates?.map((candidate: any, idx: number) => (
-                <Card key={idx} className="p-5 space-y-3 border-slate-200 hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">
-                        {candidate.student_name?.charAt(0) || "S"}
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-slate-900">
-                          {candidate.student_name}
-                        </h4>
-                        <p className="text-[11px] text-slate-500">
-                          {candidate.student_department || "Computer Science"}
-                        </p>
-                      </div>
-                    </div>
-                    <Badge variant="teal" className="text-xs font-bold">
-                      {candidate.match_score}% Match
-                    </Badge>
-                  </div>
+              {(matcherResult.matched_candidates || matcherResult.candidates || []).map((candidate: any, idx: number) => {
+                const studentName = candidate.full_name || candidate.student_name || "Student Researcher";
+                const studentDept = candidate.department_name || candidate.student_department || "Computer Science";
+                const explanation = candidate.explanation || candidate.fit_explanation || "Strong technical and academic match.";
+                const matchedSkills = Array.isArray(candidate.matched_skills) 
+                  ? candidate.matched_skills 
+                  : Array.isArray(candidate.supporting_skills) 
+                  ? candidate.supporting_skills 
+                  : [];
+                const missingSkills = Array.isArray(candidate.missing_skills) ? candidate.missing_skills : [];
 
-                  <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
-                    <strong className="text-slate-800 block mb-1">Why this student is a fit:</strong>
-                    {candidate.fit_explanation}
-                  </p>
-
-                  <div className="space-y-1.5 text-xs">
-                    <div className="flex flex-wrap gap-1">
-                      <span className="text-slate-400 text-[10px] uppercase font-bold mr-1">Matching:</span>
-                      {candidate.supporting_skills?.map((s: string, i: number) => (
-                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 font-medium">
-                          ✓ {s}
-                        </span>
-                      ))}
+                return (
+                  <Card key={idx} className="p-5 space-y-3 border-slate-200 hover:shadow-md transition-all">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">
+                          {studentName.charAt(0)}
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-bold text-slate-900">
+                            {studentName}
+                          </h4>
+                          <p className="text-[11px] text-slate-500">
+                            {studentDept}
+                          </p>
+                        </div>
+                      </div>
+                      <Badge variant="teal" className="text-xs font-bold">
+                        {Math.round(candidate.match_score || 90)}% Match
+                      </Badge>
                     </div>
 
-                    {candidate.missing_skills && candidate.missing_skills.length > 0 && (
-                      <div className="flex flex-wrap gap-1 pt-1">
-                        <span className="text-slate-400 text-[10px] uppercase font-bold mr-1">Gap:</span>
-                        {candidate.missing_skills?.map((s: string, i: number) => (
-                          <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-100 font-medium">
-                            Needs {s}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </Card>
-              ))}
+                    <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
+                      <strong className="text-slate-800 block mb-1">Why this student is a fit:</strong>
+                      {explanation}
+                    </p>
+
+                    <div className="space-y-1.5 text-xs">
+                      {matchedSkills.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          <span className="text-slate-400 text-[10px] uppercase font-bold mr-1">Matching:</span>
+                          {matchedSkills.map((s: string, i: number) => (
+                            <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 font-medium">
+                              ✓ {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {missingSkills.length > 0 && (
+                        <div className="flex flex-wrap gap-1 pt-1">
+                          <span className="text-slate-400 text-[10px] uppercase font-bold mr-1">Gap:</span>
+                          {missingSkills.map((s: string, i: number) => (
+                            <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-100 font-medium">
+                              Needs {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         ) : (
@@ -231,13 +247,13 @@ export default function TalentMatcherPage() {
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-slate-800">
-                Found {crossResults.total_cross_dept_found || crossResults.candidates?.length || 0} Cross-Department Scholars:
+                Found {crossResults.total_cross_dept_found ?? (Array.isArray(crossResults.results) ? crossResults.results.length : Array.isArray(crossResults.candidates) ? crossResults.candidates.length : 0)} Cross-Department Scholars:
               </span>
               <Badge variant="teal">Competency: {crossResults.target_skill || crossSkill}</Badge>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {(crossResults.candidates || crossResults.results || []).map((cand: any, i: number) => (
+              {(Array.isArray(crossResults.results) ? crossResults.results : Array.isArray(crossResults.candidates) ? crossResults.candidates : []).map((cand: any, i: number) => (
                 <div key={i} className="p-4 rounded-xl border border-slate-200 bg-white space-y-2 text-xs">
                   <div className="flex justify-between items-start">
                     <div>
@@ -245,7 +261,7 @@ export default function TalentMatcherPage() {
                       <p className="text-[11px] text-slate-500">{cand.department_name}</p>
                     </div>
                     <Badge variant="teal">
-                      {cand.match_score || cand.relevance_score || 92}% Match
+                      {Math.round(cand.match_score || cand.relevance_score || 92)}% Match
                     </Badge>
                   </div>
                   <p className="text-slate-600 text-[11px] leading-relaxed">

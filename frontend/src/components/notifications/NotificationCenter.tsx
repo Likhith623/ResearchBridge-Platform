@@ -17,9 +17,10 @@ export function NotificationCenter() {
     try {
       setIsLoading(true);
       const items = await api.getNotifications();
-      setNotifications(items);
+      setNotifications(Array.isArray(items) ? items : []);
     } catch (e) {
       console.warn("Could not load notifications:", e);
+      setNotifications([]);
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +45,8 @@ export function NotificationCenter() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const unreadCount = notifications.filter((n) => !n.is_read).length;
+  const safeNotifications = Array.isArray(notifications) ? notifications : [];
+  const unreadCount = safeNotifications.filter((n) => !n.is_read).length;
 
   const handleMarkAllRead = async () => {
     try {
@@ -104,16 +106,16 @@ export function NotificationCenter() {
           </div>
 
           <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
-            {isLoading && notifications.length === 0 ? (
+            {isLoading && safeNotifications.length === 0 ? (
               <div className="p-6 text-center text-xs text-slate-400">
                 Loading notifications...
               </div>
-            ) : notifications.length === 0 ? (
+            ) : safeNotifications.length === 0 ? (
               <div className="p-8 text-center text-xs text-slate-400">
                 No notifications yet. You're completely up to date!
               </div>
             ) : (
-              notifications.map((item) => (
+              safeNotifications.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => !item.is_read && handleMarkOneRead(item.id)}

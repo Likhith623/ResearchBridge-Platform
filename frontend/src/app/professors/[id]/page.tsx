@@ -60,10 +60,15 @@ export default function ProfessorDetailPage() {
         ]);
 
         if (profData.status === "fulfilled") setProfessor(profData.value);
-        if (pubData.status === "fulfilled") setPublications(pubData.value || []);
+        if (pubData.status === "fulfilled") {
+          const val = pubData.value;
+          setPublications(Array.isArray(val) ? val : (val as any)?.items || []);
+        }
         if (projData.status === "fulfilled") {
-          const profProjects = (projData.value || []).filter(
-            (p) => p.professor_id === profId
+          const val = projData.value;
+          const list = Array.isArray(val) ? val : (val as any)?.items || [];
+          const profProjects = list.filter(
+            (p: any) => p.professor_id === profId
           );
           setProjects(profProjects);
         }
@@ -152,12 +157,12 @@ export default function ProfessorDetailPage() {
         <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
           <div className="flex items-start gap-4">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-md">
-              {professor.profiles?.full_name?.charAt(0) || "P"}
+              {(professor.full_name || professor.profiles?.full_name || "P").charAt(0)}
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                  {professor.profiles?.full_name}
+                  {professor.full_name || professor.profiles?.full_name || "Faculty Supervisor"}
                 </h1>
                 <Badge
                   variant={professor.open_to_applications ? "success" : "secondary"}
@@ -167,7 +172,7 @@ export default function ProfessorDetailPage() {
                 </Badge>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 font-medium">
-                {professor.academic_title}
+                {professor.academic_title || professor.title || "Professor"}
               </p>
               <p className="text-xs text-slate-400 flex items-center gap-2">
                 <Building className="w-3.5 h-3.5" />
@@ -240,7 +245,8 @@ export default function ProfessorDetailPage() {
                 <CardTitle className="text-base">Biography & Research Vision</CardTitle>
               </CardHeader>
               <CardContent className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
-                {professor.profiles?.bio ||
+                {professor.bio ||
+                  professor.profiles?.bio ||
                   "Conducting foundational and applied scientific research in modern computer systems and artificial intelligence."}
               </CardContent>
             </Card>
@@ -251,12 +257,12 @@ export default function ProfessorDetailPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {professor.research_interests?.map((ri) => (
+                  {(Array.isArray(professor.research_interests) ? professor.research_interests : []).map((ri: any) => (
                     <div
-                      key={ri.id}
+                      key={ri.id || ri.name || ri}
                       className="px-3 py-1.5 rounded-lg bg-blue-50/70 border border-blue-200 text-blue-800 text-xs font-medium"
                     >
-                      {ri.name}
+                      {typeof ri === "string" ? ri : ri.name}
                     </div>
                   ))}
                 </div>
@@ -304,12 +310,12 @@ export default function ProfessorDetailPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="divide-y divide-slate-100">
-            {publications.length === 0 ? (
+            {(Array.isArray(publications) ? publications : []).length === 0 ? (
               <div className="py-8 text-center text-xs text-slate-400">
                 No publications listed yet.
               </div>
             ) : (
-              publications.map((pub) => (
+              (Array.isArray(publications) ? publications : []).map((pub) => (
                 <div key={pub.id} className="py-4 space-y-1.5">
                   <h4 className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors">
                     {pub.title}
@@ -334,12 +340,12 @@ export default function ProfessorDetailPage() {
       {/* Tab 3: Ongoing Research Projects */}
       {activeTab === "projects" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {projects.length === 0 ? (
+          {(Array.isArray(projects) ? projects : []).length === 0 ? (
             <Card className="col-span-2 p-12 text-center text-slate-400 text-xs">
               No active project openings currently listed. You can still submit a general research inquiry!
             </Card>
           ) : (
-            projects.map((proj) => (
+            (Array.isArray(projects) ? projects : []).map((proj) => (
               <Card key={proj.id} className="p-5 space-y-3 flex flex-col justify-between">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-2">
@@ -377,7 +383,7 @@ export default function ProfessorDetailPage() {
       <Modal
         isOpen={isApplyModalOpen}
         onClose={() => setIsApplyModalOpen(false)}
-        title={`Apply for Research Collaboration with ${professor.profiles?.full_name}`}
+        title={`Apply for Research Collaboration with ${professor?.full_name || professor?.profiles?.full_name || "Faculty Supervisor"}`}
         description="Submit a formal academic inquiry detailing your background, motivation, and availability."
         maxWidth="xl"
       >

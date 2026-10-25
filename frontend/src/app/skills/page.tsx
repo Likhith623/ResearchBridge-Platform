@@ -39,9 +39,10 @@ export default function SkillPassportPage() {
     setIsLoading(true);
     try {
       const data = await api.getSkillPassport();
-      setSkills(data || []);
+      setSkills(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load skills:", err);
+      setSkills([]);
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +64,7 @@ export default function SkillPassportPage() {
         verification_tier: "project_supported",
         evidence_url: newEvidenceUrl,
       });
-      setSkills((prev) => [created, ...prev]);
+      setSkills((prev) => [created, ...(Array.isArray(prev) ? prev : [])]);
       setIsAddModalOpen(false);
       setNewSkillName("");
     } catch (err: any) {
@@ -84,7 +85,7 @@ export default function SkillPassportPage() {
         verified_proficiency: "expert",
       });
       setSkills((prev) =>
-        prev.map((s) => (s.id === updated.id ? updated : s))
+        (Array.isArray(prev) ? prev : []).map((s) => (s.id === updated.id ? updated : s))
       );
       setEndorsingSkill(null);
       setEndorsementNotes("");
@@ -135,13 +136,13 @@ export default function SkillPassportPage() {
             </Card>
           ))}
         </div>
-      ) : skills.length === 0 ? (
+      ) : (Array.isArray(skills) ? skills : []).length === 0 ? (
         <Card className="p-12 text-center text-slate-400 text-xs">
           No skills registered in your passport yet. Click "Add Verified Skill" to showcase your work!
         </Card>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {skills.map((skill) => (
+          {(Array.isArray(skills) ? skills : []).map((skill) => (
             <Card
               key={skill.id}
               className="p-5 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all"
@@ -157,7 +158,7 @@ export default function SkillPassportPage() {
                 </div>
 
                 <Badge variant="outline" className="text-[10px] capitalize">
-                  Tier: {skill.verification_tier.replace("_", " ")}
+                  Tier: {(skill.verification_tier || "self_reported").replace(/_/g, " ")}
                 </Badge>
 
                 {skill.evidence_url && (

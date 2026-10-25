@@ -53,7 +53,7 @@ export default function ProfessorsPage() {
         search: search || undefined,
         department_id: selectedDept || undefined,
       });
-      setProfessors(data || []);
+      setProfessors(Array.isArray(data) ? data : (data as any)?.items || []);
     } catch (err) {
       console.error("Filter error:", err);
     } finally {
@@ -61,7 +61,7 @@ export default function ProfessorsPage() {
     }
   };
 
-  const filteredProfessors = professors.filter((p) => {
+  const filteredProfessors = (Array.isArray(professors) ? professors : []).filter((p: any) => {
     if (availabilityFilter === "open" && !p.open_to_applications) return false;
     if (availabilityFilter === "full" && p.open_to_applications) return false;
     return true;
@@ -101,7 +101,7 @@ export default function ProfessorsPage() {
               className="px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 text-slate-700"
             >
               <option value="">All Departments</option>
-              {departments.map((d) => (
+              {(Array.isArray(departments) ? departments : []).map((d) => (
                 <option key={d.id} value={d.id}>
                   {d.name}
                 </option>
@@ -151,13 +151,13 @@ export default function ProfessorsPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 font-bold text-base flex items-center justify-center shrink-0 shadow-xs">
-                      {prof.profiles?.full_name?.charAt(0) || "P"}
+                      {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                        {prof.profiles?.full_name}
+                        {prof.full_name || prof.profiles?.full_name || "Faculty Member"}
                       </h3>
-                      <p className="text-xs text-slate-500">{prof.academic_title}</p>
+                      <p className="text-xs text-slate-500">{prof.academic_title || prof.title || "Professor"}</p>
                     </div>
                   </div>
 
@@ -171,9 +171,9 @@ export default function ProfessorsPage() {
                   </Badge>
                 </div>
 
-                {prof.profiles?.bio && (
+                {(prof.bio || prof.profiles?.bio) && (
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                    {prof.profiles.bio}
+                    {prof.bio || prof.profiles?.bio}
                   </p>
                 )}
 
@@ -188,12 +188,12 @@ export default function ProfessorsPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-1.5">
-                    {prof.research_interests?.map((ri) => (
+                    {(Array.isArray(prof.research_interests) ? prof.research_interests : []).map((ri: any) => (
                       <span
-                        key={ri.id}
+                        key={ri.id || ri.name || ri}
                         className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium"
                       >
-                        {ri.name}
+                        {typeof ri === "string" ? ri : ri.name}
                       </span>
                     ))}
                   </div>

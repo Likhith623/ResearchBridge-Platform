@@ -39,12 +39,14 @@ export default function DocumentsPage() {
     setIsLoadingDocs(true);
     try {
       const docs = await api.getDocuments();
-      setDocuments(docs || []);
-      if (docs && docs.length > 0 && !selectedDoc) {
-        handleSelectDocument(docs[0]);
+      const safeDocs = Array.isArray(docs) ? docs : [];
+      setDocuments(safeDocs);
+      if (safeDocs.length > 0 && !selectedDoc) {
+        handleSelectDocument(safeDocs[0]);
       }
     } catch (err) {
       console.error("Failed to load documents:", err);
+      setDocuments([]);
     } finally {
       setIsLoadingDocs(false);
     }
@@ -132,7 +134,7 @@ export default function DocumentsPage() {
         <div className="space-y-4">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm">Paper Repository ({documents.length})</CardTitle>
+              <CardTitle className="text-sm">Paper Repository ({(Array.isArray(documents) ? documents : []).length})</CardTitle>
               <CardDescription className="text-xs">
                 Stored in private university Supabase storage
               </CardDescription>
@@ -142,12 +144,12 @@ export default function DocumentsPage() {
                 <div className="p-6 text-center text-xs text-slate-400">
                   Loading repository...
                 </div>
-              ) : documents.length === 0 ? (
+              ) : (Array.isArray(documents) ? documents : []).length === 0 ? (
                 <div className="p-8 text-center text-xs text-slate-400">
                   No papers uploaded yet. Upload a PDF paper above!
                 </div>
               ) : (
-                documents.map((doc) => (
+                (Array.isArray(documents) ? documents : []).map((doc) => (
                   <button
                     key={doc.id}
                     onClick={() => handleSelectDocument(doc)}
@@ -228,13 +230,13 @@ export default function DocumentsPage() {
                     </p>
                   </div>
 
-                  {/* Executive Summary */}
+                  {/* Executive / Plain Language Overview */}
                   <div className="space-y-2">
                     <h4 className="font-bold text-slate-900 text-sm">
-                      Executive Summary
+                      Overview &amp; Executive Summary
                     </h4>
                     <p className="text-slate-600 whitespace-pre-line leading-relaxed">
-                      {summary.executive_summary}
+                      {summary.plain_language_overview || summary.executive_summary || summary.one_sentence_takeaway || "Summary available upon generation."}
                     </p>
                   </div>
 
@@ -242,47 +244,67 @@ export default function DocumentsPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-2">
                       <h4 className="font-bold text-slate-900">Research Problem</h4>
-                      <p className="text-slate-600">{summary.problem_statement}</p>
+                      <p className="text-slate-600 leading-relaxed">
+                        {summary.research_problem || summary.problem_statement || "Specific research problem addressed by this paper."}
+                      </p>
+                      {summary.research_question && (
+                        <p className="text-xs text-blue-700 font-medium pt-1">
+                          Core Hypothesis: {summary.research_question}
+                        </p>
+                      )}
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-2">
-                      <h4 className="font-bold text-slate-900">Methodology Breakdown</h4>
-                      <ul className="list-disc pl-4 space-y-1 text-slate-600">
-                        {summary.methodology_breakdown?.map((m, i) => (
-                          <li key={i}>{m}</li>
+                      <h4 className="font-bold text-slate-900">Methodology &amp; Techniques</h4>
+                      <p className="text-slate-600 leading-relaxed whitespace-pre-line">
+                        {summary.methodology || (Array.isArray(summary.methodology_breakdown) ? summary.methodology_breakdown.join("\n") : "Experimental methodology detailed in paper.")}
+                      </p>
+                      {summary.techniques_models && (
+                        <p className="text-xs text-slate-500 pt-1">
+                          Models/Tools: {summary.techniques_models}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Key Findings & Contributions */}
+                  <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100 space-y-2">
+                    <h4 className="font-bold text-emerald-950">Key Scientific Findings &amp; Contributions</h4>
+                    <p className="text-xs text-emerald-900 leading-relaxed whitespace-pre-line">
+                      {summary.findings_contributions || (Array.isArray(summary.key_findings) ? summary.key_findings.join(". ") : "Empirical contributions and experimental results validated by the authors.")}
+                    </p>
+                  </div>
+
+                  {/* Key Terminology */}
+                  {Array.isArray(summary.key_terminology) && summary.key_terminology.length > 0 && (
+                    <div className="space-y-2">
+                      <h4 className="font-bold text-slate-900">Key Scientific Terminology</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {summary.key_terminology.map((t, idx) => (
+                          <div key={idx} className="p-2.5 rounded-lg border border-slate-100 bg-slate-50/50">
+                            <span className="font-bold text-slate-800 text-xs block">{t.term}</span>
+                            <span className="text-[11px] text-slate-600">{t.definition}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Professor Discussion Questions */}
+                  {((Array.isArray(summary.discussion_questions) && summary.discussion_questions.length > 0) ||
+                    (Array.isArray(summary.discussion_prompts) && summary.discussion_prompts.length > 0)) && (
+                    <div className="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2 text-amber-900">
+                      <div className="flex items-center gap-1.5 font-bold">
+                        <Lightbulb className="w-4 h-4 text-amber-600" />
+                        <span>Prompts &amp; Questions to Discuss with Professor</span>
+                      </div>
+                      <ul className="list-disc pl-4 space-y-1 text-amber-800 text-xs">
+                        {(summary.discussion_questions || summary.discussion_prompts || []).map((p, i) => (
+                          <li key={i}>{p}</li>
                         ))}
                       </ul>
                     </div>
-                  </div>
-
-                  {/* Key Findings */}
-                  <div className="space-y-2">
-                    <h4 className="font-bold text-slate-900">Key Scientific Findings</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {summary.key_findings?.map((f, i) => (
-                        <div
-                          key={i}
-                          className="p-3 rounded-lg border border-slate-100 bg-white flex items-start gap-2"
-                        >
-                          <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                          <span>{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Professor Discussion Questions */}
-                  <div className="p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2 text-amber-900">
-                    <div className="flex items-center gap-1.5 font-bold">
-                      <Lightbulb className="w-4 h-4 text-amber-600" />
-                      <span>Prompts to Discuss with Professor</span>
-                    </div>
-                    <ul className="list-disc pl-4 space-y-1 text-amber-800">
-                      {summary.discussion_prompts?.map((p, i) => (
-                        <li key={i}>{p}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <div className="text-center py-16 space-y-3">

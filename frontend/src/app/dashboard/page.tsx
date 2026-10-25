@@ -54,13 +54,22 @@ export default function DashboardPage() {
           api.getOpportunityRadar(),
         ]);
 
-        if (profData.status === "fulfilled") setProfessors(profData.value || []);
-        if (projData.status === "fulfilled") setProjects(projData.value || []);
-        if (reqData.status === "fulfilled") setRequests(reqData.value || []);
+        if (profData.status === "fulfilled") {
+          const val = profData.value;
+          setProfessors(Array.isArray(val) ? val : (val as any)?.items || []);
+        }
+        if (projData.status === "fulfilled") {
+          const val = projData.value;
+          setProjects(Array.isArray(val) ? val : (val as any)?.items || []);
+        }
+        if (reqData.status === "fulfilled") {
+          const val = reqData.value;
+          setRequests(Array.isArray(val) ? val : (val as any)?.items || []);
+        }
         if (radarData.status === "fulfilled") {
           const res: any = radarData.value;
           const alerts = res?.radar_opportunities || (Array.isArray(res) ? res : []);
-          setRadarAlerts(alerts);
+          setRadarAlerts(Array.isArray(alerts) ? alerts : []);
         }
       } catch (err) {
         console.error("Dashboard data load error:", err);
@@ -196,12 +205,12 @@ export default function DashboardPage() {
               </Link>
             </CardHeader>
             <CardContent className="divide-y divide-slate-100">
-              {requests.length === 0 ? (
+              {(Array.isArray(requests) ? requests : []).length === 0 ? (
                 <div className="text-center py-8 text-xs text-slate-400">
                   No applications recorded yet. Explore faculty projects to apply!
                 </div>
               ) : (
-                requests.slice(0, 3).map((req) => (
+                (Array.isArray(requests) ? requests : []).slice(0, 3).map((req) => (
                   <div key={req.id} className="py-3 flex items-center justify-between gap-4">
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
@@ -220,7 +229,7 @@ export default function DashboardPage() {
                           }
                           className="capitalize text-[10px]"
                         >
-                          {req.status.replace("_", " ")}
+                          {req.status?.replace("_", " ") || "submitted"}
                         </Badge>
                       </div>
                       <p className="text-[11px] text-slate-500 truncate">
@@ -256,12 +265,12 @@ export default function DashboardPage() {
               </Link>
             </CardHeader>
             <CardContent className="space-y-3">
-              {projects.length === 0 ? (
+              {(Array.isArray(projects) ? projects : []).length === 0 ? (
                 <div className="text-center py-8 text-xs text-slate-400">
                   No active projects advertised at the moment.
                 </div>
               ) : (
-                projects.slice(0, 2).map((proj) => (
+                (Array.isArray(projects) ? projects : []).slice(0, 2).map((proj) => (
                   <div
                     key={proj.id}
                     className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:border-slate-200 transition-colors space-y-2"
@@ -271,9 +280,10 @@ export default function DashboardPage() {
                         {proj.title}
                       </h4>
                       <Badge variant="teal" className="text-[10px] shrink-0">
-                        {proj.openings_count} Openings
+                        {proj.openings_count || 1} Openings
                       </Badge>
                     </div>
+
                     <p className="text-xs text-slate-600 line-clamp-2">
                       {proj.summary}
                     </p>
@@ -301,28 +311,28 @@ export default function DashboardPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3.5">
-              {professors.slice(0, 3).map((prof) => (
+              {(Array.isArray(professors) ? professors : []).slice(0, 3).map((prof: any) => (
                 <div
                   key={prof.id}
                   className="p-3 rounded-xl border border-slate-100 hover:bg-slate-50/80 transition-colors flex items-start gap-3"
                 >
                   <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center shrink-0 text-xs">
-                    {prof.profiles?.full_name?.charAt(0) || "P"}
+                    {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
                   </div>
                   <div className="min-w-0 flex-1">
                     <h4 className="text-xs font-semibold text-slate-900 truncate">
-                      {prof.profiles?.full_name}
+                      {prof.full_name || prof.profiles?.full_name || "Faculty Member"}
                     </h4>
                     <p className="text-[11px] text-slate-500 truncate">
-                      {prof.academic_title}
+                      {prof.academic_title || prof.title || "Professor"}
                     </p>
                     <div className="mt-1 flex flex-wrap gap-1">
-                      {prof.research_interests?.slice(0, 2).map((ri) => (
+                      {(Array.isArray(prof.research_interests) ? prof.research_interests : []).slice(0, 2).map((ri: any) => (
                         <span
-                          key={ri.id}
+                          key={ri.id || ri.name}
                           className="text-[9px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600"
                         >
-                          {ri.name}
+                          {typeof ri === "string" ? ri : ri.name}
                         </span>
                       ))}
                     </div>
@@ -357,7 +367,7 @@ export default function DashboardPage() {
                       <p className="font-semibold text-slate-900 truncate">{alert.project_title}</p>
                       {alert.radar_score && (
                         <Badge variant="teal" className="text-[9px] px-1.5 py-0">
-                          {Math.round(alert.radar_score * 100)}% Match
+                          {Math.round(alert.radar_score > 1 ? alert.radar_score : alert.radar_score * 100)}% Match
                         </Badge>
                       )}
                     </div>

@@ -44,9 +44,10 @@ export default function IdeasPage() {
     setIsLoading(true);
     try {
       const data = await api.getPipelineIdeas();
-      setIdeas(data || []);
+      setIdeas(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load ideas:", err);
+      setIdeas([]);
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +66,7 @@ export default function IdeasPage() {
         problem_statement: newProblem,
         vision_description: newVision,
       });
-      setIdeas((prev) => [created, ...prev]);
+      setIdeas((prev) => [created, ...(Array.isArray(prev) ? prev : [])]);
       setIsCreateModalOpen(false);
       setNewTitle("");
       setNewProblem("");
@@ -142,13 +143,13 @@ export default function IdeasPage() {
             </Card>
           ))}
         </div>
-      ) : ideas.length === 0 ? (
+      ) : (Array.isArray(ideas) ? ideas : []).length === 0 ? (
         <Card className="p-12 text-center text-slate-400 text-xs">
           No early concepts open for proposals right now.
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {ideas.map((idea) => (
+          {(Array.isArray(ideas) ? ideas : []).map((idea: any) => (
             <Card
               key={idea.id}
               className="p-5 flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all space-y-4"
@@ -159,7 +160,7 @@ export default function IdeasPage() {
                     {idea.title}
                   </h3>
                   <Badge variant="teal" className="text-[10px] capitalize">
-                    {idea.status.replace("_", " ")}
+                    {(idea.status || idea.stage || "open_for_proposals").replace(/_/g, " ")}
                   </Badge>
                 </div>
 

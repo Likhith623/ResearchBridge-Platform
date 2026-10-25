@@ -40,7 +40,7 @@ export default function RequestsPage() {
     setIsLoading(true);
     try {
       const data = await api.getResearchRequests();
-      setRequests(data || []);
+      setRequests(Array.isArray(data) ? data : (data as any)?.items || []);
     } catch (err) {
       console.error("Failed to load requests:", err);
     } finally {
@@ -104,7 +104,7 @@ export default function RequestsPage() {
       <Card>
         <CardHeader>
           <CardTitle className="text-base">
-            All Applications ({requests.length})
+            All Applications ({(Array.isArray(requests) ? requests : []).length})
           </CardTitle>
           <CardDescription className="text-xs">
             Persistent records synchronized with university research governance
@@ -115,12 +115,12 @@ export default function RequestsPage() {
             <div className="p-8 text-center text-xs text-slate-400">
               Loading research requests...
             </div>
-          ) : requests.length === 0 ? (
+          ) : (Array.isArray(requests) ? requests : []).length === 0 ? (
             <div className="p-12 text-center text-xs text-slate-400">
               No research applications found.
             </div>
           ) : (
-            requests.map((req) => (
+            (Array.isArray(requests) ? requests : []).map((req) => (
               <div
                 key={req.id}
                 className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors"
@@ -134,7 +134,7 @@ export default function RequestsPage() {
                       variant={statusVariantMap[req.status] || "default"}
                       className="text-[10px] capitalize"
                     >
-                      {req.status.replace("_", " ")}
+                      {(req.status || "submitted").replace(/_/g, " ")}
                     </Badge>
                   </div>
 
@@ -154,7 +154,7 @@ export default function RequestsPage() {
                     <span>{formatDate(req.created_at)}</span>
                   </div>
 
-                  {req.student_skills && req.student_skills.length > 0 && (
+                  {Array.isArray(req.student_skills) && req.student_skills.length > 0 && (
                     <div className="flex flex-wrap gap-1 pt-1">
                       {req.student_skills.map((s, idx) => (
                         <span

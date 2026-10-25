@@ -34,10 +34,20 @@ export default function AdminPage() {
         api.getAdminAuditLogs(),
       ]);
 
-      if (profs.status === "fulfilled") setPendingProfessors(profs.value || []);
-      if (logs.status === "fulfilled") setAuditLogs(logs.value || []);
+      if (profs.status === "fulfilled") {
+        setPendingProfessors(Array.isArray(profs.value) ? profs.value : []);
+      } else {
+        setPendingProfessors([]);
+      }
+      if (logs.status === "fulfilled") {
+        setAuditLogs(Array.isArray(logs.value) ? logs.value : []);
+      } else {
+        setAuditLogs([]);
+      }
     } catch (err) {
       console.error("Admin data load error:", err);
+      setPendingProfessors([]);
+      setAuditLogs([]);
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +116,7 @@ export default function AdminPage() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-base">
-                Pending Faculty Verification Requests ({pendingProfessors.length})
+                Pending Faculty Verification Requests ({(Array.isArray(pendingProfessors) ? pendingProfessors : []).length})
               </CardTitle>
               <CardDescription className="text-xs">
                 Applicants requesting professor privileges requiring administrative credential verification
@@ -118,12 +128,12 @@ export default function AdminPage() {
         <CardContent className="divide-y divide-slate-100 p-0">
           {isLoading ? (
             <div className="p-8 text-center text-xs text-slate-400">Loading requests...</div>
-          ) : pendingProfessors.length === 0 ? (
+          ) : (Array.isArray(pendingProfessors) ? pendingProfessors : []).length === 0 ? (
             <div className="p-8 text-center text-xs text-slate-400">
               No faculty onboarding requests pending review. All caught up!
             </div>
           ) : (
-            pendingProfessors.map((p) => (
+            (Array.isArray(pendingProfessors) ? pendingProfessors : []).map((p) => (
               <div key={p.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="space-y-1 text-xs">
                   <div className="flex items-center gap-2">
@@ -179,17 +189,17 @@ export default function AdminPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="divide-y divide-slate-100 p-0">
-          {auditLogs.length === 0 ? (
+          {(Array.isArray(auditLogs) ? auditLogs : []).length === 0 ? (
             <div className="p-8 text-center text-xs text-slate-400">
               No audit log entries recorded yet.
             </div>
           ) : (
-            auditLogs.slice(0, 10).map((log, i) => (
+            (Array.isArray(auditLogs) ? auditLogs : []).slice(0, 10).map((log, i) => (
               <div key={i} className="p-4 flex items-center justify-between text-xs hover:bg-slate-50/50">
                 <div className="space-y-0.5">
                   <span className="font-semibold text-slate-900">{log.action}</span>
                   <p className="text-slate-500 text-[11px]">
-                    Target: {log.target_table} ({log.target_id?.slice(0, 8)}...)
+                    Target: {log.target_table} ({String(log.target_id || "").slice(0, 8)}...)
                   </p>
                 </div>
                 <span className="text-[10px] text-slate-400">

@@ -64,6 +64,9 @@ export interface ProfessorProfile {
   research_interests: ResearchInterest[];
   publications_count?: number;
   open_projects_count?: number;
+  full_name?: string;
+  title?: string;
+  bio?: string;
 }
 
 export interface Publication {
@@ -138,17 +141,37 @@ export interface DocumentRecord {
   created_at: string;
 }
 
+export interface TerminologyItem {
+  term: string;
+  definition: string;
+}
+
 export interface PaperSummary {
-  document_id: string;
-  one_sentence_takeaway: string;
-  executive_summary: string;
-  problem_statement: string;
-  methodology_breakdown: string[];
-  key_findings: string[];
-  practical_applications: string[];
-  limitations: string[];
-  discussion_prompts: string[];
-  suggested_next_steps: string[];
+  id?: string;
+  document_id?: string;
+  title?: string;
+  plain_language_overview?: string;
+  research_problem?: string;
+  research_question?: string;
+  motivation_significance?: string;
+  methodology?: string;
+  findings_contributions?: string;
+  techniques_models?: string;
+  limitations_author?: string;
+  limitations_assumptions?: string;
+  key_terminology?: TerminologyItem[];
+  prerequisite_knowledge?: string[];
+  open_questions?: string[];
+  next_steps?: string[];
+  discussion_questions?: string[];
+
+  // Legacy/alias fields for backwards compatibility
+  one_sentence_takeaway?: string;
+  executive_summary?: string;
+  problem_statement?: string;
+  methodology_breakdown?: string[];
+  key_findings?: string[];
+  discussion_prompts?: string[];
 }
 
 export interface NotificationItem {
@@ -211,7 +234,9 @@ export interface StudentContribution {
   project_id: string;
   task_name: string;
   deliverable_summary: string;
+  deliverable_url?: string;
   hours_logged: number;
+  status?: string;
   verified_by_professor: boolean;
   created_at: string;
   project_title?: string;

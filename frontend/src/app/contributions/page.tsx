@@ -46,16 +46,30 @@ export default function ContributionsPage() {
     async function loadData() {
       try {
         const projs = await api.getProjects();
-        if (projs && projs.length > 0) {
-          setProjects(projs);
-          setSelectedProjectId(projs[0].id);
+        const safeProjs = Array.isArray(projs) ? projs : [];
+        setProjects(safeProjs);
+        if (safeProjs.length > 0) {
+          setSelectedProjectId(safeProjs[0].id);
+        }
+
+        const studentId = user?.id || "00000000-0000-0000-0000-000000000003";
+        try {
+          const portfolio = await api.getContributionPortfolio(studentId);
+          if (portfolio && Array.isArray(portfolio.verified_tasks) && portfolio.verified_tasks.length > 0) {
+            setLoggedItems(portfolio.verified_tasks.map((t: any) => ({
+              ...t,
+              verified_by_professor: t.status === "verified" || !!t.verified_by_professor,
+            })));
+          }
+        } catch {
+          // Keep demo seed if portfolio not yet populated
         }
       } catch (err) {
         console.error("Failed to load projects for contribution logging:", err);
       }
     }
     loadData();
-  }, []);
+  }, [user]);
 
   const handleLogContribution = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,8 +86,12 @@ export default function ContributionsPage() {
 
       const matchedProj = projects.find((p) => p.id === selectedProjectId);
       setLoggedItems((prev) => [
-        { ...created, project_title: matchedProj?.title || "Research Project" },
-        ...prev,
+        { 
+          ...created, 
+          project_title: matchedProj?.title || "Research Project",
+          verified_by_professor: created.status === "verified" || !!created.verified_by_professor,
+        },
+        ...(Array.isArray(prev) ? prev : []),
       ]);
       setIsModalOpen(false);
       setTaskName("");
@@ -85,8 +103,9 @@ export default function ContributionsPage() {
     }
   };
 
-  const totalHours = loggedItems.reduce((acc, curr) => acc + (curr.hours_logged || 0), 0);
-  const verifiedCount = loggedItems.filter((i) => i.verified_by_professor).length;
+  const safeLoggedItems = Array.isArray(loggedItems) ? loggedItems : [];
+  const totalHours = safeLoggedItems.reduce((acc, curr) => acc + (curr.hours_logged || 0), 0);
+  const verifiedCount = safeLoggedItems.filter((i) => i.verified_by_professor || (i as any).status === "verified").length;
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -137,7 +156,7 @@ export default function ContributionsPage() {
             Active Research Projects
           </p>
           <p className="text-2xl font-bold text-slate-900 mt-1">
-            {new Set(loggedItems.map((i) => i.project_id)).size}
+            {new Set(safeLoggedItems.map((i) => i.project_id)).size}
           </p>
         </Card>
       </div>
@@ -151,36 +170,42 @@ export default function ContributionsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="divide-y divide-slate-100 p-0">
-          {loggedItems.map((item) => (
-            <div key={item.id} className="p-5 space-y-2 hover:bg-slate-50/50 transition-colors">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-slate-900">
-                    {item.task_name}
-                  </h3>
-                  <Badge variant={item.verified_by_professor ? "success" : "warning"} className="text-[10px]">
-                    {item.verified_by_professor ? "Faculty Certified" : "Pending Review"}
-                  </Badge>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-slate-500">
-                  <span className="font-semibold text-slate-800">{item.hours_logged} hours</span>
-                  <span>•</span>
-                  <span>{formatDate(item.created_at)}</span>
-                </div>
-              </div>
-
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {item.deliverable_summary}
-              </p>
-
-              {item.project_title && (
-                <div className="pt-1 flex items-center gap-1.5 text-[11px] text-blue-600 font-medium">
-                  <Briefcase className="w-3.5 h-3.5 text-blue-500" />
-                  <span>{item.project_title}</span>
-                </div>
-              )}
+          {safeLoggedItems.length === 0 ? (
+            <div className="p-8 text-center text-xs text-slate-400">
+              No research deliverables recorded yet. Click "Log Research Deliverable" above to start your verified record.
             </div>
-          ))}
+          ) : (
+            safeLoggedItems.map((item) => (
+              <div key={item.id} className="p-5 space-y-2 hover:bg-slate-50/50 transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-slate-900">
+                      {item.task_name}
+                    </h3>
+                    <Badge variant={item.verified_by_professor ? "success" : "warning"} className="text-[10px]">
+                      {item.verified_by_professor ? "Faculty Certified" : "Pending Review"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs text-slate-500">
+                    <span className="font-semibold text-slate-800">{item.hours_logged} hours</span>
+                    <span>•</span>
+                    <span>{formatDate(item.created_at)}</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  {item.deliverable_summary}
+                </p>
+
+                {item.project_title && (
+                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-blue-600 font-medium">
+                    <Briefcase className="w-3.5 h-3.5 text-blue-500" />
+                    <span>{item.project_title}</span>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </CardContent>
       </Card>
 
@@ -203,7 +228,7 @@ export default function ContributionsPage() {
               className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
               required
             >
-              {projects.map((p) => (
+              {(Array.isArray(projects) ? projects : []).map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.title}
                 </option>

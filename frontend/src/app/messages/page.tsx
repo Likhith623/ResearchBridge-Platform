@@ -35,9 +35,10 @@ export default function MessagesPage() {
       setIsLoadingRequests(true);
       try {
         const reqs = await api.getResearchRequests();
-        setRequests(reqs || []);
-        if (reqs && reqs.length > 0) {
-          setSelectedRequestId(reqs[0].id);
+        const list = Array.isArray(reqs) ? reqs : (reqs as any)?.items || [];
+        setRequests(list);
+        if (list.length > 0 && !selectedRequestId) {
+          setSelectedRequestId(list[0].id);
         }
       } catch (err) {
         console.error("Failed to load conversation requests:", err);
@@ -54,8 +55,9 @@ export default function MessagesPage() {
     async function loadThread() {
       setIsLoadingMessages(true);
       try {
-        const res = await api.getMessages(selectedRequestId!);
-        setMessages(res.messages || []);
+        const res: any = await api.getMessages(selectedRequestId!);
+        const threadMsgs = res?.messages || res?.items || (Array.isArray(res) ? res : []);
+        setMessages(Array.isArray(threadMsgs) ? threadMsgs : []);
         await api.markMessagesRead(selectedRequestId!);
       } catch (err) {
         console.error("Failed to load thread messages:", err);
@@ -92,7 +94,8 @@ export default function MessagesPage() {
     }
   };
 
-  const selectedRequest = requests.find((r) => r.id === selectedRequestId);
+  const safeRequests = Array.isArray(requests) ? requests : [];
+  const selectedRequest = safeRequests.find((r) => r.id === selectedRequestId);
 
   return (
     <div className="max-w-6xl mx-auto h-[calc(100vh-8rem)] flex flex-col space-y-4">
@@ -112,7 +115,7 @@ export default function MessagesPage() {
         <div className="w-80 border-r border-slate-100 flex flex-col bg-slate-50/50">
           <div className="p-3.5 border-b border-slate-100 bg-white">
             <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Conversations ({requests.length})
+              Conversations ({safeRequests.length})
             </span>
           </div>
 
@@ -121,12 +124,12 @@ export default function MessagesPage() {
               <div className="p-6 text-center text-xs text-slate-400">
                 Loading conversations...
               </div>
-            ) : requests.length === 0 ? (
+            ) : safeRequests.length === 0 ? (
               <div className="p-6 text-center text-xs text-slate-400">
                 No active collaboration threads.
               </div>
             ) : (
-              requests.map((req) => (
+              safeRequests.map((req) => (
                 <button
                   key={req.id}
                   onClick={() => setSelectedRequestId(req.id)}
@@ -139,7 +142,7 @@ export default function MessagesPage() {
                       {role === "professor" ? (req.student_name || "Applicant") : (req.professor_name || "Supervisor")}
                     </span>
                     <Badge variant="outline" className="text-[9px] px-1.5 py-0 capitalize">
-                      {req.status.replace("_", " ")}
+                      {req.status?.replace("_", " ") || "submitted"}
                     </Badge>
                   </div>
                   <p className="text-[11px] text-slate-600 truncate font-medium">
@@ -174,7 +177,7 @@ export default function MessagesPage() {
                   </p>
                 </div>
                 <Badge variant="teal" className="text-xs capitalize">
-                  {selectedRequest.status.replace("_", " ")}
+                  {selectedRequest.status?.replace("_", " ") || "submitted"}
                 </Badge>
               </div>
 
