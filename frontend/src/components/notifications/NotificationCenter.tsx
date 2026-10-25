@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Bell, CheckCheck, Clock, ExternalLink } from "lucide-react";
+import { Bell, CheckCheck, Clock, ExternalLink, X } from "lucide-react";
 import { NotificationItem } from "@/types/api";
 import { api } from "@/lib/api";
 import { formatTimeAgo } from "@/lib/utils";
@@ -81,8 +81,17 @@ export function NotificationCenter() {
         )}
       </button>
 
+      {/* Mobile Dimmer Backdrop */}
       {isOpen && (
-        <div className="absolute right-0 sm:right-0 mt-2 w-[min(380px,calc(100vw-1.5rem))] bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/15 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150 text-slate-900 dark:text-slate-100">
+        <div
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs sm:hidden"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {isOpen && (
+        <div className="fixed inset-x-3 top-16 sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 max-w-sm sm:w-96 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/15 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150 text-slate-900 dark:text-slate-100 mx-auto sm:mx-0">
           <div className="flex items-center justify-between px-4 py-3 bg-slate-50/90 dark:bg-slate-950/70 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
@@ -94,18 +103,27 @@ export function NotificationCenter() {
                 </Badge>
               )}
             </div>
-            {unreadCount > 0 && (
+            <div className="flex items-center gap-2">
+              {unreadCount > 0 && (
+                <button
+                  onClick={handleMarkAllRead}
+                  className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                >
+                  <CheckCheck className="w-3.5 h-3.5" />
+                  <span>Mark read</span>
+                </button>
+              )}
               <button
-                onClick={handleMarkAllRead}
-                className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                onClick={() => setIsOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors sm:hidden"
+                aria-label="Close notifications"
               >
-                <CheckCheck className="w-3.5 h-3.5" />
-                Mark all read
+                <X className="w-4 h-4" />
               </button>
-            )}
+            </div>
           </div>
 
-          <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-white/10">
+          <div className="max-h-[65vh] sm:max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-white/10">
             {isLoading && safeNotifications.length === 0 ? (
               <div className="p-6 text-center text-xs text-slate-400">
                 Loading notifications...
