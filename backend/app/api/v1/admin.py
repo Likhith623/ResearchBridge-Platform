@@ -58,6 +58,8 @@ async def approve_professor_request(
             "admin_notes": admin_notes,
         },
     )
+    if not updated_req:
+        raise NotFoundError("Onboarding request not found.")
 
     user_id = str(req["user_id"])
     # Elevate role in profiles table
@@ -118,6 +120,8 @@ async def reject_professor_request(
             "admin_notes": admin_notes,
         },
     )
+    if not updated_req:
+        raise NotFoundError("Onboarding request not found.")
 
     user_id = str(req["user_id"])
     await db.create_audit_log({
