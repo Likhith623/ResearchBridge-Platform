@@ -98,19 +98,19 @@ export function FloatingAiAssistant({
 
   return (
     <aside
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end max-w-[calc(100vw-2rem)]"
       aria-label="Academic Assistant"
     >
       {/* Floating Launcher Trigger */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-slate-900 text-white shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-slate-700/50"
+          className="group relative flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-full bg-slate-900 text-white shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-slate-700/50"
         >
-          <div className="relative flex items-center justify-center w-6 h-6 rounded-full bg-teal-500/20 text-teal-400">
-            <Sparkles className="w-4 h-4 animate-pulse" />
+          <div className="relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-teal-500/20 text-teal-400">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse" />
           </div>
-          <span className="text-sm font-medium pr-1">Academic AI Guide</span>
+          <span className="text-xs sm:text-sm font-semibold pr-1">Academic AI Guide</span>
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
@@ -123,8 +123,8 @@ export function FloatingAiAssistant({
         <div
           className={`bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col transition-all duration-200 ${
             isMinimized
-              ? "w-80 h-14"
-              : "w-[92vw] sm:w-[420px] h-[560px] max-h-[85vh]"
+              ? "w-[calc(100vw-2rem)] sm:w-80 h-14"
+              : "w-[calc(100vw-2rem)] sm:w-[420px] h-[520px] sm:h-[560px] max-h-[82vh]"
           }`}
         >
           {/* Header */}

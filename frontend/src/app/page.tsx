@@ -68,19 +68,19 @@ export default function LandingPage() {
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/login"
-              className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center gap-1.5 shadow-xs"
+              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center gap-1.5 shadow-xs"
             >
               <UserCheck className="w-3.5 h-3.5 text-teal-400" />
-              <span>Demo Roles &amp; Sign In</span>
+              <span><span className="hidden sm:inline">Demo Roles &amp; </span>Sign In</span>
             </Link>
             <Link
               href="/dashboard"
-              className="px-4 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition-all shadow-md shadow-blue-600/30 flex items-center gap-1.5 group"
+              className="px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition-all shadow-md shadow-blue-600/30 flex items-center gap-1.5 group shrink-0"
             >
-              <span>Launch Platform</span>
+              <span><span className="hidden sm:inline">Launch </span>Platform</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
