@@ -16,8 +16,11 @@ import {
   Mail,
   Lock,
   UserPlus,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useAuth, DEMO_PERSONAS } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -27,6 +30,7 @@ import { UserRole } from "@/types/api";
 
 export function Navbar() {
   const { user, role, activePersona, switchPersona, signInWithEmail, signUpWithEmail, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [isPersonaOpen, setIsPersonaOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -97,13 +101,13 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-slate-950/80 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-black/40">
+    <header className="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/10 shadow-lg dark:shadow-2xl shadow-slate-200/40 dark:shadow-black/40 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Left: Brand Identity, Mobile Hamburger, & Campus Pill */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="md:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/10 transition-colors cursor-pointer"
             aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -114,34 +118,48 @@ export function Navbar() {
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-base font-bold text-white tracking-tight flex items-center gap-1.5">
-                Research<span className="text-cyan-400">Bridge</span>
+              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
+                Research<span className="text-cyan-600 dark:text-cyan-400">Bridge</span>
               </span>
-              <span className="text-[10px] text-slate-400 block -mt-1 font-semibold tracking-wider">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-semibold tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/50 text-emerald-300 text-[11px] font-semibold border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-[11px] font-semibold border border-emerald-200 dark:border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
             <span>Stanford University Live</span>
           </div>
         </div>
 
         {/* Right: Controls & User Profile */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-sm active:scale-95 flex items-center justify-center group"
+            title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle theme"
+          >
+            {mounted && theme === "dark" ? (
+              <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+            ) : (
+              <Moon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
+            )}
+          </button>
+
           {/* Persona Switcher / Login Button */}
           {user ? (
             <div className="relative">
               <button
                 onClick={() => setIsPersonaOpen(!isPersonaOpen)}
-                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl border border-white/15 bg-slate-900/80 hover:bg-slate-800 text-xs font-medium text-slate-200 hover:border-cyan-400/50 transition-all shadow-md cursor-pointer max-w-[130px] sm:max-w-none"
+                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-cyan-500/50 transition-all shadow-sm cursor-pointer max-w-[130px] sm:max-w-none"
                 title="Switch demo persona for testing"
               >
-                <UserCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span className="hidden md:inline text-slate-400">Role:</span>
-                <span className="font-semibold text-white truncate" suppressHydrationWarning>
+                <UserCheck className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+                <span className="hidden md:inline text-slate-500 dark:text-slate-400">Role:</span>
+                <span className="font-semibold text-slate-900 dark:text-white truncate" suppressHydrationWarning>
                   {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"}
                 </span>
                 <Badge
@@ -162,21 +180,21 @@ export function Navbar() {
 
               {isPersonaOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-72 bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/15 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100"
+                  className="absolute right-0 mt-2 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/15 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100 text-slate-900 dark:text-slate-100"
                   onClick={() => setIsPersonaOpen(false)}
                 >
-                  <div className="px-3.5 py-2.5 border-b border-white/10 flex items-center justify-between">
+                  <div className="px-3.5 py-2.5 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
                     <div>
-                      <p className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                      <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                         Quick Demo Roles
                       </p>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400">
                         Switch accounts instantly
                       </p>
                     </div>
                     <Link
                       href="/login"
-                      className="text-[11px] text-cyan-400 hover:text-cyan-300 font-semibold"
+                      className="text-[11px] text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold"
                     >
                       Login Page →
                     </Link>
@@ -185,18 +203,18 @@ export function Navbar() {
                     <button
                       key={p.id}
                       onClick={() => switchPersona(p.id)}
-                      className={`w-full text-left px-3.5 py-2 flex items-start gap-2.5 text-xs hover:bg-white/5 transition-colors cursor-pointer ${
+                      className={`w-full text-left px-3.5 py-2 flex items-start gap-2.5 text-xs hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer ${
                         activePersona?.id === p.id
-                          ? "bg-indigo-600/20 border-l-2 border-cyan-400 text-white"
-                          : "text-slate-300"
+                          ? "bg-indigo-50 dark:bg-indigo-600/20 border-l-2 border-cyan-500 dark:border-cyan-400 text-indigo-900 dark:text-white"
+                          : "text-slate-700 dark:text-slate-300"
                       }`}
                     >
-                      <div className="w-6 h-6 rounded-full bg-slate-800 text-cyan-300 border border-cyan-500/30 flex items-center justify-center shrink-0 font-bold text-[10px]">
+                      <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30 flex items-center justify-center shrink-0 font-bold text-[10px]">
                         {p.name.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <span className="font-semibold text-white truncate">
+                          <span className="font-semibold text-slate-900 dark:text-white truncate">
                             {p.name}
                           </span>
                           <Badge
@@ -212,7 +230,7 @@ export function Navbar() {
                             {p.role}
                           </Badge>
                         </div>
-                        <p className="text-[10px] text-slate-400 truncate">
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                           {p.title}
                         </p>
                       </div>
@@ -220,7 +238,7 @@ export function Navbar() {
                   ))}
 
                   {/* Email Sign-In / Register Option */}
-                  <div className="p-2 border-t border-white/10 bg-slate-950/60 space-y-1.5">
+                  <div className="p-2 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/60 space-y-1.5">
                     <Link
                       href="/login"
                       className="w-full py-1.5 px-2.5 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
@@ -247,14 +265,14 @@ export function Navbar() {
           {/* User Logout Button */}
           {user && (
             <>
-              <div className="h-6 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+              <div className="h-6 w-[1px] bg-slate-200 dark:bg-white/10 mx-1 hidden sm:block" />
 
               <button
                 onClick={async () => {
                   await signOut();
                   window.location.href = "/login";
                 }}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-transparent hover:border-rose-500/30 hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 text-xs font-semibold transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-transparent hover:border-rose-500/30 hover:bg-rose-500/10 text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 text-xs font-semibold transition-colors cursor-pointer"
                 title="Sign out of account"
               >
                 <LogOut className="w-4 h-4" />
@@ -267,7 +285,7 @@ export function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-slate-950/95 backdrop-blur-2xl px-4 py-3 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="md:hidden border-t border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 py-3 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto text-slate-900 dark:text-slate-100">
           <nav className="space-y-1">
             {permittedNav.map((item) => {
               const isActive =

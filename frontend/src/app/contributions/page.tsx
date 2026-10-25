@@ -123,14 +123,14 @@ export default function ContributionsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
-            <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+            <CheckCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>Verified Research Deliverables</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-900 to-cyan-700 dark:from-white dark:via-indigo-200 dark:to-cyan-300 bg-clip-text text-transparent">
             Contribution &amp; Impact Tracker
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">
             Build an immutable, verifiable academic record of completed research tasks, technical deliverables, and faculty-confirmed laboratory hours.
           </p>
         </div>
@@ -148,69 +148,69 @@ export default function ContributionsPage() {
 
       {/* Summary Metrics: 3 Vibrant Gradient Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-slate-900/80 to-blue-900/40 shadow-xl shadow-blue-950/30">
-          <p className="text-xs font-bold text-blue-300 uppercase tracking-wider">
+        <Card className="p-4 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30">
+          <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
             Total Research Hours
           </p>
-          <p className="text-2xl font-extrabold text-white mt-1">{totalHours} hrs</p>
+          <p className="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{totalHours} hrs</p>
         </Card>
 
-        <Card className="p-4 border border-emerald-500/30 bg-gradient-to-br from-emerald-950/60 via-slate-900/80 to-teal-900/40 shadow-xl shadow-emerald-950/30">
-          <p className="text-xs font-bold text-emerald-300 uppercase tracking-wider">
+        <Card className="p-4 border border-emerald-200 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-white/90 to-teal-500/5 dark:from-emerald-950/60 dark:via-slate-900/80 dark:to-teal-900/40 shadow-xl shadow-emerald-500/5 dark:shadow-emerald-950/30">
+          <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
             Faculty Verified Deliverables
           </p>
-          <p className="text-2xl font-extrabold text-emerald-300 mt-1">{verifiedCount}</p>
+          <p className="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1">{verifiedCount}</p>
         </Card>
 
-        <Card className="p-4 border border-teal-500/30 bg-gradient-to-br from-teal-950/60 via-slate-900/80 to-cyan-900/40 shadow-xl shadow-teal-950/30">
-          <p className="text-xs font-bold text-teal-300 uppercase tracking-wider">
+        <Card className="p-4 border border-teal-200 dark:border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-white/90 to-cyan-500/5 dark:from-teal-950/60 dark:via-slate-900/80 dark:to-cyan-900/40 shadow-xl shadow-teal-500/5 dark:shadow-teal-950/30">
+          <p className="text-xs font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider">
             Active Research Projects
           </p>
-          <p className="text-2xl font-extrabold text-cyan-300 mt-1">
+          <p className="text-2xl font-extrabold text-cyan-700 dark:text-cyan-300 mt-1">
             {new Set(safeLoggedItems.map((i) => i.project_id)).size}
           </p>
         </Card>
       </div>
 
       {/* Contributions Timeline List */}
-      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-        <CardHeader className="border-b border-white/10">
-          <CardTitle className="text-base font-bold text-white">Verified Deliverables Transcript</CardTitle>
-          <CardDescription className="text-xs text-slate-400">
+      <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+          <CardTitle className="text-base font-bold text-slate-900 dark:text-white">Verified Deliverables Transcript</CardTitle>
+          <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
             Chronological academic record certified by supervising faculty
           </CardDescription>
         </CardHeader>
-        <CardContent className="divide-y divide-white/5 p-0">
+        <CardContent className="divide-y divide-slate-200/80 dark:divide-white/5 p-0">
           {safeLoggedItems.length === 0 ? (
-            <div className="p-8 text-center text-xs text-slate-400">
+            <div className="p-8 text-center text-xs text-slate-500 dark:text-slate-400">
               No research deliverables recorded yet. Click "Log Research Deliverable" above to start your verified record.
             </div>
           ) : (
             safeLoggedItems.map((item) => (
-              <div key={item.id} className="p-5 space-y-2 hover:bg-white/5 transition-colors">
+              <div key={item.id} className="p-5 space-y-2 hover:bg-slate-100/60 dark:hover:bg-white/5 transition-colors">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-white">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                       {item.task_name}
                     </h3>
                     <Badge variant={item.verified_by_professor ? "success" : "warning"} withDot className="text-[10px] font-bold">
                       {item.verified_by_professor ? "Faculty Certified" : "Pending Review"}
                     </Badge>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-400">
-                    <span className="font-semibold text-cyan-300">{item.hours_logged} hours</span>
+                  <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="font-semibold text-cyan-700 dark:text-cyan-300">{item.hours_logged} hours</span>
                     <span>•</span>
                     <span>{formatDate(item.created_at)}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {item.deliverable_summary}
                 </p>
 
                 {item.project_title && (
-                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-400 font-semibold">
-                    <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-700 dark:text-cyan-400 font-semibold">
+                    <Briefcase className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                     <span>{item.project_title}</span>
                   </div>
                 )}

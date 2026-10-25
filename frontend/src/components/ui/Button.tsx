@@ -38,11 +38,11 @@ export function Button({
     primary:
       "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 focus:ring-indigo-500 border border-white/20",
     secondary:
-      "bg-slate-800/80 hover:bg-slate-700/80 active:bg-slate-700 text-slate-200 border border-white/10 hover:border-white/20 focus:ring-slate-400",
+      "bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 dark:active:bg-slate-700 dark:text-slate-200 dark:border-white/10 dark:hover:border-white/20 focus:ring-slate-400",
     outline:
-      "border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 text-slate-200 shadow-xs focus:ring-indigo-500",
+      "border border-slate-300 dark:border-white/15 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/25 text-slate-700 dark:text-slate-200 shadow-xs focus:ring-indigo-500",
     ghost:
-      "text-slate-300 hover:bg-white/10 hover:text-white focus:ring-white/20",
+      "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white focus:ring-slate-300 dark:focus:ring-white/20",
     destructive:
       "bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white shadow-md shadow-rose-500/25 focus:ring-rose-500 border border-rose-500/30",
     teal:
@@ -50,7 +50,7 @@ export function Button({
     purple:
       "bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 hover:from-purple-500 hover:via-violet-500 hover:to-pink-500 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 focus:ring-purple-500 border border-white/20",
     glass:
-      "bg-white/10 hover:bg-white/20 active:bg-white/25 text-white backdrop-blur-md border border-white/20 shadow-sm focus:ring-white/50",
+      "bg-white/70 hover:bg-white/90 active:bg-white text-slate-800 border border-slate-200/80 dark:bg-white/10 dark:hover:bg-white/20 dark:active:bg-white/25 dark:text-white backdrop-blur-md dark:border-white/20 shadow-sm focus:ring-slate-300 dark:focus:ring-white/50",
   };
 
   return (

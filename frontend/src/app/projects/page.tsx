@@ -177,14 +177,14 @@ export default function ProjectsPage() {
       {/* Page Title & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(20,184,166,0.2)]">
-            <Briefcase className="w-3.5 h-3.5 text-teal-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(20,184,166,0.2)]">
+            <Briefcase className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
             <span>Active Research Positions</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-900 to-cyan-700 dark:from-white dark:via-indigo-200 dark:to-cyan-300 bg-clip-text text-transparent">
             Funded &amp; Supervised Research Openings
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">
             Browse laboratory projects actively seeking undergraduate and graduate research collaborators.
           </p>
         </div>
@@ -211,7 +211,7 @@ export default function ProjectsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && loadProjects()}
-          className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-white/15 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 bg-slate-900/80 text-white placeholder-slate-400 shadow-md"
+          className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white/90 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder-slate-400 shadow-md"
         />
       </div>
 
@@ -219,14 +219,14 @@ export default function ProjectsPage() {
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="p-6 animate-pulse space-y-3 bg-slate-900/60 border border-white/10">
-              <div className="w-1/2 h-4 bg-slate-800 rounded"></div>
-              <div className="w-full h-12 bg-slate-800/60 rounded"></div>
+            <Card key={i} className="p-6 animate-pulse space-y-3 bg-white/60 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/10">
+              <div className="w-1/2 h-4 bg-slate-200 dark:bg-slate-800 rounded"></div>
+              <div className="w-full h-12 bg-slate-100 dark:bg-slate-800/60 rounded"></div>
             </Card>
           ))}
         </div>
       ) : (Array.isArray(projects) ? projects : []).length === 0 ? (
-        <Card className="p-12 text-center text-slate-400 text-xs bg-slate-900/60 border border-white/10">
+        <Card className="p-12 text-center text-slate-500 dark:text-slate-400 text-xs bg-white/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/10">
           No research openings found. Try adjusting your search query.
         </Card>
       ) : (
@@ -235,11 +235,11 @@ export default function ProjectsPage() {
             <Card
               key={proj.id}
               hoverable
-              className="p-6 flex flex-col justify-between bg-slate-900/70 backdrop-blur-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
+              className="p-6 flex flex-col justify-between bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-sm font-bold text-white leading-snug">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
                     {proj.title}
                   </h3>
                   <Badge variant="teal" withDot className="text-[10px] shrink-0 font-bold">
@@ -247,26 +247,26 @@ export default function ProjectsPage() {
                   </Badge>
                 </div>
 
-                <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {proj.summary}
                 </p>
 
-                <div className="pt-2 flex flex-wrap gap-3 text-[11px] text-slate-400">
+                <div className="pt-2 flex flex-wrap gap-3 text-[11px] text-slate-500 dark:text-slate-400">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-cyan-400" />
+                    <Clock className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
                     {proj.weekly_hours} hrs/week
                   </span>
                   <span className="flex items-center gap-1">
-                    <Briefcase className="w-3 h-3 text-purple-400" />
+                    <Briefcase className="w-3 h-3 text-purple-600 dark:text-purple-400" />
                     {proj.work_arrangement}
                   </span>
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+              <div className="pt-4 mt-4 border-t border-slate-200/80 dark:border-white/10 flex flex-wrap items-center justify-between gap-2">
                 <Link
                   href={`/professors/${proj.professor_id}`}
-                  className="text-xs text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1"
+                  className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 hover:underline flex items-center gap-1"
                 >
                   <span>Supervisor Profile</span>
                 </Link>
@@ -276,15 +276,15 @@ export default function ProjectsPage() {
                     size="sm"
                     variant="outline"
                     onClick={() => handleOpenGapAnalysis(proj)}
-                    className="text-xs gap-1 border-teal-500/30 text-teal-300 hover:bg-teal-500/15"
+                    className="text-xs gap-1 border-teal-500/30 text-teal-700 dark:text-teal-300 hover:bg-teal-500/15"
                   >
-                    <TrendingUp className="w-3.5 h-3.5 text-teal-400" />
+                    <TrendingUp className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                     <span>Am I Ready?</span>
                   </Button>
 
                   {appliedProjectIds.has(proj.id) ? (
                     <Badge variant="teal" withDot className="text-xs px-3 py-1.5 gap-1.5 font-bold">
-                      <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                      <CheckCircle className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                       <span>Applied</span>
                     </Badge>
                   ) : (

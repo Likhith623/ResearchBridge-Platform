@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -21,8 +21,11 @@ import {
   UserPlus,
   ArrowLeft,
   Building,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useAuth, DEMO_PERSONAS } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 import { UserRole } from "@/types/api";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -31,6 +34,12 @@ import { Button } from "@/components/ui/Button";
 export default function LoginPage() {
   const router = useRouter();
   const { signInWithEmail, signUpWithEmail, signInAsDemo, user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [selectedRole, setSelectedRole] = useState<UserRole>("student");
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
@@ -155,31 +164,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white transition-colors duration-300">
       {/* Top Header */}
-      <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md sticky top-0 z-50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-base font-bold text-white tracking-tight">
-                Research<span className="text-blue-400">Bridge</span>
+              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+                Research<span className="text-blue-600 dark:text-blue-400">Bridge</span>
               </span>
-              <span className="text-[10px] text-slate-400 block -mt-1 font-medium tracking-wider">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
           </Link>
 
-          <Link
-            href="/"
-            className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Home</span>
-          </Link>
+          <div className="flex items-center gap-3">
+            {/* Theme Switcher Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group"
+              title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+            >
+              {mounted && theme === "dark" ? (
+                <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
+              )}
+            </button>
+
+            <Link
+              href="/"
+              className="text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Home</span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -187,14 +212,14 @@ export default function LoginPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-10">
         {/* Hero Section */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-medium">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Academic Portal • Multi-Role Access</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Sign In to ResearchBridge
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Select your academic role to proceed with your institutional email, or use
             the pre-configured demo credentials below for instant role evaluation.
           </p>
@@ -203,11 +228,11 @@ export default function LoginPage() {
         {/* STEP 1: Role Selection Cards */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <h2 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
               <span>Step 1: Select Your Academic Role</span>
             </h2>
-            <span className="text-[11px] text-slate-400">
-              Active: <strong className="text-blue-400 capitalize">{selectedRole}</strong>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
+              Active: <strong className="text-blue-600 dark:text-blue-400 capitalize">{selectedRole}</strong>
             </span>
           </div>
 
@@ -223,11 +248,11 @@ export default function LoginPage() {
                   className={`relative p-5 rounded-2xl cursor-pointer transition-all duration-300 border text-left flex flex-col justify-between ${
                     isSelected
                       ? rc.role === "student"
-                        ? "bg-gradient-to-b from-slate-900/95 to-blue-950/60 border-blue-500 shadow-xl shadow-blue-500/20 ring-2 ring-blue-500/50 -translate-y-0.5"
+                        ? "bg-white dark:bg-gradient-to-b dark:from-slate-900/95 dark:to-blue-950/60 border-blue-500 shadow-xl shadow-blue-500/15 dark:shadow-blue-500/20 ring-2 ring-blue-500/50 -translate-y-0.5"
                         : rc.role === "professor"
-                        ? "bg-gradient-to-b from-slate-900/95 to-teal-950/60 border-teal-500 shadow-xl shadow-teal-500/20 ring-2 ring-teal-500/50 -translate-y-0.5"
-                        : "bg-gradient-to-b from-slate-900/95 to-purple-950/60 border-purple-500 shadow-xl shadow-purple-500/20 ring-2 ring-purple-500/50 -translate-y-0.5"
-                      : "bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/60 hover:border-slate-700 hover:-translate-y-1"
+                        ? "bg-white dark:bg-gradient-to-b dark:from-slate-900/95 dark:to-teal-950/60 border-teal-500 shadow-xl shadow-teal-500/15 dark:shadow-teal-500/20 ring-2 ring-teal-500/50 -translate-y-0.5"
+                        : "bg-white dark:bg-gradient-to-b dark:from-slate-900/95 dark:to-purple-950/60 border-purple-500 shadow-xl shadow-purple-500/15 dark:shadow-purple-500/20 ring-2 ring-purple-500/50 -translate-y-0.5"
+                      : "bg-white/80 dark:bg-slate-900/50 border-slate-200/90 dark:border-slate-800/80 hover:bg-white dark:hover:bg-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm hover:-translate-y-1"
                   }`}
                 >
                   <div className="space-y-3">
@@ -243,23 +268,23 @@ export default function LoginPage() {
                     </div>
 
                     <div>
-                      <h3 className="text-sm font-bold text-white tracking-tight">
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">
                         {rc.title}
                       </h3>
-                      <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                      <p className="text-[11px] text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                         {rc.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-700/50 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-300">
+                  <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-700/50 flex items-center justify-between text-[11px]">
+                    <span className="text-slate-600 dark:text-slate-300">
                       Default Demo:{" "}
-                      <strong className="text-white font-semibold">{rc.demoPersona.name}</strong>
+                      <strong className="text-slate-900 dark:text-white font-semibold">{rc.demoPersona.name}</strong>
                     </span>
                     <span
                       className={`text-xs font-semibold ${
-                        isSelected ? "text-blue-400" : "text-slate-400"
+                        isSelected ? "text-blue-600 dark:text-blue-400" : "text-slate-400"
                       }`}
                     >
                       {isSelected ? "Selected ✓" : "Click to Select"}
@@ -274,19 +299,19 @@ export default function LoginPage() {
         {/* STEP 2: Email & Password Form + Step 3: Demo Roles Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Email & Password Form (5 Cols) */}
-          <div className="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div className="lg:col-span-5 bg-white/95 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6 text-slate-900 dark:text-slate-100 transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
               <div>
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                   {authMode === "login" ? "Sign In with Email" : "Register Account"}
                 </h3>
-                <p className="text-[11px] text-slate-300">
-                  Role: <span className="text-blue-400 font-semibold capitalize">{selectedRole}</span>
+                <p className="text-[11px] text-slate-500 dark:text-slate-300">
+                  Role: <span className="text-blue-600 dark:text-blue-400 font-semibold capitalize">{selectedRole}</span>
                 </p>
               </div>
 
               {/* Mode Toggle */}
-              <div className="flex p-0.5 rounded-lg bg-slate-800 text-[11px]">
+              <div className="flex p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-[11px]">
                 <button
                   type="button"
                   onClick={() => {
@@ -296,7 +321,7 @@ export default function LoginPage() {
                   className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                     authMode === "login"
                       ? "bg-blue-600 text-white font-semibold shadow-xs"
-                      : "text-slate-300 hover:text-white"
+                      : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
                   Sign In
@@ -310,7 +335,7 @@ export default function LoginPage() {
                   className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                     authMode === "register"
                       ? "bg-blue-600 text-white font-semibold shadow-xs"
-                      : "text-slate-300 hover:text-white"
+                      : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
                   Register
@@ -319,7 +344,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-start gap-2">
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{error}</span>
               </div>
@@ -328,7 +353,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {authMode === "register" && (
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-200 mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-200 mb-1">
                     Full Name &amp; Title
                   </label>
                   <div className="relative">
@@ -339,14 +364,14 @@ export default function LoginPage() {
                       placeholder="e.g. Dr. John von Neumann"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-200 mb-1">
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-200 mb-1">
                   Institutional Email ID
                 </label>
                 <div className="relative">
@@ -357,16 +382,16 @@ export default function LoginPage() {
                     placeholder="name@university.edu"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-200 mb-1 flex items-center justify-between">
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-200 mb-1 flex items-center justify-between">
                   <span>Password</span>
-                  <span className="text-[10px] text-slate-400 font-normal">
-                    (Use <strong className="text-white font-semibold">password123</strong> for demo accounts)
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-normal">
+                    (Use <strong className="text-slate-900 dark:text-white font-semibold">password123</strong> for demo accounts)
                   </span>
                 </label>
                 <div className="relative">
@@ -377,12 +402,12 @@ export default function LoginPage() {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-9 pr-10 py-2 text-xs rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    className="w-full pl-9 pr-10 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
                   >
                     {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                   </button>
@@ -417,11 +442,11 @@ export default function LoginPage() {
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+                <h3 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-teal-500 dark:text-teal-400" />
                   <span>Pre-Seeded Demo Accounts (1-Click Login)</span>
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Click any account below to instantly log in or autofill the credentials above.
                 </p>
               </div>
@@ -434,7 +459,7 @@ export default function LoginPage() {
                 return (
                   <div
                     key={persona.id}
-                    className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between shadow-md hover:-translate-y-1 hover:shadow-lg"
+                    className="bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between shadow-md hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
@@ -451,10 +476,10 @@ export default function LoginPage() {
                             {persona.name.charAt(0)}
                           </div>
                           <div>
-                            <h4 className="text-xs font-bold text-white tracking-tight">
+                            <h4 className="text-xs font-bold text-slate-900 dark:text-white tracking-tight">
                               {persona.name}
                             </h4>
-                            <p className="text-[11px] text-slate-300 font-medium line-clamp-1">
+                            <p className="text-[11px] text-slate-500 dark:text-slate-300 font-medium line-clamp-1">
                               {persona.title}
                             </p>
                           </div>
@@ -475,19 +500,19 @@ export default function LoginPage() {
                       </div>
 
                       {/* Credentials Display Box */}
-                      <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-700/80 space-y-1.5 text-[11px] font-mono">
-                        <div className="flex items-center justify-between text-slate-300">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">EMAIL:</span>
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-700/80 space-y-1.5 text-[11px] font-mono">
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">EMAIL:</span>
                           <div className="flex items-center gap-1.5">
-                            <span className="text-white font-semibold select-all">{persona.email}</span>
+                            <span className="text-slate-900 dark:text-white font-semibold select-all">{persona.email}</span>
                             <button
                               type="button"
                               onClick={() => copyToClipboard(persona.email)}
-                              className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+                              className="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors cursor-pointer"
                               title="Copy email"
                             >
                               {copiedEmail === persona.email ? (
-                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                                <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                               ) : (
                                 <Copy className="w-3.5 h-3.5" />
                               )}
@@ -495,9 +520,9 @@ export default function LoginPage() {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between text-slate-300">
-                          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">PASSWORD:</span>
-                          <span className="text-white font-semibold">{persona.password || "password123"}</span>
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">PASSWORD:</span>
+                          <span className="text-slate-900 dark:text-white font-semibold">{persona.password || "password123"}</span>
                         </div>
                       </div>
                     </div>
@@ -519,7 +544,7 @@ export default function LoginPage() {
                       <button
                         type="button"
                         onClick={() => handleAutofillDemo(persona)}
-                        className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-semibold text-[11px] border border-slate-600 hover:border-slate-500 transition-all cursor-pointer shadow-xs select-none"
+                        className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-600 text-slate-800 dark:text-white font-semibold text-[11px] border border-slate-300 dark:border-slate-600 transition-all cursor-pointer shadow-xs select-none"
                       >
                         Autofill
                       </button>
@@ -533,9 +558,9 @@ export default function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200/80 dark:border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
         <p>ResearchBridge — Stanford University Academic Network &amp; Collaboration Platform.</p>
-        <p className="mt-1 text-[11px] text-slate-600">
+        <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-600">
           Role-governed environment for students, faculty supervisors, and institutional administrators.
         </p>
       </footer>

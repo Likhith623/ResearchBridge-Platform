@@ -92,16 +92,16 @@ export default function RequestsPage() {
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
-          <Send className="w-3.5 h-3.5 text-cyan-400" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+          <Send className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
           <span>Application Tracker</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-900 to-cyan-700 dark:from-white dark:via-indigo-200 dark:to-cyan-300 bg-clip-text text-transparent">
           {role === "professor"
             ? "Student Research Applications & Decisions"
             : "My Research Collaboration Inquiries"}
         </h1>
-        <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">
           {role === "professor"
             ? "Review applicants, examine demonstrated technical skills, request clarifications, and accept laboratory members."
             : "Track real-time evaluation status, professor feedback, and decision history."}
@@ -109,34 +109,34 @@ export default function RequestsPage() {
       </div>
 
       {/* Requests Table / Cards */}
-      <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-        <CardHeader className="border-b border-white/10">
-          <CardTitle className="text-base font-bold text-white flex items-center justify-between">
+      <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+        <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+          <CardTitle className="text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
             <span>All Applications</span>
-            <span className="text-xs text-cyan-400">({(Array.isArray(requests) ? requests : []).length})</span>
+            <span className="text-xs text-cyan-700 dark:text-cyan-400">({(Array.isArray(requests) ? requests : []).length})</span>
           </CardTitle>
-          <CardDescription className="text-xs text-slate-400">
+          <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
             Persistent records synchronized with university research governance
           </CardDescription>
         </CardHeader>
-        <CardContent className="divide-y divide-white/5 p-0">
+        <CardContent className="divide-y divide-slate-200/80 dark:divide-white/5 p-0">
           {isLoading ? (
-            <div className="p-8 text-center text-xs text-slate-400">
+            <div className="p-8 text-center text-xs text-slate-500 dark:text-slate-400">
               Loading research requests...
             </div>
           ) : (Array.isArray(requests) ? requests : []).length === 0 ? (
-            <div className="p-12 text-center text-xs text-slate-400">
+            <div className="p-12 text-center text-xs text-slate-500 dark:text-slate-400">
               No research applications found.
             </div>
           ) : (
             (Array.isArray(requests) ? requests : []).map((req) => (
               <div
                 key={req.id}
-                className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-white/5 transition-colors"
+                className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-100/60 dark:hover:bg-white/5 transition-colors"
               >
                 <div className="space-y-1.5 min-w-0 max-w-xl">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-sm font-bold text-white truncate">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white truncate">
                       {req.subject}
                     </h3>
                     <Badge
@@ -148,12 +148,12 @@ export default function RequestsPage() {
                     </Badge>
                   </div>
 
-                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                     {req.motivation_statement}
                   </p>
 
-                  <div className="flex items-center gap-3 text-[11px] text-slate-400 pt-1">
-                    <span className="text-cyan-300">
+                  <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 pt-1">
+                    <span className="text-cyan-700 dark:text-cyan-300 font-medium">
                       {role === "professor"
                         ? `Applicant: ${req.student_name || "Student"}`
                         : `Supervisor: ${req.professor_name || "Faculty Supervisor"}`}
@@ -169,7 +169,7 @@ export default function RequestsPage() {
                       {req.student_skills.map((s, idx) => (
                         <span
                           key={idx}
-                          className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-cyan-300 font-medium"
+                          className="text-[9px] px-2 py-0.5 rounded-full bg-cyan-500/10 dark:bg-white/5 border border-cyan-500/20 dark:border-white/10 text-cyan-700 dark:text-cyan-300 font-medium"
                         >
                           {s}
                         </span>
@@ -181,8 +181,8 @@ export default function RequestsPage() {
                 {/* Actions depending on Role and Status */}
                 <div className="flex items-center gap-2 shrink-0">
                   <Link href="/messages">
-                    <Button size="sm" variant="outline" className="text-xs gap-1 border-white/15 text-slate-200 hover:text-white">
-                      <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
+                    <Button size="sm" variant="outline" className="text-xs gap-1 border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
+                      <MessageSquare className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                       <span>Chat</span>
                     </Button>
                   </Link>

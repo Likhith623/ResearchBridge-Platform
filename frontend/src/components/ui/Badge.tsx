@@ -25,21 +25,25 @@ export function Badge({
 }: BadgeProps) {
   const variantStyles = {
     default:
-      "bg-blue-500/15 text-blue-300 border-blue-500/30 shadow-[0_0_12px_rgba(59,130,246,0.15)]",
-    secondary: "bg-slate-800/80 text-slate-300 border-slate-700/80",
+      "bg-blue-50 text-blue-700 border-blue-200/80 shadow-xs dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30 dark:shadow-[0_0_12px_rgba(59,130,246,0.15)]",
+    secondary:
+      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700/80",
     success:
-      "bg-emerald-500/15 text-emerald-300 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
+      "bg-emerald-50 text-emerald-700 border-emerald-200/80 shadow-xs dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30 dark:shadow-[0_0_12px_rgba(16,185,129,0.15)]",
     warning:
-      "bg-amber-500/15 text-amber-300 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
+      "bg-amber-50 text-amber-700 border-amber-200/80 shadow-xs dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30 dark:shadow-[0_0_12px_rgba(245,158,11,0.15)]",
     destructive:
-      "bg-rose-500/15 text-rose-300 border-rose-500/30 shadow-[0_0_12px_rgba(244,63,94,0.15)]",
-    outline: "bg-white/5 text-slate-300 border-white/15",
-    teal: "bg-teal-500/15 text-teal-300 border-teal-500/30 shadow-[0_0_12px_rgba(20,184,166,0.15)]",
+      "bg-rose-50 text-rose-700 border-rose-200/80 shadow-xs dark:bg-rose-500/15 dark:text-rose-300 dark:border-rose-500/30 dark:shadow-[0_0_12px_rgba(244,63,94,0.15)]",
+    outline:
+      "bg-white/60 text-slate-700 border-slate-200/80 dark:bg-white/5 dark:text-slate-300 dark:border-white/15",
+    teal:
+      "bg-teal-50 text-teal-700 border-teal-200/80 shadow-xs dark:bg-teal-500/15 dark:text-teal-300 dark:border-teal-500/30 dark:shadow-[0_0_12px_rgba(20,184,166,0.15)]",
     purple:
-      "bg-purple-500/15 text-purple-300 border-purple-500/30 shadow-[0_0_12px_rgba(168,85,247,0.15)]",
-    cyan: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.15)]",
+      "bg-purple-50 text-purple-700 border-purple-200/80 shadow-xs dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30 dark:shadow-[0_0_12px_rgba(168,85,247,0.15)]",
+    cyan:
+      "bg-cyan-50 text-cyan-700 border-cyan-200/80 shadow-xs dark:bg-cyan-500/15 dark:text-cyan-300 dark:border-cyan-500/30 dark:shadow-[0_0_12px_rgba(6,182,212,0.15)]",
     indigo:
-      "bg-indigo-500/15 text-indigo-300 border-indigo-500/30 shadow-[0_0_12px_rgba(99,102,241,0.15)]",
+      "bg-indigo-50 text-indigo-700 border-indigo-200/80 shadow-xs dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/30 dark:shadow-[0_0_12px_rgba(99,102,241,0.15)]",
   };
 
   const dotColors = {

@@ -165,7 +165,7 @@ export default function ProfessorDetailPage() {
       </Link>
 
       {/* Professor Header Card */}
-      <Card className="p-6 sm:p-8 bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
+      <Card className="p-6 sm:p-8 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
           <div className="flex items-start gap-4">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/25">
@@ -173,7 +173,7 @@ export default function ProfessorDetailPage() {
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                   {professor.full_name || professor.profiles?.full_name || "Faculty Supervisor"}
                 </h1>
                 <Badge
@@ -184,11 +184,11 @@ export default function ProfessorDetailPage() {
                   {professor.open_to_applications ? "Open to Students" : "At Capacity"}
                 </Badge>
               </div>
-              <p className="text-xs sm:text-sm text-cyan-300 font-medium">
+              <p className="text-xs sm:text-sm text-cyan-700 dark:text-cyan-300 font-medium">
                 {professor.academic_title || professor.title || "Professor"}
               </p>
-              <p className="text-xs text-slate-400 flex items-center gap-2">
-                <Building className="w-3.5 h-3.5 text-cyan-400" />
+              <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                <Building className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                 <span>
                   {professor.lab_name || "Research Group"} •{" "}
                   {professor.office_location || "Campus Office"}
@@ -199,8 +199,8 @@ export default function ProfessorDetailPage() {
 
           {existingApplication ? (
             <div className="flex flex-col sm:flex-row items-center gap-2">
-              <div className="px-3.5 py-2 rounded-xl bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <div className="px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center gap-1.5 shadow-sm">
+                <CheckCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                 <span>
                   Application Submitted (
                   {(existingApplication.status || "under_review").replace(/_/g, " ")}
@@ -208,7 +208,7 @@ export default function ProfessorDetailPage() {
                 </span>
               </div>
               <Link href="/requests">
-                <Button size="sm" variant="outline" className="text-xs border-white/15 text-slate-200 hover:text-white">
+                <Button size="sm" variant="outline" className="text-xs border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
                   View in Applications →
                 </Button>
               </Link>
@@ -227,13 +227,13 @@ export default function ProfessorDetailPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-4 border-b border-white/10 mt-8 text-xs font-semibold">
+        <div className="flex gap-4 border-b border-slate-200/80 dark:border-white/10 mt-8 text-xs font-semibold">
           <button
             onClick={() => setActiveTab("overview")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer ${
               activeTab === "overview"
-                ? "border-cyan-400 text-cyan-400"
-                : "border-transparent text-slate-400 hover:text-white"
+                ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
+                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             Academic Overview
@@ -242,8 +242,8 @@ export default function ProfessorDetailPage() {
             onClick={() => setActiveTab("publications")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
               activeTab === "publications"
-                ? "border-cyan-400 text-cyan-400"
-                : "border-transparent text-slate-400 hover:text-white"
+                ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
+                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             <span>Publications</span>
@@ -255,8 +255,8 @@ export default function ProfessorDetailPage() {
             onClick={() => setActiveTab("projects")}
             className={`pb-3 px-1 transition-colors border-b-2 cursor-pointer flex items-center gap-1.5 ${
               activeTab === "projects"
-                ? "border-cyan-400 text-cyan-400"
-                : "border-transparent text-slate-400 hover:text-white"
+                ? "border-cyan-500 dark:border-cyan-400 text-cyan-700 dark:text-cyan-400"
+                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             <span>Open Projects</span>
@@ -271,27 +271,27 @@ export default function ProfessorDetailPage() {
       {activeTab === "overview" && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
-            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-              <CardHeader className="border-b border-white/10">
-                <CardTitle className="text-base font-bold text-white">Biography & Research Vision</CardTitle>
+            <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+                <CardTitle className="text-base font-bold text-slate-900 dark:text-white">Biography &amp; Research Vision</CardTitle>
               </CardHeader>
-              <CardContent className="text-xs text-slate-300 leading-relaxed whitespace-pre-line p-6">
+              <CardContent className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line p-6">
                 {professor.bio ||
                   professor.profiles?.bio ||
                   "Conducting foundational and applied scientific research in modern computer systems and artificial intelligence."}
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-              <CardHeader className="border-b border-white/10">
-                <CardTitle className="text-base font-bold text-white">Research Focus Areas</CardTitle>
+            <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+                <CardTitle className="text-base font-bold text-slate-900 dark:text-white">Research Focus Areas</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="flex flex-wrap gap-2">
                   {(Array.isArray(professor.research_interests) ? professor.research_interests : []).map((ri: any, idx: number) => (
                     <div
                       key={typeof ri === "string" ? `${ri}-${idx}` : (ri.id || ri.name || idx)}
-                      className="px-3 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-medium"
+                      className="px-3 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-medium"
                     >
                       {typeof ri === "string" ? ri : ri.name}
                     </div>
@@ -302,26 +302,26 @@ export default function ProfessorDetailPage() {
           </div>
 
           <div className="space-y-6">
-            <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-              <CardHeader className="border-b border-white/10">
-                <CardTitle className="text-sm font-bold text-white">Supervision Parameters</CardTitle>
+            <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+              <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+                <CardTitle className="text-sm font-bold text-slate-900 dark:text-white">Supervision Parameters</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-xs p-6">
-                <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-slate-400">Active Students</span>
-                  <span className="font-semibold text-white">
+                <div className="flex justify-between py-1 border-b border-slate-200/80 dark:border-white/10">
+                  <span className="text-slate-500 dark:text-slate-400">Active Students</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {professor.current_supervision_count || 1} / {professor.max_capacity || 4}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-white/10">
-                  <span className="text-slate-400">Weekly Commitment</span>
-                  <span className="font-semibold text-white">
+                <div className="flex justify-between py-1 border-b border-slate-200/80 dark:border-white/10">
+                  <span className="text-slate-500 dark:text-slate-400">Weekly Commitment</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     ~{professor.preferred_weekly_hours || 12} hrs/week
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-400">Application Status</span>
-                  <span className="font-bold text-emerald-400">
+                  <span className="text-slate-500 dark:text-slate-400">Application Status</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
                     {professor.open_to_applications ? "Accepting Applicants" : "Full Capacity"}
                   </span>
                 </div>
@@ -333,31 +333,31 @@ export default function ProfessorDetailPage() {
 
       {/* Tab 2: Publications */}
       {activeTab === "publications" && (
-        <Card className="bg-slate-900/70 backdrop-blur-xl border border-white/10 shadow-2xl">
-          <CardHeader className="border-b border-white/10">
-            <CardTitle className="text-base font-bold text-white">Authored Academic Papers</CardTitle>
-            <CardDescription className="text-xs text-slate-400">
+        <Card className="bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-2xl">
+          <CardHeader className="border-b border-slate-200/80 dark:border-white/10">
+            <CardTitle className="text-base font-bold text-slate-900 dark:text-white">Authored Academic Papers</CardTitle>
+            <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
               Peer-reviewed articles, conference proceedings, and technical preprints
             </CardDescription>
           </CardHeader>
-          <CardContent className="divide-y divide-white/5 p-6">
+          <CardContent className="divide-y divide-slate-200/80 dark:divide-white/5 p-6">
             {(Array.isArray(publications) ? publications : []).length === 0 ? (
-              <div className="py-8 text-center text-xs text-slate-400">
+              <div className="py-8 text-center text-xs text-slate-500 dark:text-slate-400">
                 No publications listed yet.
               </div>
             ) : (
               (Array.isArray(publications) ? publications : []).map((pub) => (
                 <div key={pub.id} className="py-4 space-y-1.5">
-                  <h4 className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors">
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                     {pub.title}
                   </h4>
-                  <p className="text-xs text-cyan-300">
+                  <p className="text-xs text-cyan-700 dark:text-cyan-300">
                     {pub.venue ? `${pub.venue} ` : ""}
                     {pub.year ? `(${pub.year})` : ""}
                     {pub.doi ? ` • DOI: ${pub.doi}` : ""}
                   </p>
                   {pub.abstract && (
-                    <p className="text-xs text-slate-300 leading-relaxed pt-1 line-clamp-3">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pt-1 line-clamp-3">
                       {pub.abstract}
                     </p>
                   )}
@@ -372,25 +372,25 @@ export default function ProfessorDetailPage() {
       {activeTab === "projects" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {(Array.isArray(projects) ? projects : []).length === 0 ? (
-            <Card className="col-span-2 p-12 text-center text-slate-400 text-xs bg-slate-900/60 border border-white/10">
+            <Card className="col-span-2 p-12 text-center text-slate-500 dark:text-slate-400 text-xs bg-white/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/10">
               No active project openings currently listed. You can still submit a general research inquiry!
             </Card>
           ) : (
             (Array.isArray(projects) ? projects : []).map((proj) => (
-              <Card key={proj.id} className="p-5 space-y-3 flex flex-col justify-between bg-slate-900/70 backdrop-blur-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15">
+              <Card key={proj.id} className="p-5 space-y-3 flex flex-col justify-between bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-sm font-bold text-white">{proj.title}</h4>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">{proj.title}</h4>
                     <Badge variant="teal" withDot className="text-[10px] font-bold">
                       {proj.openings_count} Openings
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                     {proj.summary}
                   </p>
                 </div>
-                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                  <span className="text-slate-400">{proj.weekly_hours} hrs/week</span>
+                <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-xs">
+                  <span className="text-slate-500 dark:text-slate-400">{proj.weekly_hours} hrs/week</span>
                   <Button
                     size="sm"
                     variant="primary"
