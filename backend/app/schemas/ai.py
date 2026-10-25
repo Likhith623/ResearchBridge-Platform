@@ -11,15 +11,15 @@ class TerminologyItem(BaseModel):
 
 class PaperSummaryStructured(BaseModel):
     title: Optional[str] = None
-    plain_language_overview: str
-    research_problem: str
+    plain_language_overview: str = ""
+    research_problem: str = ""
     research_question: Optional[str] = None
-    motivation_significance: str
-    methodology: str
-    findings_contributions: str
-    techniques_models: str
-    limitations_author: str
-    limitations_assumptions: str
+    motivation_significance: str = ""
+    methodology: str = ""
+    findings_contributions: str = ""
+    techniques_models: str = ""
+    limitations_author: str = ""
+    limitations_assumptions: str = ""
     key_terminology: List[TerminologyItem] = Field(default_factory=list)
     prerequisite_knowledge: List[str] = Field(default_factory=list)
     open_questions: List[str] = Field(default_factory=list)

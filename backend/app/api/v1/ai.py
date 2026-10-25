@@ -37,11 +37,13 @@ async def chat_with_assistant(
     doc_id = payload.document_id or (UUID(payload.context_id) if payload.context_type == "paper" and payload.context_id else None)
     if doc_id:
         doc = await db.get_document(str(doc_id))
-        if doc:
-            is_owner = str(doc.get("owner_id")) == str(current_user.id)
-            is_public = doc.get("access_scope") == "public"
-            if is_owner or is_public or current_user.role == "admin":
-                doc_context = await document_service.get_document_text(doc_id)
+        if not doc:
+            raise NotFoundError("Document not found.")
+        is_owner = str(doc.get("owner_id")) == str(current_user.id)
+        is_public = doc.get("access_scope") == "public"
+        if not (is_owner or is_public or current_user.role == "admin"):
+            raise ForbiddenError("You do not have permission to access this private document.")
+        doc_context = await document_service.get_document_text(doc_id)
 
     # Handle project or professor context
     if payload.context_type == "project" and payload.context_id:

@@ -728,28 +728,38 @@ class InnovationService:
             try:
                 res = client.models.generate_content(
                     model=gemini_service.model,
-                    contents=f"Break down this academic research idea: {idea_text[:2000]}",
-                    config={"response_mime_type": "application/json"},
+                    contents=f"Break down this academic research idea into concrete assignable student tasks:\n{idea_text[:2000]}",
+                    config={
+                        "response_mime_type": "application/json",
+                        "system_instruction": system_prompt,
+                    },
                 )
                 data = json.loads(res.text)
+                raw_tasks = (
+                    data.get("recommended_tasks")
+                    or data.get("tasks")
+                    or data.get("phases")
+                    or []
+                )
                 tasks = [
                     BreakdownTask(
-                        task_name=t.get("task_name", "Core Implementation"),
+                        task_name=t.get("task_name") or t.get("name") or "Core Implementation",
                         role=t.get("role", "Student Researcher"),
-                        prerequisite_skills=t.get("prerequisite_skills", ["Python"]),
+                        prerequisite_skills=t.get("prerequisite_skills") or t.get("skills_required") or ["Python"],
                         description=t.get("description", "Implementation task"),
                         estimated_weekly_hours=t.get("estimated_weekly_hours", 10),
-                        deliverable=t.get("deliverable", "Source code and validation report"),
+                        deliverable=t.get("deliverable") or t.get("deliverables") or "Source code and validation report",
                     )
-                    for t in data.get("recommended_tasks", [])
+                    for t in raw_tasks
                 ]
-                return ProjectBreakdownResponse(
-                    project_title=data.get("project_title", "Structured Research Project"),
-                    executive_summary=data.get("executive_summary", idea_text[:120]),
-                    suggested_timeline=data.get("suggested_timeline", duration),
-                    suggested_openings_count=data.get("suggested_openings_count", len(tasks)),
-                    recommended_tasks=tasks,
-                )
+                if len(tasks) >= 3:
+                    return ProjectBreakdownResponse(
+                        project_title=data.get("project_title", "Structured Research Project"),
+                        executive_summary=data.get("executive_summary", idea_text[:120]),
+                        suggested_timeline=data.get("suggested_timeline", duration),
+                        suggested_openings_count=data.get("suggested_openings_count", len(tasks)),
+                        recommended_tasks=tasks,
+                    )
             except Exception as e:
                 logger.warning(f"Gemini API error during breakdown ({e}). Using intelligent heuristic decomposition.")
 
