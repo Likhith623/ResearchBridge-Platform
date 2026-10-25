@@ -3,7 +3,6 @@
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-hack--gen--seven.vercel.app-0070F3.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://hack-gen-seven.vercel.app/)
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-black.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/likhith623s-projects/hack-gen)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16_Turbopack-black.svg?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
@@ -16,14 +15,9 @@
 
 <br/>
 
-> 🚀 **Live Production Deployment**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**  
-> ✨ *Experience instant 1-click role switching between Student, Faculty, and Admin personas directly in the live app.*
-
-<br/>
-
 **ResearchBridge** is a modern, high-performance university research collaboration ecosystem connecting undergraduate and graduate scholars with research supervising faculty, active lab openings, and an institutional AI research intelligence engine powered by Google Gemini.
 
-[🌐 Live Demo](https://hack-gen-seven.vercel.app/) • [Key Modules](#-key-capabilities--11-innovation-modules) • [System Architecture](#-system-architecture) • [Demo Personas](#-one-click-demo-personas) • [API Directory](#-api-reference-48-endpoints) • [Quickstart](#-local-development-quickstart)
+[Key Modules](#-key-capabilities--11-innovation-modules) • [System Architecture](#-system-architecture) • [Demo Personas](#-seeded-demo-personas-local-development) • [API Directory](#-api-reference-48-endpoints) • [Quickstart](#-local-development-quickstart)
 
 </div>
 
@@ -106,60 +100,174 @@ graph TD
 
 ---
 
-## 👥 One-Click Demo Personas
+## 👥 Seeded Demo Personas (Local Development)
 
-The platform includes pre-seeded institutional accounts for instant one-click switching on both localhost and the [Live Website](https://hack-gen-seven.vercel.app/login):
+The platform includes pre-seeded institutional accounts for testing role-specific workflows during local development:
 
-| Role | Persona Name | Email | Focus & Department | Quick Access |
-| :--- | :--- | :--- | :--- | :--- |
-| 🛡️ **Admin** | **Dr. Eleanor Vance** | `admin@stanford.edu` | Stanford Research Governance & Dean of Research | [Switch to Admin](https://hack-gen-seven.vercel.app/login) |
-| 👨‍🏫 **Professor** | **Prof. Alan Turing** | `prof.turing@stanford.edu` | Computer Science & Artificial Intelligence Lab | [Switch to Professor](https://hack-gen-seven.vercel.app/login) |
-| 🎓 **Student** | **Alice Chen** | `alice.student@stanford.edu` | Senior Undergrad • ML, Systems & Distributed Computing | [Switch to Alice](https://hack-gen-seven.vercel.app/login) |
-| 🎓 **Student** | **Bob Williams** | `bob.student@stanford.edu` | Graduate Researcher • Quantum Information & HCI | [Switch to Bob](https://hack-gen-seven.vercel.app/login) |
+| Role | Persona Name | Email | Focus & Department |
+| :--- | :--- | :--- | :--- |
+| 🛡️ **Admin** | **Dr. Eleanor Vance** | `admin@stanford.edu` | Stanford Research Governance & Dean of Research |
+| 👨‍🏫 **Professor** | **Prof. Alan Turing** | `prof.turing@stanford.edu` | Computer Science & Artificial Intelligence Lab |
+| 🎓 **Student** | **Alice Chen** | `alice.student@stanford.edu` | Senior Undergrad • ML, Systems & Distributed Computing |
+| 🎓 **Student** | **Bob Williams** | `bob.student@stanford.edu` | Graduate Researcher • Quantum Information & HCI |
 
 ---
 
 ## 🏗️ System Architecture
 
+ResearchBridge follows a layered architecture: the Next.js client communicates with the FastAPI REST API, backend services apply authentication and role-based authorization, and domain services use Supabase for persistent data, private document storage, and real-time events. Google Gemini is called by the backend AI service for research assistance and structured generation.
+
 ```mermaid
 flowchart TB
-    subgraph Client["Frontend Client (Next.js 16 + TypeScript + Tailwind)"]
-        UI["Responsive Modern UI (Dark & Light Theme)"]
-        Nav["Navigation & Demo Persona Switcher"]
-        Notif["Notification Center & Mobile Drawer"]
-        AIWidget["Floating Gemini Research Copilot"]
-        GraphView["Interactive Collaboration Network Graph"]
+    subgraph Users["Platform Users"]
+        Student["Student"]
+        Faculty["Professor / Faculty"]
+        Admin["Administrator"]
     end
 
-    subgraph Gateway["API Gateway Layer (FastAPI)"]
-        Router["API v1 Router (OpenAPI 3.1)"]
-        AuthGuard["JWT Auth & RBAC Security Guard"]
-        RateLimiter["IP & User In-Memory Rate Limiter"]
-        ErrHandler["Centralized Exception Handler"]
+    subgraph Frontend["Frontend - Next.js 16, TypeScript, Tailwind CSS"]
+        AppShell["Responsive web application and mobile layout"]
+        Workspaces["Role-adaptive dashboards and navigation"]
+        DiscoveryUI["Faculty directory, profiles, and research openings"]
+        CollaborationUI["Research requests, proposals, and messaging"]
+        DocumentsUI["Private research document vault and paper summaries"]
+        CopilotUI["Floating Gemini research copilot"]
+        TalentUI["Talent matcher, skill passport, and team composer"]
+        OpportunityUI["Gap analysis, opportunity radar, and cross-department discovery"]
+        ResearchFlowUI["Idea pipeline and contribution portfolio"]
+        GraphUI["Interactive collaboration network graph"]
+        AdminUI["Faculty verification and governance dashboards"]
+        NotificationsUI["Notification center, unread counts, and read receipts"]
+        ThemeUI["Light and dark themes"]
     end
 
-    subgraph Services["Core Application Services"]
-        InnovService["11-Module Innovation Suite"]
-        GeminiService["Google Gemini AI Engine (google-genai SDK)"]
-        DocService["Magic-Byte PDF Validator & Storage Client"]
-        ReqService["Research Request State Machine"]
+    subgraph API["API Gateway - FastAPI"]
+        APIEntry["Versioned API v1 router and OpenAPI 3.1"]
+        Validation["Pydantic v2 request and response validation"]
+        JWTGuard["JWT verification and role-based access control"]
+        Middleware["CORS, rate limiting, and centralized error handling"]
+        DomainRoutes["Auth, profiles, institutions, faculty, projects, inquiries, messages, documents, AI, innovation, notifications, and admin routes"]
+        APIEntry --> Validation
+        APIEntry --> JWTGuard
+        APIEntry --> Middleware
+        Validation --> DomainRoutes
+        JWTGuard --> DomainRoutes
+        Middleware --> DomainRoutes
     end
 
-    subgraph Data["Persistent Storage Layer (Supabase)"]
-        Postgres[("PostgreSQL 16 Database with RLS")]
-        Storage[("Supabase Storage (research-documents)")]
-        Realtime["Supabase Realtime Pub/Sub Engine"]
+    subgraph Services["Backend Domain Services"]
+        ProfileService["Identity, profiles, institutions, and faculty services"]
+        ResearchService["Research projects, prerequisites, applications, and lifecycle"]
+        CollaborationService["Collaboration requests, proposals, and participant-isolated messaging"]
+        DocumentService["PDF magic-byte validation, SHA-256 integrity checks, and signed downloads"]
+        AIService["Gemini chat, 15-part paper summarization, and project breakdown"]
+        InnovationService["Innovation orchestration and recommendation services"]
+        NotificationService["Notification creation, read status, and real-time event delivery"]
+        GovernanceService["Faculty verification, audit logs, and fair-opportunity monitoring"]
     end
 
-    Client -->|"REST & Bearer JWT"| Gateway
-    Gateway --> Services
-    Services --> Postgres
-    Services --> Storage
-    Services --> GeminiService
-    Client -.->|"WebSocket Notifications"| Realtime
+    subgraph Innovation["11 Research Intelligence Modules"]
+        TalentMatcher["1. Explainable AI Talent Matcher"]
+        SkillPassport["2. Evidence-Based Skill Passport"]
+        TeamComposer["3. AI Interdisciplinary Team Composer"]
+        GapAnalyzer["4. Opportunity Gap Analyzer"]
+        IdeaPipeline["5. Research Idea-to-Prototype Pipeline"]
+        ContributionTracker["6. Verifiable Contribution and Impact Tracker"]
+        CrossDepartment["7. Cross-Department Talent Discovery"]
+        OpportunityRadar["8. Opportunity Radar for Hidden Talent"]
+        NetworkGraph["9. Research Collaboration Network Graph"]
+        FairMonitor["10. Fair Opportunity and Equity Monitor"]
+        ProjectBreakdown["11. Automatic Research Project Breakdown"]
+    end
+
+    subgraph Data["Supabase Data and Event Layer"]
+        PostgreSQL[("PostgreSQL 16 with Row Level Security")]
+        Storage[("Private Storage bucket: research-documents")]
+        Realtime["Supabase Realtime Pub/Sub"]
+    end
+
+    subgraph External["External AI Provider"]
+        Gemini["Google Gemini API via google-genai SDK"]
+    end
+
+    Student --> AppShell
+    Faculty --> AppShell
+    Admin --> AppShell
+    AppShell --> Workspaces
+    AppShell --> ThemeUI
+    Workspaces --> DiscoveryUI
+    Workspaces --> CollaborationUI
+    Workspaces --> DocumentsUI
+    Workspaces --> CopilotUI
+    Workspaces --> TalentUI
+    Workspaces --> OpportunityUI
+    Workspaces --> ResearchFlowUI
+    Workspaces --> GraphUI
+    Workspaces --> AdminUI
+    Workspaces --> NotificationsUI
+
+    DiscoveryUI -->|"HTTPS REST with bearer token"| APIEntry
+    CollaborationUI -->|"HTTPS REST with bearer token"| APIEntry
+    DocumentsUI -->|"HTTPS REST with bearer token"| APIEntry
+    CopilotUI -->|"HTTPS REST with bearer token"| APIEntry
+    TalentUI -->|"HTTPS REST with bearer token"| APIEntry
+    OpportunityUI -->|"HTTPS REST with bearer token"| APIEntry
+    ResearchFlowUI -->|"HTTPS REST with bearer token"| APIEntry
+    GraphUI -->|"HTTPS REST with bearer token"| APIEntry
+    AdminUI -->|"HTTPS REST with bearer token"| APIEntry
+    NotificationsUI -->|"HTTPS REST with bearer token"| APIEntry
+
+    DomainRoutes --> ProfileService
+    DomainRoutes --> ResearchService
+    DomainRoutes --> CollaborationService
+    DomainRoutes --> DocumentService
+    DomainRoutes --> AIService
+    DomainRoutes --> InnovationService
+    DomainRoutes --> NotificationService
+    DomainRoutes --> GovernanceService
+
+    InnovationService --> TalentMatcher
+    InnovationService --> SkillPassport
+    InnovationService --> TeamComposer
+    InnovationService --> GapAnalyzer
+    InnovationService --> IdeaPipeline
+    InnovationService --> ContributionTracker
+    InnovationService --> CrossDepartment
+    InnovationService --> OpportunityRadar
+    InnovationService --> NetworkGraph
+    InnovationService --> FairMonitor
+    InnovationService --> ProjectBreakdown
+
+    ProfileService --> PostgreSQL
+    ResearchService --> PostgreSQL
+    CollaborationService --> PostgreSQL
+    DocumentService --> PostgreSQL
+    DocumentService --> Storage
+    AIService --> Gemini
+    AIService --> PostgreSQL
+    InnovationService --> PostgreSQL
+    NotificationService --> PostgreSQL
+    NotificationService --> Realtime
+    GovernanceService --> PostgreSQL
+    NotificationsUI -.->|"Realtime subscriptions"| Realtime
 ```
 
-### Security & Privacy Protections
+### Architecture flow
+1. **Client layer:** Students, professors, and administrators use responsive role-specific workspaces for discovery, applications, documents, AI assistance, collaboration, and governance.
+2. **API and security layer:** FastAPI exposes versioned REST endpoints. Request validation, JWT verification, role-based access control, CORS, rate limiting, and centralized exception handling protect API operations.
+3. **Domain and intelligence layer:** Backend services manage profiles, research projects, collaboration workflows, document handling, notifications, governance, and the 11 research intelligence modules.
+4. **AI integration:** The backend AI service calls Google Gemini through the `google-genai` SDK for research chat, structured paper summaries, and project breakdowns.
+5. **Data and events layer:** Supabase PostgreSQL stores application records with Row Level Security, Supabase Storage holds private research documents, and Supabase Realtime delivers notification events to subscribed clients.
+
+### Key security boundaries
+- **Authorization:** Backend role checks protect student, professor, and administrator operations; database Row Level Security adds a data-access boundary.
+- **Document handling:** Uploads are checked for PDF magic bytes and SHA-256 integrity; private files are made available through signed, expiring download URLs.
+- **Participant isolation:** Collaboration requests and message threads are restricted to their authorized participants.
+- **Operational controls:** CORS configuration, rate limiting, centralized error handling, and audit logging support safer API operation.
+
+---
+
+## 🔐 Security & Privacy Protections
 - **PostgreSQL Row Level Security (RLS)**: Enforced across all tables; students cannot read private inquiries, messages, or drafts belonging to other scholars.
 - **Magic-Byte Document Inspection**: PDF uploads are strictly verified by inspecting binary headers (`%PDF-`), rejecting renamed malicious binaries.
 - **Signed Download URLs**: Private documents are accessed via expiring, single-use signed URLs with token verification.
@@ -437,10 +545,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-publishable-key
 ---
 
 ## 🚢 Production Deployment
-
-### 🌐 Live Production Application
-- **Live URL**: **[https://hack-gen-seven.vercel.app/](https://hack-gen-seven.vercel.app/)**
-- **Edge Deployment**: Globally distributed on Vercel's Edge Network with Next.js Turbopack compilation.
 
 ### Docker Deployment
 The backend includes a production-ready `Dockerfile`:
