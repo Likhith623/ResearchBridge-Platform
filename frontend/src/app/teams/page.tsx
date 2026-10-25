@@ -172,7 +172,7 @@ export default function TeamComposerPage() {
         {/* Right: Results Display */}
         <div>
           {composedResult ? (
-            <Card className="p-6 space-y-5 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl dark:shadow-2xl">
+            <Card className="p-4 sm:p-6 space-y-5 bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-xl dark:shadow-2xl">
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
                   <Badge variant="teal" withDot className="text-xs font-bold">

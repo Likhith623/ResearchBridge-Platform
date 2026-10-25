@@ -179,7 +179,7 @@ export default function RequestsPage() {
                 </div>
 
                 {/* Actions depending on Role and Status */}
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-end pt-1 sm:pt-0 shrink-0">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-start sm:justify-end pt-1 sm:pt-0 shrink-0">
                   <Link href="/messages">
                     <Button size="sm" variant="outline" className="text-xs gap-1 border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white">
                       <MessageSquare className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />

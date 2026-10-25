@@ -40,7 +40,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Navbar />
       <div className="flex-1 flex max-w-7xl w-full mx-auto relative z-10">
         <Sidebar />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 max-w-full overflow-y-auto">
+        <main className="flex-1 p-3 xs:p-4 sm:p-6 lg:p-8 min-w-0 max-w-full overflow-y-auto">
           {children}
         </main>
       </div>

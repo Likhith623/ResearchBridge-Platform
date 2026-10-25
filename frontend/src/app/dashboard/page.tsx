@@ -84,14 +84,14 @@ export default function DashboardPage() {
   }, [role, user]);
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-12">
+    <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 dark:from-slate-950 dark:via-indigo-950/80 dark:to-slate-900 p-4 sm:p-9 text-white shadow-2xl border border-indigo-500/20 dark:border-white/10">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 dark:from-slate-950 dark:via-indigo-950/80 dark:to-slate-900 p-4 sm:p-9 text-white shadow-2xl border border-indigo-500/20 dark:border-white/10">
         {/* Ambient glow in banner */}
         <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
         <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
 
-        <div className="relative z-10 max-w-3xl space-y-2.5 sm:space-y-3">
+        <div className="relative z-10 max-w-3xl space-y-2 sm:space-y-3">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.25)] max-w-full">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
             <span className="truncate" suppressHydrationWarning>
@@ -113,27 +113,27 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Actions Bar */}
-        <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2.5 pt-4 sm:pt-5 border-t border-white/15 relative z-10">
-          <Link href="/professors">
-            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-cyan-400/40 hover:border-cyan-300 text-white shadow-xs">
+        <div className="mt-4 sm:mt-6 grid grid-cols-2 xs:flex xs:flex-wrap items-center gap-2 pt-3.5 sm:pt-5 border-t border-white/15 relative z-10">
+          <Link href="/professors" className="w-full xs:w-auto">
+            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-cyan-400/40 hover:border-cyan-300 text-white shadow-xs justify-center">
               <Users className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
               <span>Faculty</span>
             </Button>
           </Link>
-          <Link href="/projects">
-            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-teal-400/40 hover:border-teal-300 text-white shadow-xs">
+          <Link href="/projects" className="w-full xs:w-auto">
+            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-teal-400/40 hover:border-teal-300 text-white shadow-xs justify-center">
               <Briefcase className="w-3.5 h-3.5 text-teal-300 shrink-0" />
               <span>Openings</span>
             </Button>
           </Link>
-          <Link href="/talent-matcher">
-            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-purple-400/40 hover:border-purple-300 text-white shadow-xs">
+          <Link href="/talent-matcher" className="w-full xs:w-auto">
+            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-purple-400/40 hover:border-purple-300 text-white shadow-xs justify-center">
               <Sparkles className="w-3.5 h-3.5 text-purple-300 shrink-0" />
               <span>AI Matcher</span>
             </Button>
           </Link>
-          <Link href="/skills">
-            <Button size="sm" variant="glass" className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 gap-1.5 rounded-xl border-amber-400/40 hover:border-amber-300 text-white shadow-xs">
+          <Link href="/skills" className="w-full xs:w-auto">
+            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-amber-400/40 hover:border-amber-300 text-white shadow-xs justify-center">
               <Award className="w-3.5 h-3.5 text-amber-300 shrink-0" />
               <span>Skill Passport</span>
             </Button>
@@ -142,17 +142,17 @@ export default function DashboardPage() {
       </div>
 
       {/* Metrics Row: 4 Vibrant Gradient Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
         <Card hoverable className="p-3 sm:p-5 border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-white/90 to-blue-500/5 dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-blue-500/5 dark:shadow-blue-950/30 hover:border-blue-400 hover:shadow-blue-500/20 transition-all">
           <div className="flex items-center justify-between">
             <p className="text-[10px] sm:text-[11px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider truncate">
               {role === "professor" ? "Inquiries" : "Applications"}
             </p>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
-              <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-md shadow-blue-500/30 shrink-0">
+              <Send className="w-3 h-3 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
+          <p className="text-lg xs:text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(requests) ? requests : []).length}
           </p>
           <p className="text-[10px] sm:text-[11px] text-blue-600 dark:text-blue-200 mt-1 flex items-center gap-1.5 font-medium truncate">
@@ -166,11 +166,11 @@ export default function DashboardPage() {
             <p className="text-[10px] sm:text-[11px] font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wider truncate">
               Lab Openings
             </p>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-teal-500/30 shrink-0">
-              <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 text-white flex items-center justify-center shadow-md shadow-teal-500/30 shrink-0">
+              <Briefcase className="w-3 h-3 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
+          <p className="text-lg xs:text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(projects) ? projects : []).length}
           </p>
           <p className="text-[10px] sm:text-[11px] text-teal-600 dark:text-teal-200 mt-1 flex items-center gap-1.5 font-medium truncate">
@@ -184,11 +184,11 @@ export default function DashboardPage() {
             <p className="text-[10px] sm:text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider truncate">
               Faculty
             </p>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/30 shrink-0">
-              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-md shadow-purple-500/30 shrink-0">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
+          <p className="text-lg xs:text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(professors) ? professors : []).length > 0
               ? (Array.isArray(professors) ? professors : []).length
               : 1}
@@ -204,11 +204,11 @@ export default function DashboardPage() {
             <p className="text-[10px] sm:text-[11px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider truncate">
               Radar Alerts
             </p>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/30 shrink-0">
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-md shadow-amber-500/30 shrink-0">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
+          <p className="text-lg xs:text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 sm:mt-2 tracking-tight">
             {(Array.isArray(radarAlerts) ? radarAlerts : []).length}
           </p>
           <p className="text-[10px] sm:text-[11px] text-amber-600 dark:text-amber-200 mt-1 flex items-center gap-1.5 font-medium truncate">
@@ -224,7 +224,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Active Research Applications */}
           <Card hoverable>
-            <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardHeader className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 pb-3">
               <div>
                 <CardTitle className="text-base font-bold flex items-center gap-2">
                   <Send className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
@@ -238,8 +238,8 @@ export default function DashboardPage() {
                     : "Status updates and decision history from supervising professors"}
                 </CardDescription>
               </div>
-              <Link href="/requests">
-                <Button variant="ghost" size="sm" className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 gap-1">
+              <Link href="/requests" className="self-start xs:self-auto">
+                <Button variant="ghost" size="sm" className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 gap-1 px-2 py-1">
                   <span>View All</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Button>
@@ -306,7 +306,7 @@ export default function DashboardPage() {
 
           {/* Featured Research Projects */}
           <Card hoverable>
-            <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardHeader className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 pb-3">
               <div>
                 <CardTitle className="text-base font-bold flex items-center gap-2">
                   <Briefcase className="w-4 h-4 text-teal-600 dark:text-teal-400" />
@@ -316,8 +316,8 @@ export default function DashboardPage() {
                   Supervised laboratory vacancies actively accepting applications
                 </CardDescription>
               </div>
-              <Link href="/projects">
-                <Button variant="ghost" size="sm" className="text-xs text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 gap-1">
+              <Link href="/projects" className="self-start xs:self-auto">
+                <Button variant="ghost" size="sm" className="text-xs text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 gap-1 px-2 py-1">
                   <span>Browse All</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Button>

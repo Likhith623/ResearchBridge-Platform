@@ -235,7 +235,7 @@ export default function ProjectsPage() {
             <Card
               key={proj.id}
               hoverable
-              className="p-6 flex flex-col justify-between bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
+              className="p-4 sm:p-6 flex flex-col justify-between bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/15"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
@@ -271,7 +271,7 @@ export default function ProjectsPage() {
                   <span>Supervisor Profile</span>
                 </Link>
 
-                <div className="flex flex-wrap items-center gap-2 w-full xs:w-auto justify-end">
+                <div className="flex flex-wrap items-center gap-2 w-full xs:w-auto justify-start xs:justify-end">
                   <Button
                     size="sm"
                     variant="outline"

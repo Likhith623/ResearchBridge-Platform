@@ -205,7 +205,7 @@ export default function AdminPage() {
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4 p-6">
+          <CardContent className="space-y-4 p-4 sm:p-6">
           {/* Parity Metric Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
             <div className="p-3 sm:p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10">

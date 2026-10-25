@@ -105,16 +105,17 @@ export function FloatingAiAssistant({
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-[0_0_25px_rgba(99,102,241,0.5)] hover:shadow-[0_0_35px_rgba(99,102,241,0.75)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30 animate-pulse-glow"
+          className="group relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.45)] hover:shadow-[0_0_30px_rgba(99,102,241,0.7)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30"
+          title="Open Academic AI Guide"
+          aria-label="Open Academic AI Guide"
         >
           <div className="relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 text-white shrink-0">
             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin-slow" />
           </div>
           <span className="hidden sm:inline text-xs sm:text-sm font-bold pr-1 tracking-wide">Academic AI Guide</span>
-          <span className="sm:hidden text-xs font-bold pr-0.5 tracking-wide">AI Guide</span>
-          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+          <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyan-400"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
           </span>
         </button>
       )}
