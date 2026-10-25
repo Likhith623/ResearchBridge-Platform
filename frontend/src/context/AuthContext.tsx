@@ -56,6 +56,8 @@ interface AuthContextType {
   isLoading: boolean;
   activePersona: DemoPersona | null;
   switchPersona: (personaId: string) => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signUpWithEmail: (email: string, password: string, fullName: string, role: UserRole) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -67,6 +69,8 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   activePersona: null,
   switchPersona: async () => {},
+  signInWithEmail: async () => ({ success: false }),
+  signUpWithEmail: async () => ({ success: false }),
   signOut: async () => {},
   refreshProfile: async () => {},
 });
@@ -192,6 +196,98 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const signInWithEmail = async (email: string, password: string) => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      if (data.session?.access_token) {
+        api.setToken(data.session.access_token);
+        setToken(data.session.access_token);
+        setActivePersona(null);
+        try {
+          const profile = await api.getAuthMe();
+          setUser(profile);
+          setRole(profile.role);
+        } catch {
+          const defaultRole = (data.user?.user_metadata?.role as UserRole) || "student";
+          setUser({
+            id: data.user?.id || "custom-user",
+            email: data.user?.email || email,
+            role: defaultRole,
+            full_name: data.user?.user_metadata?.full_name || email.split("@")[0],
+            account_status: "active",
+            is_active: true,
+            institution_name: "Stanford University",
+            department_name: "Computer Science",
+          });
+          setRole(defaultRole);
+        }
+        return { success: true };
+      }
+      return { success: false, error: "No session returned from authentication server." };
+    } catch (err: any) {
+      console.error("Sign in error:", err);
+      return { success: false, error: err.message || "Invalid email or password." };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signUpWithEmail = async (
+    email: string,
+    password: string,
+    fullName: string,
+    assignedRole: UserRole
+  ) => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            role: assignedRole,
+          },
+        },
+      });
+      if (error) throw error;
+      if (data.session?.access_token) {
+        api.setToken(data.session.access_token);
+        setToken(data.session.access_token);
+        setActivePersona(null);
+        try {
+          const profile = await api.getAuthMe();
+          setUser(profile);
+          setRole(profile.role);
+        } catch {
+          setUser({
+            id: data.user?.id || "custom-user",
+            email: data.user?.email || email,
+            role: assignedRole,
+            full_name: fullName,
+            account_status: "active",
+            is_active: true,
+            institution_name: "Stanford University",
+            department_name: "Computer Science",
+          });
+          setRole(assignedRole);
+        }
+        return { success: true };
+      }
+      return { success: true };
+    } catch (err: any) {
+      console.error("Sign up error:", err);
+      return { success: false, error: err.message || "Failed to register account." };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     api.setToken(null);
@@ -220,6 +316,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isLoading,
         activePersona,
         switchPersona,
+        signInWithEmail,
+        signUpWithEmail,
         signOut,
         refreshProfile,
       }}

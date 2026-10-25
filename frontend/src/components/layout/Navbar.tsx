@@ -13,22 +13,68 @@ import {
   BookOpen,
   Menu,
   X,
+  Mail,
+  Lock,
+  UserPlus,
 } from "lucide-react";
 import { useAuth, DEMO_PERSONAS } from "@/context/AuthContext";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Modal } from "@/components/ui/Modal";
 import { usePathname } from "next/navigation";
+import { UserRole } from "@/types/api";
 
 export function Navbar() {
-  const { user, role, activePersona, switchPersona, signOut } = useAuth();
+  const { user, role, activePersona, switchPersona, signInWithEmail, signUpWithEmail, signOut } = useAuth();
   const [isPersonaOpen, setIsPersonaOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
+  // Custom Email Auth Modal State
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authFullName, setAuthFullName] = useState("");
+  const [authRole, setAuthRole] = useState<UserRole>("student");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isSubmittingAuth, setIsSubmittingAuth] = useState(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleAuthSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError(null);
+    setIsSubmittingAuth(true);
+
+    try {
+      if (authMode === "login") {
+        const res = await signInWithEmail(authEmail, authPassword);
+        if (!res.success) {
+          setAuthError(res.error || "Failed to sign in");
+        } else {
+          setIsAuthModalOpen(false);
+          setAuthPassword("");
+        }
+      } else {
+        const res = await signUpWithEmail(authEmail, authPassword, authFullName, authRole);
+        if (!res.success) {
+          setAuthError(res.error || "Failed to create account");
+        } else {
+          setIsAuthModalOpen(false);
+          setAuthPassword("");
+        }
+      }
+    } catch (err: any) {
+      setAuthError(err.message || "Authentication error occurred");
+    } finally {
+      setIsSubmittingAuth(false);
+    }
+  };
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", roles: ["student", "professor", "admin"] },
@@ -143,6 +189,32 @@ export function Navbar() {
                     </div>
                   </button>
                 ))}
+
+                {/* Email Sign-In / Register Option */}
+                <div className="p-2 border-t border-slate-100 bg-slate-50/80">
+                  <button
+                    onClick={() => {
+                      setIsPersonaOpen(false);
+                      setIsAuthModalOpen(true);
+                      setAuthMode("login");
+                    }}
+                    className="w-full py-1.5 px-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>Sign In with Your Email</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsPersonaOpen(false);
+                      setIsAuthModalOpen(true);
+                      setAuthMode("register");
+                    }}
+                    className="w-full mt-1.5 py-1 px-2.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-medium text-[11px] flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <UserPlus className="w-3 h-3 text-slate-500" />
+                    <span>Register New Account</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -189,6 +261,140 @@ export function Navbar() {
           </nav>
         </div>
       )}
+
+      {/* Custom Email / Password Authentication Modal */}
+      <Modal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        title={authMode === "login" ? "Sign In to ResearchBridge" : "Create University Account"}
+        description={
+          authMode === "login"
+            ? "Enter your academic email and password to access your persistent research profile."
+            : "Register as an undergraduate researcher, graduate student, or faculty principal investigator."
+        }
+        maxWidth="md"
+      >
+        <div className="space-y-4 text-xs">
+          {/* Mode Switcher Tabs */}
+          <div className="flex border-b border-slate-200 pb-2 gap-4">
+            <button
+              onClick={() => {
+                setAuthMode("login");
+                setAuthError(null);
+              }}
+              className={`pb-1 font-semibold transition-colors cursor-pointer ${
+                authMode === "login"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-slate-400 hover:text-slate-700"
+              }`}
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => {
+                setAuthMode("register");
+                setAuthError(null);
+              }}
+              className={`pb-1 font-semibold transition-colors cursor-pointer ${
+                authMode === "register"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-slate-400 hover:text-slate-700"
+              }`}
+            >
+              Register New Account
+            </button>
+          </div>
+
+          {authError && (
+            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 leading-relaxed">
+              {authError}
+            </div>
+          )}
+
+          <form onSubmit={handleAuthSubmit} className="space-y-3.5">
+            {authMode === "register" && (
+              <>
+                <div>
+                  <label className="block font-semibold text-slate-800 mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={authFullName}
+                    onChange={(e) => setAuthFullName(e.target.value)}
+                    placeholder="e.g. Dr. Maya Lin or Alex Rivera"
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-800 mb-1">
+                    Select Academic Role
+                  </label>
+                  <select
+                    value={authRole}
+                    onChange={(e) => setAuthRole(e.target.value as UserRole)}
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                  >
+                    <option value="student">Student / Research Scholar</option>
+                    <option value="professor">Professor / Principal Investigator</option>
+                    <option value="admin">System Administrator</option>
+                  </select>
+                </div>
+              </>
+            )}
+
+            <div>
+              <label className="block font-semibold text-slate-800 mb-1">
+                Institutional Email
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="email"
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  placeholder="yourname@stanford.edu"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold text-slate-800 mb-1">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="password"
+                  value={authPassword}
+                  onChange={(e) => setAuthPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50"
+                  required
+                  minLength={6}
+                />
+              </div>
+            </div>
+
+            <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsAuthModalOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" isLoading={isSubmittingAuth}>
+                {authMode === "login" ? "Sign In" : "Create Account"}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Modal>
     </header>
   );
 }
