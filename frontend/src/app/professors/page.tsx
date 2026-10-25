@@ -46,12 +46,13 @@ export default function ProfessorsPage() {
     loadInitial();
   }, []);
 
-  const handleSearch = async () => {
+  const handleSearch = async (overrideDept?: string) => {
     setIsLoading(true);
+    const deptToUse = typeof overrideDept === "string" ? overrideDept : selectedDept;
     try {
       const data = await api.getProfessors({
         search: search || undefined,
-        department_id: selectedDept || undefined,
+        department_id: deptToUse || undefined,
       });
       setProfessors(Array.isArray(data) ? data : (data as any)?.items || []);
     } catch (err) {
@@ -97,7 +98,10 @@ export default function ProfessorsPage() {
           <div className="flex flex-wrap gap-2">
             <select
               value={selectedDept}
-              onChange={(e) => setSelectedDept(e.target.value)}
+              onChange={(e) => {
+                setSelectedDept(e.target.value);
+                handleSearch(e.target.value);
+              }}
               className="px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 text-slate-700"
             >
               <option value="">All Departments</option>
@@ -118,7 +122,7 @@ export default function ProfessorsPage() {
               <option value="full">At Full Capacity</option>
             </select>
 
-            <Button size="sm" onClick={handleSearch} className="text-xs">
+            <Button size="sm" onClick={() => handleSearch()} className="text-xs">
               Apply Filters
             </Button>
           </div>
