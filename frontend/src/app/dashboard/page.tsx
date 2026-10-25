@@ -19,6 +19,9 @@ import {
   Award,
   BookOpen,
   Compass,
+  ShieldCheck,
+  Users2,
+  Network,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { api } from "@/lib/api";
@@ -83,27 +86,53 @@ export default function DashboardPage() {
     loadData();
   }, [role, user]);
 
+  const currentUserName = mounted
+    ? (activePersona?.name || user?.full_name || (role === "admin" ? "Dr. Eleanor Vance" : role === "professor" ? "Dr. Marcus Thorne" : "Alice Chen"))
+    : "Scholar";
+
+  // Dynamic role-tailored quick action buttons
+  const roleActions = role === "admin"
+    ? [
+        { name: "Admin Governance", href: "/admin", icon: ShieldCheck, color: "text-emerald-300" },
+        { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-cyan-300" },
+        { name: "Research Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
+        { name: "Collab Topology", href: "/collaboration-graph", icon: Network, color: "text-purple-300" },
+      ]
+    : role === "professor"
+    ? [
+        { name: "Applicant Inquiries", href: "/requests", icon: Send, color: "text-cyan-300" },
+        { name: "Manage Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
+        { name: "Team Composer", href: "/teams", icon: Users2, color: "text-purple-300" },
+        { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-amber-300" },
+      ]
+    : [
+        { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-cyan-300" },
+        { name: "Research Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
+        { name: "AI Matcher", href: "/talent-matcher", icon: Sparkles, color: "text-purple-300" },
+        { name: "Skill Passport", href: "/skills", icon: Award, color: "text-amber-300" },
+      ];
+
   return (
     <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 dark:from-slate-950 dark:via-indigo-950/80 dark:to-slate-900 p-4 sm:p-9 text-white shadow-2xl border border-indigo-500/20 dark:border-white/10">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-800 dark:from-slate-950 dark:via-indigo-950/90 dark:to-slate-900 p-4 sm:p-9 text-white shadow-xl shadow-indigo-600/15 dark:shadow-2xl border border-indigo-400/30 dark:border-white/10">
         {/* Ambient glow in banner */}
-        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
-        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
+        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-400/20 dark:bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
+        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-400/20 dark:bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
 
         <div className="relative z-10 max-w-3xl space-y-2 sm:space-y-3">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.25)] max-w-full">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/20 dark:bg-cyan-500/20 border border-white/30 dark:border-cyan-400/40 text-white dark:text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-xs max-w-full">
+            <span className="w-2 h-2 rounded-full bg-cyan-300 dark:bg-cyan-400 animate-pulse shrink-0" />
             <span className="truncate" suppressHydrationWarning>
-              Live Session: {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"} ({mounted ? (role || "student") : "student"})
+              Live Session: {currentUserName} ({mounted ? (role || "student") : "student"})
             </span>
           </div>
 
-          <h1 className="text-xl xs:text-2xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-100 to-cyan-200 bg-clip-text text-transparent leading-tight" suppressHydrationWarning>
-            Welcome to ResearchBridge, {mounted ? (user?.full_name || "Scholar") : "Scholar"}
+          <h1 className="text-xl xs:text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight" suppressHydrationWarning>
+            Welcome to ResearchBridge, {currentUserName}
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-indigo-100 dark:text-slate-200 leading-relaxed max-w-2xl">
             {role === "professor"
               ? "Supervise active laboratory grant openings, review prospective student applicants, and evaluate candidates with explainable AI."
               : role === "admin"
@@ -112,32 +141,22 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Quick Actions Bar */}
-        <div className="mt-4 sm:mt-6 grid grid-cols-2 xs:flex xs:flex-wrap items-center gap-2 pt-3.5 sm:pt-5 border-t border-white/15 relative z-10">
-          <Link href="/professors" className="w-full xs:w-auto">
-            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-cyan-400/40 hover:border-cyan-300 text-white shadow-xs justify-center">
-              <Users className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
-              <span>Faculty</span>
-            </Button>
-          </Link>
-          <Link href="/projects" className="w-full xs:w-auto">
-            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-teal-400/40 hover:border-teal-300 text-white shadow-xs justify-center">
-              <Briefcase className="w-3.5 h-3.5 text-teal-300 shrink-0" />
-              <span>Openings</span>
-            </Button>
-          </Link>
-          <Link href="/talent-matcher" className="w-full xs:w-auto">
-            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-purple-400/40 hover:border-purple-300 text-white shadow-xs justify-center">
-              <Sparkles className="w-3.5 h-3.5 text-purple-300 shrink-0" />
-              <span>AI Matcher</span>
-            </Button>
-          </Link>
-          <Link href="/skills" className="w-full xs:w-auto">
-            <Button size="sm" variant="glass" className="w-full text-[11px] sm:text-xs px-2.5 sm:px-3 py-1.5 gap-1.5 rounded-xl border-amber-400/40 hover:border-amber-300 text-white shadow-xs justify-center">
-              <Award className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-              <span>Skill Passport</span>
-            </Button>
-          </Link>
+        {/* Quick Actions Bar - Role-Tailored & High Contrast */}
+        <div className="mt-4 sm:mt-6 grid grid-cols-2 xs:flex xs:flex-wrap items-center gap-2 pt-3.5 sm:pt-5 border-t border-white/20 dark:border-white/15 relative z-10">
+          {roleActions.map((action) => {
+            const Icon = action.icon;
+            return (
+              <Link key={action.name} href={action.href} className="w-full xs:w-auto">
+                <button
+                  type="button"
+                  className="w-full xs:w-auto px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 active:bg-white/30 text-white font-semibold text-xs border border-white/25 hover:border-white/40 shadow-sm backdrop-blur-md flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
+                >
+                  <Icon className={`w-3.5 h-3.5 ${action.color} shrink-0`} />
+                  <span className="text-white drop-shadow-xs">{action.name}</span>
+                </button>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
