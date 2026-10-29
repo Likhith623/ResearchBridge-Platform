@@ -1,5 +1,5 @@
 # ResearchBridge 🎓⚡
-### Institutional Academic Collaboration & AI Intelligence Engine
+### Institutional Academic Collaboration & AI Intelligence Engine.
 
 <div align="center">
 
