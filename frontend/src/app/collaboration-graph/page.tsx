@@ -102,12 +102,12 @@ export default function CollaborationGraphPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Interactive Graph Map */}
         <div className="lg:col-span-2 space-y-4">
-          <Card className="p-4 sm:p-6 bg-slate-900/90 dark:bg-slate-950/80 backdrop-blur-2xl border border-slate-700/60 dark:border-white/10 text-white min-h-[460px] flex flex-col justify-between relative overflow-hidden shadow-2xl">
+          <Card className="p-4 sm:p-6 bg-white dark:bg-slate-950/80 backdrop-blur-2xl border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white min-h-[460px] flex flex-col justify-between relative overflow-hidden shadow-2xl">
             {/* Background constellation decorative rings */}
-            <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.12] dark:opacity-15 pointer-events-none" />
 
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-              <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-bold text-indigo-600 dark:text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Activity className="w-3.5 h-3.5" />
                 <span>Interactive Topology Map</span>
               </span>
@@ -119,7 +119,7 @@ export default function CollaborationGraphPage() {
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer ${
                       filterType === type
                         ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/25"
-                        : "bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-white/5"
+                        : "bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-white/5"
                     }`}
                   >
                     {type}
@@ -138,8 +138,8 @@ export default function CollaborationGraphPage() {
                     onClick={() => setSelectedNode(node)}
                     className={`p-3 sm:p-3.5 rounded-xl border backdrop-blur-md transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-cyan-500/20 border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.35)] scale-[1.02] sm:scale-105"
-                        : "bg-slate-900/60 border-white/10 hover:bg-slate-800/80 hover:border-cyan-400/40"
+                        ? "bg-sky-100/80 dark:bg-cyan-500/20 border-cyan-400 shadow-[0_8px_24px_rgba(6,182,212,0.28)] dark:shadow-[0_0_20px_rgba(6,182,212,0.35)] scale-[1.02] sm:scale-105"
+                        : "pastel-inner bg-white/90 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-800/80 hover:border-cyan-400/60 hover:shadow-lg hover:-translate-y-0.5"
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1.5">
@@ -152,14 +152,14 @@ export default function CollaborationGraphPage() {
                             : "bg-amber-400 shadow-[0_0_6px_#fbbf24]"
                         }`}
                       />
-                      <span className="text-[10px] uppercase font-bold text-slate-400">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
                         {node.type}
                       </span>
                     </div>
-                    <p className="text-xs font-bold text-white truncate">
+                    <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
                       {node.label || node.name}
                     </p>
-                    <p className="text-[11px] text-cyan-300 truncate mt-0.5">
+                    <p className="text-[11px] text-cyan-700 dark:text-cyan-300 truncate mt-0.5">
                       {node.properties?.department || node.properties?.department_name || node.department || "Academic Network"}
                     </p>
                   </div>
@@ -167,10 +167,10 @@ export default function CollaborationGraphPage() {
               })}
             </div>
 
-            <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] text-slate-400 border-t border-white/10 pt-3">
-              <span className="text-cyan-300">● Blue: Faculty PIs</span>
-              <span className="text-emerald-300">● Teal: Student Scholars</span>
-              <span className="text-amber-300">● Amber: Research Projects</span>
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-white/10 pt-3">
+              <span className="text-cyan-600 dark:text-cyan-300">● Blue: Faculty PIs</span>
+              <span className="text-emerald-600 dark:text-emerald-300">● Teal: Student Scholars</span>
+              <span className="text-amber-600 dark:text-amber-300">● Amber: Research Projects</span>
             </div>
           </Card>
         </div>
