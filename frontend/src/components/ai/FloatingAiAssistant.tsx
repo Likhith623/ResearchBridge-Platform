@@ -105,7 +105,7 @@ export function FloatingAiAssistant({
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.45)] hover:shadow-[0_0_30px_rgba(99,102,241,0.7)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30"
+          className="group relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 text-white shadow-[0_0_20px_rgba(6,182,212,0.45)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border border-white/30"
           title="Open Academic AI Guide"
           aria-label="Open Academic AI Guide"
         >
@@ -184,7 +184,7 @@ export function FloatingAiAssistant({
                     <div
                       className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
                         m.role === "user"
-                          ? "bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-sm"
+                          ? "bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm"
                           : "bg-gradient-to-tr from-cyan-500 to-teal-600 text-white shadow-sm"
                       }`}
                     >
@@ -197,7 +197,7 @@ export function FloatingAiAssistant({
                     <div
                       className={`p-3 rounded-2xl max-w-[82%] leading-relaxed ${
                         m.role === "user"
-                          ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-tr-none shadow-md shadow-indigo-500/20"
+                          ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white rounded-tr-none shadow-md shadow-sky-500/20"
                           : "bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 shadow-md dark:shadow-lg rounded-tl-none whitespace-pre-line"
                       }`}
                     >

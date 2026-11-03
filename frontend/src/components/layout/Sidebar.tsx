@@ -63,7 +63,7 @@ export function Sidebar() {
     },
     {
       title: "AI & Intelligence",
-      colorClass: "text-purple-600 dark:text-purple-400",
+      colorClass: "text-sky-600 dark:text-sky-400",
       items: [
         {
           name: "Talent Matcher",
@@ -167,7 +167,7 @@ export function Sidebar() {
                       className={cn(
                         "flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 group relative",
                         isActive
-                          ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 font-semibold ring-1 ring-white/20"
+                          ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white shadow-lg shadow-sky-500/25 font-semibold ring-1 ring-white/20"
                           : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/5 hover:translate-x-0.5"
                       )}
                     >
@@ -189,7 +189,7 @@ export function Sidebar() {
                             "text-[9px] px-1.5 py-0.2 rounded font-semibold uppercase tracking-wider",
                             isActive
                               ? "bg-white/20 text-white"
-                              : "bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/40 shadow-[0_0_8px_rgba(99,102,241,0.25)]"
+                              : "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40 shadow-[0_0_8px_rgba(6,182,212,0.25)]"
                           )}
                         >
                           {item.badge}
@@ -237,7 +237,7 @@ export function Sidebar() {
         ) : (
           <Link
             href="/login"
-            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-[11px] font-semibold transition-all shadow-md shadow-indigo-500/25"
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-[11px] font-semibold transition-all shadow-md shadow-sky-500/25"
           >
             <UserCheck className="w-3.5 h-3.5" />
             <span>Sign In / Choose Role</span>

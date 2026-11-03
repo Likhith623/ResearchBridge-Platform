@@ -36,7 +36,7 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 focus:ring-indigo-500 border border-white/20",
+      "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 focus:ring-cyan-500 border border-white/20",
     secondary:
       "bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 dark:active:bg-slate-700 dark:text-slate-200 dark:border-white/10 dark:hover:border-white/20 focus:ring-slate-400",
     outline:
@@ -48,7 +48,7 @@ export function Button({
     teal:
       "bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-500 hover:from-teal-400 hover:via-emerald-400 hover:to-cyan-400 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 focus:ring-teal-500 border border-white/20",
     purple:
-      "bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 hover:from-purple-500 hover:via-violet-500 hover:to-pink-500 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 focus:ring-purple-500 border border-white/20",
+      "bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-600 hover:from-indigo-500 hover:via-blue-500 hover:to-sky-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 focus:ring-indigo-500 border border-white/20",
     glass:
       "bg-white/70 hover:bg-white/90 active:bg-white text-slate-800 border border-slate-200/80 dark:bg-white/10 dark:hover:bg-white/20 dark:active:bg-white/25 dark:text-white backdrop-blur-md dark:border-white/20 shadow-sm focus:ring-slate-300 dark:focus:ring-white/50",
   };

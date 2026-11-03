@@ -227,7 +227,7 @@ export default function MessagesPage() {
                         <div
                           className={`p-3 rounded-2xl max-w-[70%] text-xs leading-relaxed ${
                             isCurrentUser
-                              ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-tr-none shadow-md shadow-indigo-500/20"
+                              ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white rounded-tr-none shadow-md shadow-sky-500/20"
                               : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 shadow-sm rounded-tl-none"
                           }`}
                         >

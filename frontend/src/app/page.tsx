@@ -51,8 +51,8 @@ export default function LandingPage() {
       {/* Immersive Animated Aurora Mesh Lights */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-500/20 dark:from-blue-600/25 via-indigo-500/15 dark:via-indigo-600/15 to-transparent rounded-full blur-[150px] pointer-events-none animate-pulse-glow" />
       <div className="absolute top-1/4 left-[-100px] w-[600px] h-[600px] bg-teal-400/20 dark:bg-teal-500/15 rounded-full blur-[140px] pointer-events-none animate-float" />
-      <div className="absolute top-1/3 right-[-100px] w-[600px] h-[600px] bg-purple-400/20 dark:bg-purple-600/18 rounded-full blur-[150px] pointer-events-none animate-float" style={{ animationDelay: "2.5s" }} />
-      <div className="absolute bottom-1/4 left-1/3 w-[500px] h-[400px] bg-rose-400/15 dark:bg-rose-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-1/3 right-[-100px] w-[600px] h-[600px] bg-sky-400/20 dark:bg-sky-600/15 rounded-full blur-[150px] pointer-events-none animate-float" style={{ animationDelay: "2.5s" }} />
+      <div className="absolute bottom-1/4 left-1/3 w-[500px] h-[400px] bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow" />
 
       {/* Grid Pattern Overlay */}
       <div
@@ -120,7 +120,7 @@ export default function LandingPage() {
       <section className="relative pt-8 sm:pt-20 pb-12 sm:pb-20 px-3 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center relative z-10 space-y-4 sm:space-y-7">
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-teal-500/15 border border-blue-500/30 text-blue-700 dark:text-blue-300 text-[11px] sm:text-xs font-semibold shadow-lg shadow-blue-500/10 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-blue-500/15 via-cyan-500/15 to-teal-500/15 border border-blue-500/30 text-blue-700 dark:text-cyan-300 text-[11px] sm:text-xs font-semibold shadow-lg shadow-blue-500/10 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-ping" />
             <span>Academic Network & Collaboration Platform • Version 2.0</span>
           </div>
@@ -382,9 +382,9 @@ export default function LandingPage() {
 
       {/* Bottom CTA Section with Ambient Glow */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-900 relative">
-        <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-blue-900 via-purple-900 to-teal-900 border border-blue-400/30 dark:border-white/25 backdrop-blur-2xl text-center space-y-6 relative overflow-hidden shadow-[0_20px_60px_rgba(37,99,235,0.25)] dark:shadow-[0_20px_60px_-5px_rgba(255,255,255,0.2),0_0_30px_rgba(255,255,255,0.1)] text-white">
+        <div className="max-w-4xl mx-auto rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-slate-950 via-blue-950 to-cyan-950 border border-cyan-400/30 dark:border-white/25 backdrop-blur-2xl text-center space-y-6 relative overflow-hidden shadow-[0_20px_60px_rgba(6,182,212,0.25)] dark:shadow-[0_20px_60px_-5px_rgba(255,255,255,0.2),0_0_30px_rgba(255,255,255,0.1)] text-white">
           <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-teal-400/15 rounded-full blur-[80px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-500/15 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/15 rounded-full blur-[80px] pointer-events-none" />
 
           <div className="space-y-3 relative z-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">

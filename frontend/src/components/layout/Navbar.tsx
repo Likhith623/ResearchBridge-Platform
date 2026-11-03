@@ -261,7 +261,7 @@ export function Navbar() {
                   <div className="p-2 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/60 space-y-1.5">
                     <Link
                       href="/login"
-                      className="w-full py-1.5 px-2.5 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
+                      className="w-full py-1.5 px-2.5 rounded-lg bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
                     >
                       <UserCheck className="w-3.5 h-3.5" />
                       <span>Role Portal / Custom Login</span>
@@ -381,11 +381,11 @@ export function Navbar() {
               </div>
             </div>
           ) : (
-            <div className="p-3 rounded-2xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-purple-600/10 border border-blue-500/20">
+            <div className="p-3 rounded-2xl bg-gradient-to-r from-blue-600/10 via-sky-600/10 to-cyan-600/10 border border-blue-500/20">
               <Link
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-xs shadow-md flex items-center justify-center gap-1.5"
+                className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white font-semibold text-xs shadow-md flex items-center justify-center gap-1.5"
               >
                 <UserCheck className="w-4 h-4" />
                 <span>Sign In / Choose Role</span>
@@ -411,7 +411,7 @@ export function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                       isActive
-                        ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold shadow-md shadow-indigo-500/25"
+                        ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white font-semibold shadow-md shadow-sky-500/25"
                         : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
                     }`}
                   >

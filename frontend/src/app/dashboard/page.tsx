@@ -96,29 +96,29 @@ export default function DashboardPage() {
         { name: "Admin Governance", href: "/admin", icon: ShieldCheck, color: "text-emerald-300" },
         { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-cyan-300" },
         { name: "Research Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
-        { name: "Collab Topology", href: "/collaboration-graph", icon: Network, color: "text-purple-300" },
+        { name: "Collab Topology", href: "/collaboration-graph", icon: Network, color: "text-sky-300" },
       ]
     : role === "professor"
     ? [
         { name: "Applicant Inquiries", href: "/requests", icon: Send, color: "text-cyan-300" },
         { name: "Manage Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
-        { name: "Team Composer", href: "/teams", icon: Users2, color: "text-purple-300" },
+        { name: "Team Composer", href: "/teams", icon: Users2, color: "text-sky-300" },
         { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-amber-300" },
       ]
     : [
         { name: "Faculty Directory", href: "/professors", icon: Users, color: "text-cyan-300" },
         { name: "Research Openings", href: "/projects", icon: Briefcase, color: "text-teal-300" },
-        { name: "AI Matcher", href: "/talent-matcher", icon: Sparkles, color: "text-purple-300" },
+        { name: "AI Matcher", href: "/talent-matcher", icon: Sparkles, color: "text-cyan-300" },
         { name: "Skill Passport", href: "/skills", icon: Award, color: "text-amber-300" },
       ];
 
   return (
     <div className="space-y-5 sm:space-y-8 w-full max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-800 dark:from-slate-950 dark:via-indigo-950/90 dark:to-slate-900 p-4 sm:p-9 text-white shadow-xl shadow-indigo-600/15 dark:shadow-2xl border border-indigo-400/30 dark:border-white/10">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-cyan-950 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950/80 p-4 sm:p-9 text-white shadow-xl shadow-cyan-950/20 dark:shadow-2xl border border-cyan-500/30 dark:border-white/10">
         {/* Ambient glow in banner */}
-        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-400/20 dark:bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
-        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-purple-400/20 dark:bg-purple-500/15 rounded-full blur-[80px] pointer-events-none animate-float" />
+        <div className="absolute top-0 right-0 w-[450px] h-[300px] bg-cyan-400/25 dark:bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none animate-pulse-glow" />
+        <div className="absolute bottom-0 left-1/3 w-[350px] h-[200px] bg-sky-400/20 dark:bg-blue-600/15 rounded-full blur-[80px] pointer-events-none animate-float" />
 
         <div className="relative z-10 max-w-3xl space-y-2 sm:space-y-3">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/20 dark:bg-cyan-500/20 border border-white/30 dark:border-cyan-400/40 text-white dark:text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-xs max-w-full">
@@ -132,7 +132,7 @@ export default function DashboardPage() {
             Welcome to ResearchBridge, {currentUserName}
           </h1>
 
-          <p className="text-xs sm:text-sm text-indigo-100 dark:text-slate-200 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed max-w-2xl">
             {role === "professor"
               ? "Supervise active laboratory grant openings, review prospective student applicants, and evaluate candidates with explainable AI."
               : role === "admin"
@@ -198,12 +198,12 @@ export default function DashboardPage() {
           </p>
         </Card>
 
-        <Card hoverable className="p-3 sm:p-5 border border-purple-200 dark:border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-white/90 to-pink-500/5 dark:from-purple-950/60 dark:via-slate-900/80 dark:to-pink-900/40 shadow-xl shadow-purple-500/5 dark:shadow-purple-950/30 hover:border-purple-400 hover:shadow-purple-500/20 transition-all">
+        <Card hoverable className="p-3 sm:p-5 border border-indigo-200 dark:border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-white/90 to-blue-500/5 dark:from-indigo-950/60 dark:via-slate-900/80 dark:to-blue-900/40 shadow-xl shadow-indigo-500/5 dark:shadow-indigo-950/30 hover:border-indigo-400 hover:shadow-indigo-500/20 transition-all">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] sm:text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider truncate">
+            <p className="text-[10px] sm:text-[11px] font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider truncate">
               Faculty
             </p>
-            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-rose-500 text-white flex items-center justify-center shadow-md shadow-purple-500/30 shrink-0">
+            <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-sky-500 text-white flex items-center justify-center shadow-md shadow-indigo-500/30 shrink-0">
               <Users className="w-3 h-3 sm:w-4 sm:h-4" />
             </div>
           </div>
@@ -212,8 +212,8 @@ export default function DashboardPage() {
               ? (Array.isArray(professors) ? professors : []).length
               : 1}
           </p>
-          <p className="text-[10px] sm:text-[11px] text-purple-600 dark:text-purple-200 mt-1 flex items-center gap-1.5 font-medium truncate">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-500 dark:bg-purple-400 animate-pulse shrink-0" />
+          <p className="text-[10px] sm:text-[11px] text-indigo-600 dark:text-indigo-200 mt-1 flex items-center gap-1.5 font-medium truncate">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse shrink-0" />
             <span>Supervisors</span>
           </p>
         </Card>
@@ -387,7 +387,7 @@ export default function DashboardPage() {
           <Card hoverable>
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-bold flex items-center gap-2">
-                <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Featured Faculty Supervisors</span>
               </CardTitle>
               <CardDescription className="text-xs">
