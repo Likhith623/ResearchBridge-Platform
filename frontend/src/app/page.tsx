@@ -47,12 +47,13 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="h-screen h-[100dvh] flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white relative transition-colors duration-300">
-      {/* Immersive Animated Aurora Mesh Lights */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-500/20 dark:from-blue-600/25 via-indigo-500/15 dark:via-indigo-600/15 to-transparent rounded-full blur-[150px] pointer-events-none animate-pulse-glow" />
-      <div className="absolute top-1/4 left-[-100px] w-[600px] h-[600px] bg-teal-400/20 dark:bg-teal-500/15 rounded-full blur-[140px] pointer-events-none animate-float" />
-      <div className="absolute top-1/3 right-[-100px] w-[600px] h-[600px] bg-sky-400/20 dark:bg-sky-600/15 rounded-full blur-[150px] pointer-events-none animate-float" style={{ animationDelay: "2.5s" }} />
-      <div className="absolute bottom-1/4 left-1/3 w-[500px] h-[400px] bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow" />
+    <div className="h-screen h-[100dvh] flex flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-sky-50/40 via-indigo-50/25 to-slate-100/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white relative transition-colors duration-300">
+      {/* Immersive Animated Multi-Color Aurora Mesh Lights */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-500/25 dark:from-blue-600/25 via-indigo-500/20 dark:via-indigo-600/15 to-transparent rounded-full blur-[150px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-1/4 left-[-100px] w-[600px] h-[600px] bg-teal-400/25 dark:bg-teal-500/15 rounded-full blur-[140px] pointer-events-none animate-float" />
+      <div className="absolute top-1/3 right-[-100px] w-[600px] h-[600px] bg-purple-400/25 dark:bg-purple-600/18 rounded-full blur-[150px] pointer-events-none animate-float" style={{ animationDelay: "2.5s" }} />
+      <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[400px] bg-cyan-400/20 dark:bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute bottom-10 right-1/4 w-[480px] h-[380px] bg-amber-300/20 dark:bg-amber-500/10 rounded-full blur-[130px] pointer-events-none animate-float" />
 
       {/* Grid Pattern Overlay */}
       <div

@@ -167,7 +167,7 @@ export function Sidebar() {
                       className={cn(
                         "flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 group relative",
                         isActive
-                          ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white shadow-lg shadow-sky-500/25 font-semibold ring-1 ring-white/20"
+                          ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-blue-500/25 font-semibold ring-1 ring-white/20"
                           : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/5 hover:translate-x-0.5"
                       )}
                     >
