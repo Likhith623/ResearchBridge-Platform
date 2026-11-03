@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   const [selectedRole, setSelectedRole] = useState<UserRole>("student");
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [email, setEmail] = useState("alice.student@stanford.edu");
+  const [email, setEmail] = useState("alice.student@university.edu");
   const [password, setPassword] = useState("password123");
   const [fullName, setFullName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -164,19 +164,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white transition-colors duration-300">
-      {/* Top Header */}
-      <header className="border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md sticky top-0 z-50 transition-colors">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+    <div className="h-screen h-[100dvh] flex flex-col overflow-hidden bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white transition-colors duration-300">
+      {/* Top Header - Aligned with Middle Screen Size */}
+      <div className="shrink-0 z-50 w-full pt-2.5 sm:pt-4 px-3 sm:px-6 lg:px-8">
+        <header className="max-w-6xl mx-auto w-full border border-slate-200/80 dark:border-white/20 bg-white/85 dark:bg-slate-900/90 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-[0_10px_35px_-5px_rgba(255,255,255,0.14),0_0_15px_rgba(255,255,255,0.06)] px-3.5 sm:px-5 lg:px-6 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-2 transition-all">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors shrink-0">
-              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5" />
             </div>
             <div>
-              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
+              <span className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white tracking-tight">
                 Research<span className="text-blue-600 dark:text-blue-400">Bridge</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium tracking-wider">
+              <span className="text-[8px] sm:text-[9px] md:text-[10px] text-slate-500 dark:text-slate-400 block -mt-1 font-medium tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
@@ -186,14 +186,14 @@ export default function LoginPage() {
             {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
               title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
             >
               {mounted && theme === "dark" ? (
-                <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+                <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
               ) : (
-                <Moon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
+                <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
               )}
             </button>
 
@@ -205,11 +205,13 @@ export default function LoginPage() {
               <span className="hidden sm:inline">Back to </span>Home
             </Link>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 w-full space-y-6 sm:space-y-10">
+      {/* Scrollable Middle Content */}
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden flex flex-col justify-between">
+        {/* Main Content Area */}
+        <main className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 w-full space-y-6 sm:space-y-10">
         {/* Hero Section */}
         <div className="text-center space-y-2.5 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-medium">
@@ -559,11 +561,12 @@ export default function LoginPage() {
 
       {/* Footer */}
       <footer className="border-t border-slate-200/80 dark:border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
-        <p>ResearchBridge — Stanford University Academic Network &amp; Collaboration Platform.</p>
+        <p>ResearchBridge — University Academic Network &amp; Collaboration Platform.</p>
         <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-600">
           Role-governed environment for students, faculty supervisors, and institutional administrators.
         </p>
       </footer>
+      </div>
     </div>
   );
 }
