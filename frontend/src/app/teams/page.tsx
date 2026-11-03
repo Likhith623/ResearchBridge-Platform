@@ -71,7 +71,7 @@ export default function TeamComposerPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-12">
+    <div className="w-full max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 dark:bg-purple-500/15 dark:border-purple-500/30 dark:text-purple-300 text-xs font-semibold mb-2 shadow-sm dark:shadow-[0_0_12px_rgba(168,85,247,0.2)]">

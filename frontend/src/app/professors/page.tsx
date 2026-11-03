@@ -76,7 +76,7 @@ export default function ProfessorsPage() {
   });
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto pb-12">
+    <div className="space-y-6 w-full max-w-7xl mx-auto pb-12">
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
@@ -142,7 +142,7 @@ export default function ProfessorsPage() {
 
       {/* Results Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {[1, 2, 3, 4].map((i) => (
             <Card key={i} className="p-6 animate-pulse space-y-3 bg-white/60 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/10">
               <div className="w-1/3 h-4 bg-slate-200 dark:bg-slate-800 rounded"></div>
@@ -156,7 +156,7 @@ export default function ProfessorsPage() {
           No faculty members match your criteria. Try adjusting your search query or department filter.
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filteredProfessors.map((prof) => (
             <Card
               key={prof.id}

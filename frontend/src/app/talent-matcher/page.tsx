@@ -86,7 +86,7 @@ export default function TalentMatcherPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-12">
+    <div className="w-full max-w-7xl mx-auto space-y-8 pb-12">
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(99,102,241,0.2)]">

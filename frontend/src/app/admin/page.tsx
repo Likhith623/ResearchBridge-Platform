@@ -97,7 +97,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-12">
+    <div className="w-full max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 dark:bg-rose-500/15 dark:border-rose-500/30 dark:text-rose-300 text-xs font-semibold mb-2 shadow-sm dark:shadow-[0_0_12px_rgba(244,63,94,0.2)]">
@@ -154,7 +154,7 @@ export default function AdminPage() {
                     </Badge>
                   </div>
                   <p className="text-slate-500 dark:text-slate-400">
-                    Institution: <strong className="text-slate-900 dark:text-white">{p.institution_name || "Stanford University"}</strong>
+                    Institution: <strong className="text-slate-900 dark:text-white">{p.institution_name || "University Partner"}</strong>
                     {p.department_name ? ` • Department: ${p.department_name}` : ""}
                   </p>
                   {p.verification_notes && (

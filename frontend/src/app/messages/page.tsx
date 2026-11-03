@@ -99,7 +99,7 @@ export default function MessagesPage() {
   const selectedRequest = safeRequests.find((r) => r.id === selectedRequestId);
 
   return (
-    <div className="max-w-6xl mx-auto h-[calc(100vh-8rem)] flex flex-col space-y-4 pb-4">
+    <div className="w-full max-w-7xl mx-auto h-[calc(100vh-8rem)] flex flex-col space-y-4 pb-4">
       {/* Title */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(6,182,212,0.2)]">

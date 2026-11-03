@@ -50,7 +50,7 @@ export default function CollaborationGraphPage() {
   });
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-12">
+    <div className="w-full max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-2 shadow-[0_0_12px_rgba(99,102,241,0.2)]">
@@ -160,7 +160,7 @@ export default function CollaborationGraphPage() {
                       {node.label || node.name}
                     </p>
                     <p className="text-[11px] text-cyan-300 truncate mt-0.5">
-                      {node.properties?.department || node.properties?.department_name || node.department || "Stanford Academic Network"}
+                      {node.properties?.department || node.properties?.department_name || node.department || "Academic Network"}
                     </p>
                   </div>
                 );
@@ -187,7 +187,7 @@ export default function CollaborationGraphPage() {
                   {selectedNode.label || selectedNode.name}
                 </h3>
                 <p className="text-xs text-cyan-700 dark:text-cyan-300">
-                  {selectedNode.properties?.department || selectedNode.properties?.department_name || selectedNode.department || "Stanford University"}
+                  {selectedNode.properties?.department || selectedNode.properties?.department_name || selectedNode.department || "Research University"}
                 </p>
               </div>
 

@@ -113,7 +113,7 @@ export default function DashboardPage() {
       ];
 
   return (
-    <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto pb-12">
+    <div className="space-y-5 sm:space-y-8 w-full max-w-7xl mx-auto pb-12">
       {/* Welcome Banner */}
       <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-violet-800 dark:from-slate-950 dark:via-indigo-950/90 dark:to-slate-900 p-4 sm:p-9 text-white shadow-xl shadow-indigo-600/15 dark:shadow-2xl border border-indigo-400/30 dark:border-white/10">
         {/* Ambient glow in banner */}

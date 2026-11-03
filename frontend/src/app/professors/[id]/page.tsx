@@ -154,7 +154,7 @@ export default function ProfessorDetailPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-12">
+    <div className="w-full max-w-6xl mx-auto space-y-6 pb-12">
       {/* Back button */}
       <Link
         href="/professors"
