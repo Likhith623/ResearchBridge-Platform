@@ -138,8 +138,8 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white/80 dark:bg-slate-950/70 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/10 shrink-0 flex flex-col justify-between hidden md:flex min-h-[calc(100vh-4rem)] select-none transition-colors duration-300">
-      <div className="p-4 space-y-6 overflow-y-auto">
+    <aside className="w-64 bg-white/80 dark:bg-slate-950/70 backdrop-blur-2xl border-r border-slate-200/80 dark:border-white/10 shrink-0 flex flex-col justify-between hidden md:flex h-full select-none transition-colors duration-300">
+      <div className="p-4 space-y-6 overflow-y-auto flex-1 min-h-0">
         {sections.map((section) => {
           const visibleItems = section.items.filter(
             (item) => !item.roles || item.roles.includes(role || "student")
@@ -205,7 +205,7 @@ export function Sidebar() {
       </div>
 
       {/* Institutional Context & Session Card at Sidebar Bottom */}
-      <div className="p-3.5 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-900/60 backdrop-blur-xl space-y-3">
+      <div className="shrink-0 p-3.5 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-900/60 backdrop-blur-xl space-y-3">
         <div className="flex items-center gap-2.5 p-1">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-md shadow-cyan-500/20">
             {(user?.full_name || "U").charAt(0)}
@@ -217,7 +217,7 @@ export function Sidebar() {
             <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate capitalize flex items-center gap-1" suppressHydrationWarning>
               <span className="font-semibold text-cyan-600 dark:text-cyan-400">{role || "Visitor"}</span>
               <span>•</span>
-              <span className="truncate">{user?.department_name || "Stanford Univ"}</span>
+              <span className="truncate">{user?.department_name || "Computer Science"}</span>
             </p>
           </div>
         </div>

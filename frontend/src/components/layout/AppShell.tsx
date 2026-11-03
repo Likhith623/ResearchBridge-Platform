@@ -14,11 +14,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     pathname.startsWith("/auth");
 
   if (isAuthPage) {
-    return <main className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">{children}</main>;
+    return <main className="h-screen h-[100dvh] overflow-hidden bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-white relative transition-colors duration-300">{children}</main>;
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100/70 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 relative overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+    <div className="h-screen h-[100dvh] flex flex-col bg-slate-100/70 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 relative overflow-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
       {/* Dynamic Ambient Aurora Glows in Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         {/* Orb 1: Electric Cyan & Indigo */}
@@ -38,9 +38,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <Navbar />
-      <div className="flex-1 flex max-w-7xl w-full mx-auto relative z-10">
+      <div className="flex-1 flex w-full min-h-0 overflow-hidden relative z-10">
         <Sidebar />
-        <main className="flex-1 p-3 xs:p-4 sm:p-6 lg:p-8 min-w-0 max-w-full overflow-y-auto">
+        <main className="flex-1 p-3 xs:p-4 sm:p-6 lg:p-8 min-w-0 max-w-full h-full overflow-y-auto">
           {children}
         </main>
       </div>
