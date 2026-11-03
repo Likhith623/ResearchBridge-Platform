@@ -410,7 +410,7 @@ cd hack_gen
 1. Navigate to your [Supabase Dashboard](https://supabase.com/dashboard) and create a project.
 2. In the left navigation, open **SQL Editor** -> **New Query**.
 3. Copy the entire contents of [`database/schema.sql`](database/schema.sql) and click **Run**.
-   - This sets up all ENUMs, 16 tables, RLS security policies, storage buckets, and seeds Stanford University demo accounts.
+   - This sets up all ENUMs, 16 tables, RLS security policies, storage buckets, and seeds University Academic Network demo accounts.
 
 ---
 
