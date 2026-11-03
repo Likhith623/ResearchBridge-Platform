@@ -18,10 +18,10 @@ export function Card({
       className={cn(
         "rounded-2xl border transition-all duration-300",
         glass
-          ? "bg-white/75 dark:bg-slate-900/50 backdrop-blur-2xl border-slate-200/80 dark:border-white/15 text-slate-900 dark:text-slate-100 shadow-[0_8px_32px_0_rgba(148,163,184,0.15)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.45)]"
-          : "bg-white/85 dark:bg-slate-900/70 backdrop-blur-xl border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-slate-100 shadow-[0_4px_24px_-4px_rgba(148,163,184,0.18)] dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.5)]",
+          ? "bg-white/75 dark:bg-slate-900/60 backdrop-blur-2xl border-slate-200/80 dark:border-white/20 text-slate-900 dark:text-slate-100 shadow-[0_8px_32px_0_rgba(148,163,184,0.15)] dark:shadow-[0_12px_36px_-5px_rgba(255,255,255,0.14),0_0_20px_rgba(255,255,255,0.06)]"
+          : "bg-white/85 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200/80 dark:border-white/20 text-slate-900 dark:text-slate-100 shadow-[0_4px_24px_-4px_rgba(148,163,184,0.18)] dark:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.14),0_0_15px_rgba(255,255,255,0.06)]",
         hoverable &&
-          "hover:border-indigo-500/50 hover:shadow-[0_12px_36px_-6px_rgba(99,102,241,0.25)] hover:-translate-y-1 cursor-pointer",
+          "hover:border-indigo-500/50 hover:dark:border-white/35 hover:shadow-[0_12px_36px_-6px_rgba(99,102,241,0.25)] hover:dark:shadow-[0_16px_45px_-5px_rgba(255,255,255,0.22),0_0_25px_rgba(255,255,255,0.1)] hover:-translate-y-1 cursor-pointer",
         className
       )}
       {...props}
