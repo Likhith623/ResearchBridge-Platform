@@ -1154,9 +1154,9 @@ INSERT INTO public.institutions (id, name, slug, verified_domains, is_active)
 VALUES
     (
         '22222222-2222-2222-2222-222222222201',
-        'Stanford University',
+        'University Academic Network',
         'stanford',
-        ARRAY['stanford.edu'],
+        ARRAY['university.edu', 'stanford.edu'],
         true
     ),
     (
