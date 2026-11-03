@@ -72,10 +72,10 @@ export function NotificationCenter() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center shrink-0"
+        className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center shrink-0"
         aria-label="Open notifications"
       >
-        <Bell className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+        <Bell className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" />
         {unreadCount > 0 && (
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 ring-2 ring-white dark:ring-slate-900 shadow-[0_0_8px_rgba(34,211,238,0.9)] animate-pulse" />
         )}

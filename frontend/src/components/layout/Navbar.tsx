@@ -113,19 +113,19 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/10 shadow-lg dark:shadow-2xl shadow-slate-200/40 dark:shadow-black/40 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
+    <header className="shrink-0 relative z-40 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/10 shadow-lg dark:shadow-2xl shadow-slate-200/40 dark:shadow-black/40 transition-colors duration-300">
+      <div className="w-full px-3 sm:px-5 lg:px-8 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-1.5 sm:gap-3">
         {/* Left: Brand Identity & Campus Pill */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <Link href="/dashboard" className="flex items-center gap-2 group shrink-0">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/25 group-hover:scale-105 group-hover:shadow-cyan-500/40 transition-all shrink-0">
-              <GraduationCap className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
+          <Link href="/dashboard" className="flex items-center gap-1.5 sm:gap-2 group shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/25 group-hover:scale-105 group-hover:shadow-cyan-500/40 transition-all shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5" />
             </div>
             <div>
-              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-0.5 sm:gap-1">
+              <span className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-0.5 sm:gap-1">
                 Research<span className="text-cyan-600 dark:text-cyan-400">Bridge</span>
               </span>
-              <span className="hidden sm:block text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 -mt-1 font-semibold tracking-wider">
+              <span className="hidden sm:block text-[8px] sm:text-[9px] md:text-[10px] text-slate-500 dark:text-slate-400 -mt-1 font-semibold tracking-wider">
                 ACADEMIC NETWORK
               </span>
             </div>
@@ -133,26 +133,26 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-[11px] font-semibold border border-emerald-200 dark:border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            <span>Stanford University Live</span>
+            <span>Academic Network Live</span>
           </div>
         </div>
 
         {/* Right: Controls & User Profile - Clean, spacious touch targets */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Notifications Center */}
           <NotificationCenter />
 
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
+            className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
             title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             aria-label="Toggle theme"
           >
             {mounted && theme === "dark" ? (
-              <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+              <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
             ) : (
-              <Moon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
+              <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400 group-hover:-rotate-12 transition-transform duration-300" />
             )}
           </button>
 
@@ -161,11 +161,11 @@ export function Navbar() {
             <div className="relative hidden md:block">
               <button
                 onClick={() => setIsPersonaOpen(!isPersonaOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-cyan-500/50 transition-all shadow-sm cursor-pointer"
+                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-[11px] sm:text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-cyan-500/50 transition-all shadow-sm cursor-pointer"
                 title="Switch demo persona for testing"
               >
                 <div
-                  className={`w-6 h-6 rounded-lg font-bold text-[11px] flex items-center justify-center text-white shrink-0 shadow-xs ${
+                  className={`w-5 h-5 sm:w-6 sm:h-6 rounded-md sm:rounded-lg font-bold text-[10px] sm:text-[11px] flex items-center justify-center text-white shrink-0 shadow-xs ${
                     role === "admin"
                       ? "bg-gradient-to-tr from-rose-600 to-red-500"
                       : role === "professor"
@@ -176,9 +176,9 @@ export function Navbar() {
                   {(activePersona?.name || user?.full_name || "A").charAt(0)}
                 </div>
 
-                <div className="flex items-center gap-1.5">
-                  <span className="text-slate-500 dark:text-slate-400">Role:</span>
-                  <span className="font-semibold text-slate-900 dark:text-white truncate max-w-[100px] lg:max-w-none" suppressHydrationWarning>
+                <div className="flex items-center gap-1 sm:gap-1.5">
+                  <span className="text-slate-500 dark:text-slate-400 hidden sm:inline">Role:</span>
+                  <span className="font-semibold text-slate-900 dark:text-white truncate max-w-[90px] lg:max-w-none" suppressHydrationWarning>
                     {mounted ? (activePersona?.name || user?.full_name || "Alice Chen") : "Alice Chen"}
                   </span>
                   <Badge
@@ -300,17 +300,17 @@ export function Navbar() {
           {/* Mobile Navigation Drawer Trigger (Hamburger / Close) - Clean on right edge */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-all cursor-pointer flex items-center justify-center shrink-0 shadow-xs active:scale-95"
+            className="md:hidden w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-all cursor-pointer flex items-center justify-center shrink-0 shadow-xs active:scale-95"
             aria-label="Toggle navigation menu"
           >
-            {isMobileMenuOpen ? <X className="w-4.5 h-4.5 text-rose-500" /> : <Menu className="w-4.5 h-4.5" />}
+            {isMobileMenuOpen ? <X className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-rose-500" /> : <Menu className="w-4 h-4 sm:w-4.5 sm:h-4.5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-3.5 py-3.5 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-3.5rem)] overflow-y-auto text-slate-900 dark:text-slate-100 space-y-3">
+        <div className="absolute top-full left-0 right-0 z-50 md:hidden border-t border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-3.5 py-3.5 shadow-2xl animate-in fade-in slide-in-from-top duration-150 max-h-[calc(100vh-2.75rem)] sm:max-h-[calc(100vh-3rem)] md:max-h-[calc(100vh-3.5rem)] overflow-y-auto text-slate-900 dark:text-slate-100 space-y-3">
           
           {/* User Profile Card & Quick Role Switcher at TOP of Drawer */}
           {user ? (
@@ -333,7 +333,7 @@ export function Navbar() {
                       {activePersona?.name || user?.full_name || "Scholar"}
                     </p>
                     <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
-                      {user?.email || "academic@stanford.edu"}
+                      {user?.email || "academic@university.edu"}
                     </p>
                   </div>
                 </div>
@@ -535,7 +535,7 @@ export function Navbar() {
                   type="email"
                   value={authEmail}
                   onChange={(e) => setAuthEmail(e.target.value)}
-                  placeholder="yourname@stanford.edu"
+                  placeholder="yourname@university.edu"
                   className="w-full pl-9 pr-3 py-2 rounded-lg border border-white/15 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                   required
                 />
