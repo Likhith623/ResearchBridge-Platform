@@ -81,9 +81,9 @@ class DatabaseAdapter:
         self.institutions: Dict[str, Dict[str, Any]] = {
             "22222222-2222-2222-2222-222222222201": {
                 "id": "22222222-2222-2222-2222-222222222201",
-                "name": "Stanford University",
+                "name": "University Academic Network",
                 "slug": "stanford",
-                "verified_domains": ["stanford.edu"],
+                "verified_domains": ["university.edu", "stanford.edu"],
                 "is_active": True,
                 "created_at": now,
                 "updated_at": now,

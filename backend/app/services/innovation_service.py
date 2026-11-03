@@ -364,7 +364,7 @@ class InnovationService:
                     estimated_time="1-2 weeks",
                     learning_resources=[
                         f"Official {sk} Documentation & Tutorial",
-                        f"Stanford CS Course Notes relevant to {sk}",
+                        f"University CS Course Notes relevant to {sk}",
                     ],
                 )
             )
