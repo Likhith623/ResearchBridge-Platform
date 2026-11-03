@@ -123,7 +123,7 @@ export default function TalentMatcherPage() {
                   runAnalysis(e.target.value);
                 }
               }}
-              className="max-w-full truncate px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs"
+              className="max-w-full truncate px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs pastel-inner"
             >
               {(Array.isArray(projects) ? projects : []).map((p) => (
                 <option key={p.id} value={p.id}>
@@ -188,7 +188,7 @@ export default function TalentMatcherPage() {
                       </Badge>
                     </div>
 
-                    <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-900/80 p-3 rounded-xl border border-slate-200/80 dark:border-white/10">
+                    <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-900/80 p-3 rounded-xl border border-slate-200/80 dark:border-white/10 pastel-inner">
                       <strong className="text-slate-900 dark:text-white block mb-1">Why this student is a fit:</strong>
                       {explanation}
                     </div>
@@ -235,7 +235,7 @@ export default function TalentMatcherPage() {
                     const studentDept = alt.department_name || alt.student_department || "Engineering";
                     const explanation = alt.explanation || alt.fit_explanation || "Complementary technical foundation.";
                     return (
-                      <div key={i} className="p-4 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40 space-y-2 text-xs">
+                      <div key={i} className="p-4 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40 space-y-2 text-xs pastel-inner">
                         <div className="flex items-center justify-between">
                           <div>
                             <span className="font-bold text-slate-900 dark:text-white">{studentName}</span>
@@ -289,7 +289,7 @@ export default function TalentMatcherPage() {
             value={crossSkill}
             onChange={(e) => setCrossSkill(e.target.value)}
             placeholder="Enter required skill (e.g. Python, PyTorch, React, Embedded Systems)..."
-            className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs"
+            className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 shadow-xs pastel-inner"
             required
           />
           <Button type="submit" size="sm" isLoading={isSearchingCross} className="text-xs shrink-0">
@@ -308,7 +308,7 @@ export default function TalentMatcherPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {(Array.isArray(crossResults.results) ? crossResults.results : Array.isArray(crossResults.candidates) ? crossResults.candidates : []).map((cand: any, i: number) => (
-                <div key={i} className="p-4 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/50 space-y-2 text-xs hover:border-cyan-500/40 dark:hover:border-cyan-400/40 transition-all">
+                <div key={i} className="p-4 rounded-xl border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/50 space-y-2 text-xs hover:border-cyan-500/40 dark:hover:border-cyan-400/40 transition-all pastel-inner">
                   <div className="flex justify-between items-start">
                     <div>
                       <h4 className="font-bold text-slate-900 dark:text-white">{cand.full_name || cand.student_name}</h4>

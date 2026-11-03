@@ -254,7 +254,7 @@ export default function IdeasPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="e.g. Neuromorphic Sensor Benchmarking for Edge Computing"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -268,7 +268,7 @@ export default function IdeasPage() {
               onChange={(e) => setNewProblem(e.target.value)}
               rows={3}
               placeholder="What core scientific or engineering bottleneck needs to be investigated?"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -282,7 +282,7 @@ export default function IdeasPage() {
               onChange={(e) => setNewVision(e.target.value)}
               rows={3}
               placeholder="What would a successful 8-week demonstration look like?"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -325,7 +325,7 @@ export default function IdeasPage() {
                 type="text"
                 value={proposalTitle}
                 onChange={(e) => setProposalTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 required
               />
             </div>
@@ -339,7 +339,7 @@ export default function IdeasPage() {
                 onChange={(e) => setApproach(e.target.value)}
                 rows={4}
                 placeholder="Detail your algorithms, datasets, benchmark methods, and weekly plan..."
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
                 required
               />
             </div>
@@ -353,7 +353,7 @@ export default function IdeasPage() {
                 value={contributorRole}
                 onChange={(e) => setContributorRole(e.target.value)}
                 placeholder="e.g. Lead Machine Learning Engineer"
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 required
               />
             </div>

@@ -16,7 +16,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-2xl border transition-all duration-300",
+        "pastel-surface rounded-2xl border transition-all duration-300",
         glass
           ? "bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl border-slate-200/80 dark:border-white/20 text-slate-900 dark:text-slate-100 shadow-[0_8px_32px_0_rgba(148,163,184,0.12)] dark:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.8),0_0_12px_rgba(255,255,255,0.04)]"
           : "bg-white/90 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200/80 dark:border-white/20 text-slate-900 dark:text-slate-100 shadow-[0_4px_24px_-4px_rgba(148,163,184,0.12)] dark:shadow-[0_12px_30px_-5px_rgba(0,0,0,0.7),0_0_10px_rgba(255,255,255,0.04)]",

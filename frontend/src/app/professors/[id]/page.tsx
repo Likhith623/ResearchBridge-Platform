@@ -441,7 +441,7 @@ export default function ProfessorDetailPage() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="e.g. Undergraduate Research Inquiry — Machine Learning Lab"
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
                 required
               />
             </div>
@@ -454,7 +454,7 @@ export default function ProfessorDetailPage() {
                 <select
                   value={selectedProjectId}
                   onChange={(e) => setSelectedProjectId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 >
                   <option value="">General Lab Inquiry (No specific project)</option>
                   {(Array.isArray(projects) ? projects : []).map((p) => (
@@ -475,7 +475,7 @@ export default function ProfessorDetailPage() {
                 onChange={(e) => setMotivation(e.target.value)}
                 rows={4}
                 placeholder="Explain why you want to work with this lab, what specific papers or problems interest you, and your relevant coursework/projects..."
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
                 required
               />
             </div>
@@ -490,7 +490,7 @@ export default function ProfessorDetailPage() {
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
                   placeholder="Python, PyTorch, C++, Linear Algebra"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
                 />
               </div>
 
@@ -504,7 +504,7 @@ export default function ProfessorDetailPage() {
                   max={40}
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 />
               </div>
             </div>

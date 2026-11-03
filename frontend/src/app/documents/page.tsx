@@ -249,7 +249,7 @@ export default function DocumentsPage() {
 
                   {/* Problem & Methodology Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-white/10 space-y-2">
+                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-white/10 space-y-2 pastel-inner">
                       <h4 className="font-bold text-slate-900 dark:text-white">Research Problem</h4>
                       <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                         {summary.research_problem || summary.problem_statement || "Specific research problem addressed by this paper."}
@@ -261,7 +261,7 @@ export default function DocumentsPage() {
                       )}
                     </div>
 
-                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-white/10 space-y-2">
+                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-white/10 space-y-2 pastel-inner">
                       <h4 className="font-bold text-slate-900 dark:text-white">Methodology &amp; Techniques</h4>
                       <p className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                         {summary.methodology || (Array.isArray(summary.methodology_breakdown) ? summary.methodology_breakdown.join("\n") : "Experimental methodology detailed in paper.")}
@@ -288,7 +288,7 @@ export default function DocumentsPage() {
                       <h4 className="font-bold text-slate-900 dark:text-white">Key Scientific Terminology</h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {summary.key_terminology.map((t, idx) => (
-                          <div key={idx} className="p-2.5 rounded-lg border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40">
+                          <div key={idx} className="p-2.5 rounded-lg border border-slate-200/80 dark:border-white/10 bg-slate-50 dark:bg-slate-800/40 pastel-inner">
                             <span className="font-bold text-cyan-700 dark:text-cyan-300 text-xs block">{t.term}</span>
                             <span className="text-[11px] text-slate-600 dark:text-slate-300">{t.definition}</span>
                           </div>
@@ -348,7 +348,7 @@ export default function DocumentsPage() {
               value={uploadTitle}
               onChange={(e) => setUploadTitle(e.target.value)}
               placeholder="e.g. Attention Is All You Need"
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -360,7 +360,7 @@ export default function DocumentsPage() {
             <select
               value={uploadScope}
               onChange={(e) => setUploadScope(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 pastel-inner"
             >
               <option value="public">Public (All University Researchers)</option>
               <option value="institution">Institution Only</option>

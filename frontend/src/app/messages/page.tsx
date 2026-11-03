@@ -228,7 +228,7 @@ export default function MessagesPage() {
                           className={`p-3 rounded-2xl max-w-[70%] text-xs leading-relaxed ${
                             isCurrentUser
                               ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white rounded-tr-none shadow-md shadow-sky-500/20"
-                              : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 shadow-sm rounded-tl-none"
+                              : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 shadow-sm rounded-tl-none pastel-inner"
                           }`}
                         >
                           <p>{msg.message_body}</p>
@@ -255,7 +255,7 @@ export default function MessagesPage() {
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     placeholder="Type your message to collaborator..."
-                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400"
+                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 pastel-inner"
                   />
                   <Button
                     type="submit"

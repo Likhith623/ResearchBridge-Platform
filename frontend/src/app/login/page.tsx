@@ -167,7 +167,7 @@ export default function LoginPage() {
     <div className="h-screen h-[100dvh] flex flex-col overflow-hidden bg-slate-50 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white transition-colors duration-300">
       {/* Top Header - Aligned with Middle Screen Size */}
       <div className="shrink-0 z-50 w-full pt-2.5 sm:pt-4 px-3 sm:px-6 lg:px-8">
-        <header className="max-w-6xl mx-auto w-full border border-slate-200/80 dark:border-white/20 bg-white/85 dark:bg-slate-900/90 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-[0_10px_35px_-5px_rgba(255,255,255,0.14),0_0_15px_rgba(255,255,255,0.06)] px-3.5 sm:px-5 lg:px-6 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-2 transition-all">
+        <header className="max-w-6xl mx-auto w-full border border-slate-200/80 dark:border-white/20 bg-white/85 dark:bg-slate-900/90 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-[0_10px_35px_-5px_rgba(255,255,255,0.14),0_0_15px_rgba(255,255,255,0.06)] px-3.5 sm:px-5 lg:px-6 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-2 transition-all pastel-inner">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-500 transition-colors shrink-0">
               <GraduationCap className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5" />
@@ -186,7 +186,7 @@ export default function LoginPage() {
             {/* Theme Switcher Button */}
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs active:scale-95 flex items-center justify-center group shrink-0 pastel-inner"
               title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
             >
@@ -301,7 +301,7 @@ export default function LoginPage() {
         {/* STEP 2: Email & Password Form + Step 3: Demo Roles Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Email & Password Form (5 Cols) */}
-          <div className="lg:col-span-5 bg-white/95 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6 text-slate-900 dark:text-slate-100 transition-colors">
+          <div className="lg:col-span-5 bg-white/95 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6 text-slate-900 dark:text-slate-100 transition-colors pastel-inner">
             <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
               <div>
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white">
@@ -366,7 +366,7 @@ export default function LoginPage() {
                       placeholder="e.g. Dr. John von Neumann"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pastel-inner"
                     />
                   </div>
                 </div>
@@ -384,7 +384,7 @@ export default function LoginPage() {
                     placeholder="name@university.edu"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono pastel-inner"
                   />
                 </div>
               </div>
@@ -404,7 +404,7 @@ export default function LoginPage() {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-9 pr-10 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    className="w-full pl-9 pr-10 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pastel-inner"
                   />
                   <button
                     type="button"
@@ -461,7 +461,7 @@ export default function LoginPage() {
                 return (
                   <div
                     key={persona.id}
-                    className="bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between shadow-md hover:-translate-y-1 hover:shadow-lg"
+                    className="bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-4 space-y-3.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between shadow-md hover:-translate-y-1 hover:shadow-lg pastel-inner"
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-2">
@@ -502,7 +502,7 @@ export default function LoginPage() {
                       </div>
 
                       {/* Credentials Display Box */}
-                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-700/80 space-y-1.5 text-[11px] font-mono">
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-700/80 space-y-1.5 text-[11px] font-mono pastel-inner">
                         <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
                           <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">EMAIL:</span>
                           <div className="flex items-center gap-1.5 min-w-0">

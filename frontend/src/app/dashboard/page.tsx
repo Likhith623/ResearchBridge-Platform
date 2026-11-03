@@ -115,7 +115,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-5 sm:space-y-8 w-full max-w-7xl mx-auto pb-12">
       {/* Welcome Banner: white + pastel aurora in light, deep navy in dark */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0a1020] p-4 sm:p-9 text-slate-900 dark:text-white shadow-[0_20px_60px_-20px_rgba(99,102,241,0.30)] dark:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] border border-slate-200/80 dark:border-white/10 group">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0a1020] p-4 sm:p-9 text-slate-900 dark:text-white shadow-[0_20px_60px_-20px_rgba(99,102,241,0.30)] dark:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] border border-slate-200/80 dark:border-white/10 group pastel-inner">
 
         {/* Pastel aurora blobs (light) / deep neon blobs (dark) */}
         <div className="animate-blob absolute -top-24 -right-16 w-[420px] h-[320px] bg-sky-200/70 dark:bg-cyan-500/20 blur-[70px] pointer-events-none" />
@@ -125,7 +125,7 @@ export default function DashboardPage() {
         <div className="animate-blob absolute top-1/3 -right-20 w-[260px] h-[260px] bg-amber-200/60 dark:bg-amber-500/12 blur-[65px] pointer-events-none" style={{ animationDelay: "-2s" }} />
 
         <div className="relative z-10 max-w-3xl space-y-2 sm:space-y-3">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-sm max-w-full">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-md shadow-sm max-w-full pastel-inner">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -156,7 +156,7 @@ export default function DashboardPage() {
               <Link key={action.name} href={action.href} className="w-full xs:w-auto">
                 <button
                   type="button"
-                  className="w-full xs:w-auto px-3.5 py-2 rounded-xl bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/15 text-slate-800 dark:text-white font-semibold text-xs border border-slate-200 dark:border-white/15 hover:border-indigo-300 dark:hover:border-white/35 shadow-sm hover:shadow-md hover:-translate-y-0.5 backdrop-blur-md flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
+                  className="w-full xs:w-auto px-3.5 py-2 rounded-xl bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/15 text-slate-800 dark:text-white font-semibold text-xs border border-slate-200 dark:border-white/15 hover:border-indigo-300 dark:hover:border-white/35 shadow-sm hover:shadow-md hover:-translate-y-0.5 backdrop-blur-md flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 pastel-inner"
                 >
                   <Icon className={`w-3.5 h-3.5 ${action.color} shrink-0`} />
                   <span>{action.name}</span>
@@ -358,7 +358,7 @@ export default function DashboardPage() {
                 (Array.isArray(projects) ? projects : []).slice(0, 2).map((proj) => (
                   <div
                     key={proj.id}
-                    className="p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 hover:border-cyan-500/40 transition-all space-y-2.5"
+                    className="p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 hover:border-cyan-500/40 transition-all space-y-2.5 pastel-inner"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-snug">
@@ -405,7 +405,7 @@ export default function DashboardPage() {
               {(Array.isArray(professors) ? professors : []).slice(0, 3).map((prof: any) => (
                 <div
                   key={prof.id}
-                  className="p-3 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800/80 transition-all flex items-start gap-3"
+                  className="p-3 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-slate-50/80 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800/80 transition-all flex items-start gap-3 pastel-inner"
                 >
                   <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shrink-0 text-xs shadow-md shadow-cyan-500/20">
                     {(prof.full_name || prof.profiles?.full_name || "P").charAt(0)}
@@ -465,7 +465,7 @@ export default function DashboardPage() {
                 radarAlerts.slice(0, 2).map((alert, idx) => (
                   <div
                     key={alert.project_id || idx}
-                    className="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-white/15 hover:border-cyan-500 dark:hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/15 text-slate-700 dark:text-slate-300 shadow-sm space-y-1.5 transition-all duration-200"
+                    className="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-white/15 hover:border-cyan-500 dark:hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/15 text-slate-700 dark:text-slate-300 shadow-sm space-y-1.5 transition-all duration-200 pastel-inner"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-bold text-xs text-slate-900 dark:text-white truncate">{alert.project_title}</p>
@@ -485,7 +485,7 @@ export default function DashboardPage() {
                   </div>
                 ))
               ) : (
-                <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+                <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed pastel-inner">
                   Add verified skills to your Skill Passport to unlock proactive radar match notifications.
                 </div>
               )}

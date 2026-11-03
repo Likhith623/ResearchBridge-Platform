@@ -236,7 +236,7 @@ export default function AdminPage() {
 
           {/* Department Diversity Distribution Table - with horizontal scroll on small devices */}
           {Array.isArray(fairnessReport.department_metrics) && fairnessReport.department_metrics.length > 0 && (
-            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40 pastel-inner">
               <table className="w-full text-xs text-left min-w-[480px]">
                 <thead className="bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-white/10">
                   <tr>

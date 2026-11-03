@@ -273,7 +273,7 @@ export default function RequestsPage() {
                   ? "e.g. Please link your GitHub repository or relevant coursework grades."
                   : "Notes for student..."
               }
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
             />
           </div>
 

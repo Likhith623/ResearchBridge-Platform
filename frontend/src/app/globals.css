@@ -391,3 +391,34 @@ body {
     transform: none !important;
   }
 }
+
+/* ===== Pastel aurora surfaces: every box gets soft multi-colour light ===== */
+@layer components {
+  .pastel-surface {
+    position: relative;
+    background-image:
+      radial-gradient(ellipse 70% 60% at 100% 0%, rgba(186, 230, 253, 0.65), transparent 70%),
+      radial-gradient(ellipse 65% 60% at 0% 0%, rgba(233, 213, 255, 0.6), transparent 70%),
+      radial-gradient(ellipse 65% 60% at 0% 100%, rgba(187, 247, 208, 0.6), transparent 70%),
+      radial-gradient(ellipse 60% 55% at 100% 100%, rgba(254, 240, 168, 0.55), transparent 70%);
+  }
+  .dark .pastel-surface {
+    background-image:
+      radial-gradient(ellipse 70% 60% at 100% 0%, rgba(34, 211, 238, 0.13), transparent 70%),
+      radial-gradient(ellipse 65% 60% at 0% 0%, rgba(167, 139, 250, 0.13), transparent 70%),
+      radial-gradient(ellipse 65% 60% at 0% 100%, rgba(52, 211, 153, 0.11), transparent 70%),
+      radial-gradient(ellipse 60% 55% at 100% 100%, rgba(251, 191, 36, 0.09), transparent 70%);
+  }
+  .pastel-inner {
+    background-image:
+      radial-gradient(ellipse 80% 70% at 100% 0%, rgba(186, 230, 253, 0.5), transparent 70%),
+      radial-gradient(ellipse 80% 70% at 0% 100%, rgba(233, 213, 255, 0.45), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 100% 100%, rgba(254, 240, 168, 0.4), transparent 70%);
+  }
+  .dark .pastel-inner {
+    background-image:
+      radial-gradient(ellipse 80% 70% at 100% 0%, rgba(34, 211, 238, 0.10), transparent 70%),
+      radial-gradient(ellipse 80% 70% at 0% 100%, rgba(167, 139, 250, 0.10), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 100% 100%, rgba(251, 191, 36, 0.07), transparent 70%);
+  }
+}

@@ -56,7 +56,7 @@ export function Modal({
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl w-full rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/20 z-10 overflow-hidden transform transition-all my-auto max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-200 text-slate-900 dark:text-slate-100",
+          "relative bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl w-full rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/20 z-10 overflow-hidden transform transition-all my-auto max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-200 text-slate-900 dark:text-slate-100 pastel-inner",
           maxWidthStyles[maxWidth]
         )}
       >

@@ -154,7 +154,7 @@ const fields = [
 ];
 
 const cardBase =
-  "tilt-card relative overflow-hidden rounded-3xl border bg-white dark:bg-slate-900/70 border-slate-200/80 dark:border-white/10 shadow-[0_12px_40px_-14px_rgba(79,70,229,0.18)] dark:shadow-[0_18px_44px_-12px_rgba(0,0,0,0.75)] backdrop-blur-xl";
+  "tilt-card relative overflow-hidden rounded-3xl border bg-white dark:bg-slate-900/70 border-slate-200/80 dark:border-white/10 shadow-[0_12px_40px_-14px_rgba(79,70,229,0.18)] dark:shadow-[0_18px_44px_-12px_rgba(0,0,0,0.75)] backdrop-blur-xl pastel-inner";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -191,7 +191,7 @@ export default function LandingPage() {
 
       {/* Floating glass navigation */}
       <div className="shrink-0 z-50 w-full pt-2.5 sm:pt-4 px-3 sm:px-6 lg:px-8 animate-fade-in">
-        <header className="max-w-6xl mx-auto w-full border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-lg shadow-indigo-200/30 dark:shadow-black/50 px-3.5 sm:px-5 lg:px-6 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-2 sm:gap-4 transition-all">
+        <header className="max-w-6xl mx-auto w-full border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-lg shadow-indigo-200/30 dark:shadow-black/50 px-3.5 sm:px-5 lg:px-6 h-11 sm:h-12 md:h-14 flex items-center justify-between gap-2 sm:gap-4 transition-all pastel-inner">
           <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group shrink-0">
             <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg sm:rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-blue-500/30 group-hover:rotate-6 group-hover:scale-105 transition-all duration-300">
               <GraduationCap className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5" />
@@ -209,7 +209,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-1.5 sm:gap-2.5">
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 p-0 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:border-amber-400/60 transition-all cursor-pointer active:scale-90 flex items-center justify-center group shrink-0"
+              className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 p-0 rounded-lg sm:rounded-xl border border-slate-200/80 dark:border-white/15 bg-white/80 dark:bg-slate-900/80 hover:border-amber-400/60 transition-all cursor-pointer active:scale-90 flex items-center justify-center group shrink-0 pastel-inner"
               title={mounted && theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle theme"
             >
@@ -222,7 +222,7 @@ export default function LandingPage() {
 
             <Link
               href="/login"
-              className="hidden sm:flex px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:border-indigo-400/60 transition-all items-center gap-1.5 shrink-0"
+              className="hidden sm:flex px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:border-indigo-400/60 transition-all items-center gap-1.5 shrink-0 pastel-inner"
             >
               <UserCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Demo Roles &amp; Sign In</span>
@@ -244,23 +244,23 @@ export default function LandingPage() {
         <section className="relative pt-10 sm:pt-20 pb-10 sm:pb-16 px-3 sm:px-6 lg:px-8">
           {/* Floating feature chips (large screens) */}
           <div className="hidden lg:block pointer-events-none" aria-hidden="true">
-            <div className="animate-bob absolute left-[6%] top-28 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-blue-200/80 dark:border-blue-400/20 shadow-xl shadow-blue-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-blue-300">
+            <div className="animate-bob absolute left-[6%] top-28 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-blue-200/80 dark:border-blue-400/20 shadow-xl shadow-blue-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-blue-300 pastel-inner">
               <Radar className="w-4 h-4" /> Opportunity Radar
             </div>
-            <div className="animate-bob absolute right-[7%] top-32 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-fuchsia-200/80 dark:border-fuchsia-400/20 shadow-xl shadow-fuchsia-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-fuchsia-700 dark:text-fuchsia-300" style={{ animationDelay: "-1.5s" }}>
+            <div className="animate-bob absolute right-[7%] top-32 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-fuchsia-200/80 dark:border-fuchsia-400/20 shadow-xl shadow-fuchsia-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-fuchsia-700 dark:text-fuchsia-300 pastel-inner" style={{ animationDelay: "-1.5s" }}>
               <Award className="w-4 h-4" /> Skill Passport
             </div>
-            <div className="animate-bob absolute left-[10%] top-[26rem] px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-emerald-200/80 dark:border-emerald-400/20 shadow-xl shadow-emerald-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300" style={{ animationDelay: "-2.5s" }}>
+            <div className="animate-bob absolute left-[10%] top-[26rem] px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-emerald-200/80 dark:border-emerald-400/20 shadow-xl shadow-emerald-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 pastel-inner" style={{ animationDelay: "-2.5s" }}>
               <FileText className="w-4 h-4" /> Paper Summaries
             </div>
-            <div className="animate-bob absolute right-[9%] top-[25rem] px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-amber-200/80 dark:border-amber-400/20 shadow-xl shadow-amber-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-amber-700 dark:text-amber-300" style={{ animationDelay: "-3.2s" }}>
+            <div className="animate-bob absolute right-[9%] top-[25rem] px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/80 border border-amber-200/80 dark:border-amber-400/20 shadow-xl shadow-amber-200/50 dark:shadow-black/50 backdrop-blur flex items-center gap-2 text-xs font-semibold text-amber-700 dark:text-amber-300 pastel-inner" style={{ animationDelay: "-3.2s" }}>
               <Network className="w-4 h-4" /> Collab Graph
             </div>
           </div>
 
           <div className="max-w-5xl mx-auto text-center relative z-10 space-y-5 sm:space-y-7">
             <div
-              className="animate-fade-up inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/80 dark:bg-white/5 border border-indigo-200 dark:border-white/15 text-indigo-700 dark:text-indigo-200 text-[11px] sm:text-xs font-semibold shadow-md shadow-indigo-200/40 dark:shadow-none backdrop-blur-md"
+              className="animate-fade-up inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/80 dark:bg-white/5 border border-indigo-200 dark:border-white/15 text-indigo-700 dark:text-indigo-200 text-[11px] sm:text-xs font-semibold shadow-md shadow-indigo-200/40 dark:shadow-none backdrop-blur-md pastel-inner"
               style={{ ["--d" as string]: "0ms" }}
             >
               <span className="relative flex h-2 w-2">
@@ -300,7 +300,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 href="/login"
-                className="w-full sm:w-auto px-7 py-3 rounded-2xl text-sm font-semibold bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-700 dark:text-slate-100 border border-slate-200 dark:border-white/15 hover:border-indigo-300 dark:hover:border-white/30 shadow-md shadow-slate-200/60 dark:shadow-none hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="w-full sm:w-auto px-7 py-3 rounded-2xl text-sm font-semibold bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-700 dark:text-slate-100 border border-slate-200 dark:border-white/15 hover:border-indigo-300 dark:hover:border-white/30 shadow-md shadow-slate-200/60 dark:shadow-none hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 active:scale-95 pastel-inner"
               >
                 <UserCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Sign In with Demo Role</span>
@@ -342,7 +342,7 @@ export default function LandingPage() {
 
         {/* ===== Research field marquee ===== */}
         <Reveal className="px-3 sm:px-6 lg:px-8">
-          <div className="marquee-wrap max-w-6xl mx-auto overflow-hidden rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/50 backdrop-blur py-3 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <div className="marquee-wrap max-w-6xl mx-auto overflow-hidden rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-slate-900/50 backdrop-blur py-3 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)] pastel-inner">
             <div className="animate-marquee flex w-max gap-3">
               {[...fields, ...fields].map((f, i) => (
                 <span
@@ -446,7 +446,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {["Summarize Papers", "Extract Citations"].map((t) => (
-                      <span key={t} className="text-[10px] px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-400/25 font-medium">
+                      <span key={t} className="text-[10px] px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-400/25 font-medium pastel-inner">
                         {t}
                       </span>
                     ))}
@@ -545,7 +545,7 @@ export default function LandingPage() {
                 </Link>
                 <Link
                   href="/dashboard"
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/15 text-slate-700 dark:text-white border border-slate-200 dark:border-white/15 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 shadow-md shadow-slate-200/60 dark:shadow-none"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/15 text-slate-700 dark:text-white border border-slate-200 dark:border-white/15 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 shadow-md shadow-slate-200/60 dark:shadow-none pastel-inner"
                 >
                   <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   <span>Direct Dashboard Access</span>

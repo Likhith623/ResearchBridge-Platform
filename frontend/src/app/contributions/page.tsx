@@ -236,7 +236,7 @@ export default function ContributionsPage() {
             <select
               value={selectedProjectId}
               onChange={(e) => setSelectedProjectId(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             >
               {(Array.isArray(projects) ? projects : []).map((p) => (
@@ -256,7 +256,7 @@ export default function ContributionsPage() {
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
               placeholder="e.g. Implemented Custom CUDA FlashAttention Kernel"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -270,7 +270,7 @@ export default function ContributionsPage() {
               onChange={(e) => setDeliverableSummary(e.target.value)}
               rows={3}
               placeholder="Detail benchmarks, pull request links, experimental error bounds, or papers drafted..."
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -285,7 +285,7 @@ export default function ContributionsPage() {
               max={100}
               value={hoursLogged}
               onChange={(e) => setHoursLogged(Number(e.target.value))}
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>

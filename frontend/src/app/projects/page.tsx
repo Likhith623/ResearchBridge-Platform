@@ -211,7 +211,7 @@ export default function ProjectsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && loadProjects()}
-          className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white/90 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder-slate-400 shadow-md"
+          className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white/90 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder-slate-400 shadow-md pastel-inner"
         />
       </div>
 
@@ -466,7 +466,7 @@ export default function ProjectsPage() {
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="e.g. Distributed Consensus in Asynchronous Networks"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -480,7 +480,7 @@ export default function ProjectsPage() {
               value={newSummary}
               onChange={(e) => setNewSummary(e.target.value)}
               placeholder="Brief summary of the research questions and objectives."
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -505,7 +505,7 @@ export default function ProjectsPage() {
               onChange={(e) => setNewDescription(e.target.value)}
               rows={5}
               placeholder="Detail the technical stack, data pipelines, expected deliverables, and milestones..."
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-mono text-[11px] focus:outline-none focus:border-cyan-500"
+              className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-mono text-[11px] focus:outline-none focus:border-cyan-500 pastel-inner"
               required
             />
           </div>
@@ -521,7 +521,7 @@ export default function ProjectsPage() {
                 max={40}
                 value={newHours}
                 onChange={(e) => setNewHours(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 pastel-inner"
               />
             </div>
 
@@ -535,7 +535,7 @@ export default function ProjectsPage() {
                 max={10}
                 value={newOpenings}
                 onChange={(e) => setNewOpenings(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 pastel-inner"
               />
             </div>
           </div>
@@ -578,7 +578,7 @@ export default function ProjectsPage() {
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 required
               />
             </div>
@@ -592,7 +592,7 @@ export default function ProjectsPage() {
                 onChange={(e) => setMotivation(e.target.value)}
                 rows={4}
                 placeholder="Why are you a strong fit for this project?"
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pastel-inner"
                 required
               />
             </div>
@@ -606,7 +606,7 @@ export default function ProjectsPage() {
                   type="text"
                   value={skills}
                   onChange={(e) => setSkills(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 />
               </div>
 
@@ -620,7 +620,7 @@ export default function ProjectsPage() {
                   max={40}
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white pastel-inner"
                 />
               </div>
             </div>

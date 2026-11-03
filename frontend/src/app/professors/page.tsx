@@ -102,7 +102,7 @@ export default function ProfessorsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 shadow-md"
+              className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 shadow-md pastel-inner"
             />
           </div>
 
@@ -113,7 +113,7 @@ export default function ProfessorsPage() {
                 setSelectedDept(e.target.value);
                 handleSearch(e.target.value);
               }}
-              className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs"
+              className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs pastel-inner"
             >
               <option value="">All Departments</option>
               {(Array.isArray(departments) ? departments : []).map((d) => (
@@ -126,7 +126,7 @@ export default function ProfessorsPage() {
             <select
               value={availabilityFilter}
               onChange={(e) => setAvailabilityFilter(e.target.value)}
-              className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs"
+              className="px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs pastel-inner"
             >
               <option value="all">Any Availability</option>
               <option value="open">Open to Applications</option>
@@ -226,7 +226,7 @@ export default function ProfessorsPage() {
               </CardContent>
 
               {/* Card Footer / Action */}
-              <div className="px-4 sm:px-5 py-3 bg-slate-50/90 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-white/10 rounded-b-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
+              <div className="px-4 sm:px-5 py-3 bg-slate-50/90 dark:bg-slate-950/60 border-t border-slate-200/80 dark:border-white/10 rounded-b-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 pastel-inner">
                 <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-3">
                   <span>
                     Supervising:{" "}
