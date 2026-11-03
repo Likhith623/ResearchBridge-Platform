@@ -25,12 +25,12 @@ export const DEMO_PERSONAS: DemoPersona[] = [
     name: "Alice Chen",
     role: "student",
     title: "Undergraduate Researcher",
-    email: "alice.student@stanford.edu",
-    aliases: ["alice.chen@stanford.edu"],
+    email: "alice.student@university.edu",
+    aliases: ["alice.student@stanford.edu", "alice.chen@university.edu", "alice.chen@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000003",
     password: "password123",
     department: "Computer Science",
-    institution: "Stanford University",
+    institution: "University Academic Network",
     description: "Third-year CS student with machine learning & PyTorch research focus.",
   },
   {
@@ -38,12 +38,12 @@ export const DEMO_PERSONAS: DemoPersona[] = [
     name: "Prof. Alan Turing",
     role: "professor",
     title: "Full Professor & Chair of AI Lab",
-    email: "prof.turing@stanford.edu",
-    aliases: ["alan.turing@stanford.edu"],
+    email: "prof.turing@university.edu",
+    aliases: ["prof.turing@stanford.edu", "alan.turing@university.edu", "alan.turing@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000002",
     password: "password123",
     department: "Computer Science",
-    institution: "Stanford University",
+    institution: "University Academic Network",
     description: "Principal Investigator leading projects on neural reasoning and foundation models.",
   },
   {
@@ -55,7 +55,7 @@ export const DEMO_PERSONAS: DemoPersona[] = [
     token: "test-token-00000000-0000-0000-0000-000000000001",
     password: "password123",
     department: "Administration",
-    institution: "Stanford University",
+    institution: "University Academic Network",
     description: "Institutional administrator overseeing compliance, professor vetting, and audits.",
   },
   {
@@ -63,12 +63,12 @@ export const DEMO_PERSONAS: DemoPersona[] = [
     name: "Bob Williams",
     role: "student",
     title: "Master's Candidate",
-    email: "bob.student@stanford.edu",
-    aliases: ["bob.smith@stanford.edu"],
+    email: "bob.student@university.edu",
+    aliases: ["bob.student@stanford.edu", "bob.smith@university.edu", "bob.smith@stanford.edu"],
     token: "test-token-00000000-0000-0000-0000-000000000004",
     password: "password123",
     department: "Computer Science",
-    institution: "Stanford University",
+    institution: "University Academic Network",
     description: "Graduate student conducting distributed systems and data engineering research.",
   },
 ];
@@ -142,7 +142,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             full_name: matchedPersona.name,
             account_status: "active",
             is_active: true,
-            institution_name: "Stanford University",
+            institution_name: "University Academic Network",
             department_name: matchedPersona.role === "admin" ? "Administration" : "Computer Science",
           });
           setRole(matchedPersona.role);
@@ -203,7 +203,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             full_name: defaultPersona.name,
             account_status: "active",
             is_active: true,
-            institution_name: "Stanford University",
+            institution_name: "University Academic Network",
             department_name: "Computer Science",
           });
           setRole(defaultPersona.role);
@@ -246,7 +246,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           full_name: persona.name,
           account_status: "active",
           is_active: true,
-          institution_name: "Stanford University",
+          institution_name: "University Academic Network",
           department_name: persona.role === "admin" ? "Administration" : "Computer Science",
         });
         setRole(persona.role);
@@ -293,7 +293,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             full_name: matchedDemo.name,
             account_status: "active",
             is_active: true,
-            institution_name: "Stanford University",
+            institution_name: "University Academic Network",
             department_name: matchedDemo.role === "admin" ? "Administration" : "Computer Science",
           });
           setRole(matchedDemo.role);
@@ -327,7 +327,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               full_name: data.user?.user_metadata?.full_name || email.split("@")[0],
               account_status: "active",
               is_active: true,
-              institution_name: "Stanford University",
+              institution_name: "University Academic Network",
               department_name: defaultRole === "admin" ? "Administration" : "Computer Science",
             });
             setRole(defaultRole);
@@ -355,7 +355,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         full_name: email.split("@")[0].replace(/[._]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
         account_status: "active",
         is_active: true,
-        institution_name: "Stanford University",
+        institution_name: "University Academic Network",
         department_name: targetRole === "admin" ? "Administration" : "Computer Science",
       });
       setRole(targetRole);
@@ -406,7 +406,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               full_name: fullName,
               account_status: "active",
               is_active: true,
-              institution_name: "Stanford University",
+              institution_name: "University Academic Network",
               department_name: "Computer Science",
             });
             setRole(assignedRole);
@@ -433,7 +433,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         full_name: fullName,
         account_status: "active",
         is_active: true,
-        institution_name: "Stanford University",
+        institution_name: "University Academic Network",
         department_name: assignedRole === "admin" ? "Administration" : "Computer Science",
       });
       setRole(assignedRole);
