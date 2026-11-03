@@ -116,8 +116,6 @@ export default function DashboardPage() {
     <div className="space-y-5 sm:space-y-8 w-full max-w-7xl mx-auto pb-12">
       {/* Welcome Banner: white + pastel aurora in light, deep navy in dark */}
       <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0a1020] p-4 sm:p-9 text-slate-900 dark:text-white shadow-[0_20px_60px_-20px_rgba(99,102,241,0.30)] dark:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] border border-slate-200/80 dark:border-white/10 group">
-        {/* Iridescent top edge */}
-        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-cyan-400 via-indigo-400 via-fuchsia-400 to-amber-400 z-20" />
 
         {/* Pastel aurora blobs (light) / deep neon blobs (dark) */}
         <div className="animate-blob absolute -top-24 -right-16 w-[420px] h-[320px] bg-sky-200/70 dark:bg-cyan-500/20 blur-[70px] pointer-events-none" />
