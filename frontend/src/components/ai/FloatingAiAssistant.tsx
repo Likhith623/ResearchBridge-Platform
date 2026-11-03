@@ -123,14 +123,14 @@ export function FloatingAiAssistant({
       {/* Assistant Modal Window */}
       {isOpen && (
         <div
-          className={`bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/20 overflow-hidden flex flex-col transition-all duration-200 ${
+          className={`pastel-surface bg-white dark:bg-[#0a1020] backdrop-blur-2xl rounded-2xl shadow-[0_24px_60px_-18px_rgba(99,102,241,0.35)] dark:shadow-black/70 border border-slate-200/90 dark:border-white/20 overflow-hidden flex flex-col transition-all duration-200 ${
             isMinimized
               ? "w-[calc(100vw-1.5rem)] sm:w-80 h-14"
               : "w-[calc(100vw-1.5rem)] sm:w-[420px] h-[480px] sm:h-[560px] max-h-[85vh]"
           }`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-slate-50/90 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white select-none">
+          <div className="flex items-center justify-between px-4 py-3 bg-white/55 dark:bg-white/5 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white select-none">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
                 <Sparkles className="w-4 h-4 animate-spin-slow" />
@@ -173,7 +173,7 @@ export function FloatingAiAssistant({
           {!isMinimized && (
             <>
               {/* Message History */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/70 dark:bg-slate-950/70 text-xs">
+              <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-transparent text-xs">
                 {messages.map((m, idx) => (
                   <div
                     key={idx}
@@ -198,7 +198,7 @@ export function FloatingAiAssistant({
                       className={`p-3 rounded-2xl max-w-[82%] leading-relaxed ${
                         m.role === "user"
                           ? "bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 text-white rounded-tr-none shadow-md shadow-sky-500/20"
-                          : "bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 shadow-md dark:shadow-lg rounded-tl-none whitespace-pre-line"
+                          : "pastel-inner bg-white dark:bg-slate-900/80 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 shadow-md dark:shadow-lg rounded-tl-none whitespace-pre-line"
                       }`}
                     >
                       {m.content}
@@ -211,7 +211,7 @@ export function FloatingAiAssistant({
                     <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-500 to-teal-600 text-white flex items-center justify-center shrink-0">
                       <Bot className="w-3.5 h-3.5" />
                     </div>
-                    <div className="p-3 bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 rounded-2xl rounded-tl-none text-cyan-600 dark:text-cyan-300 flex items-center gap-1.5 shadow-md">
+                    <div className="p-3 pastel-inner bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 rounded-2xl rounded-tl-none text-cyan-600 dark:text-cyan-300 flex items-center gap-1.5 shadow-md">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-bounce"></span>
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
@@ -223,12 +223,12 @@ export function FloatingAiAssistant({
 
               {/* Quick Prompts Suggestions */}
               {messages.length <= 2 && (
-                <div className="px-3 py-2 bg-slate-50/90 dark:bg-slate-900/80 border-t border-slate-200/80 dark:border-white/10 flex flex-wrap gap-1.5">
+                <div className="px-3 py-2 bg-white/50 dark:bg-white/5 backdrop-blur-md border-t border-slate-200/80 dark:border-white/10 flex flex-wrap gap-1.5">
                   {quickPrompts.map((prompt, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(prompt)}
-                      className="text-[11px] px-2.5 py-1 rounded-full bg-white dark:bg-slate-800 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 hover:text-cyan-900 dark:hover:text-white border border-slate-200 dark:border-white/10 transition-all cursor-pointer text-left shadow-xs"
+                      className="text-[11px] px-2.5 py-1 rounded-full pastel-inner bg-white dark:bg-slate-800 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 hover:text-cyan-900 dark:hover:text-white border border-slate-200 dark:border-white/10 transition-all cursor-pointer text-left shadow-xs"
                     >
                       {prompt}
                     </button>
@@ -237,7 +237,7 @@ export function FloatingAiAssistant({
               )}
 
               {/* Chat Input */}
-              <div className="p-3 bg-white/95 dark:bg-slate-900/90 border-t border-slate-200/80 dark:border-white/10">
+              <div className="p-3 bg-white/55 dark:bg-white/5 backdrop-blur-md border-t border-slate-200/80 dark:border-white/10">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -250,7 +250,7 @@ export function FloatingAiAssistant({
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask about papers, professors, or skills..."
-                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400"
+                    className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/15 focus:outline-none focus:border-cyan-500 dark:focus:border-cyan-400 focus:ring-1 focus:ring-cyan-500 bg-white/80 dark:bg-slate-950/70 text-slate-900 dark:text-white placeholder-slate-400"
                     disabled={isLoading}
                   />
                   <button
